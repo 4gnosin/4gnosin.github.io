@@ -96,17 +96,6 @@ window.KIND_LABEL = {
       return s.slug === slug;
     });
   }
-  function sectionChapter(s) {
-    return String(s.num).split(".")[0];
-  }
-  function chaptersOf(list, chapterKey) {
-    const seen = [];
-    list.forEach(function (item) {
-      const c = chapterKey(item);
-      if (seen.indexOf(c) === -1) seen.push(c);
-    });
-    return seen;
-  }
   function getExercise(id) {
     return EXERCISES.find(function (e) {
       return e.id === id;
@@ -174,26 +163,21 @@ window.KIND_LABEL = {
     }).length;
     let html = "";
     html += '<a class="brand" data-act="go" data-to="#/">Θερμοδυναμική</a>';
-    html += '<p class="brand-sub">Σημειώσεις &amp; τράπεζα θεμάτων</p>';
+    html += '<p class="brand-sub">Κεφάλαιο 1 · Βασικές έννοιες</p>';
     html += '<div class="nav">';
-    const chapterIds = chaptersOf(SECTIONS, sectionChapter);
-    chapterIds.forEach(function (chId) {
-      html += '<p class="nav-kicker">' + (chapterIds.length > 1 ? "Κεφάλαιο " + chId : "Σημειώσεις") + "</p>";
-      SECTIONS.filter(function (s) {
-        return sectionChapter(s) === chId;
-      }).forEach(function (s) {
-        const on = r.name === "notes" && r.slug === s.slug;
-        html +=
-          '<a class="' +
-          (on ? "active" : "") +
-          '" data-act="go" data-to="#/notes/' +
-          s.slug +
-          '"><span class="num">' +
-          esc(s.num) +
-          "</span><span>" +
-          esc(s.title) +
-          "</span></a>";
-      });
+    html += '<p class="nav-kicker">Σημειώσεις</p>';
+    SECTIONS.forEach(function (s) {
+      const on = r.name === "notes" && r.slug === s.slug;
+      html +=
+        '<a class="' +
+        (on ? "active" : "") +
+        '" data-act="go" data-to="#/notes/' +
+        s.slug +
+        '"><span class="num">' +
+        esc(s.num) +
+        "</span><span>" +
+        esc(s.title) +
+        "</span></a>";
     });
     html += '<p class="nav-kicker">Πίνακας · ' + done + "/" + EXERCISES.length + "</p>";
     html +=
@@ -212,6 +196,7 @@ window.KIND_LABEL = {
       '<header class="topbar hidden-lg">' +
       '<button class="icon-btn" data-act="menu" aria-label="Περιεχόμενα">☰</button>' +
       '<a data-act="go" data-to="#/" style="font-family:var(--font-serif);font-size:1.15rem">Θερμοδυναμική</a>' +
+      '<span style="margin-left:auto;font-size:0.8rem;opacity:.7">Κεφ. 1</span>' +
       "</header>" +
       (state.menu
         ? '<div class="overlay"><button class="dim" data-act="menu-close"></button><aside class="drawer">' +
@@ -387,58 +372,53 @@ window.KIND_LABEL = {
     const done = EXERCISES.filter(function (e) {
       return p.exercises[e.id] && p.exercises[e.id].status === "done";
     }).length;
+    const goals = [
+      "Τι μελετά η θερμοδυναμική και πού εφαρμόζεται",
+      "Σύστημα, όριο, περιβάλλον — κλειστό, ανοικτό, μονωμένο, αδιαβατικό",
+      "Μονάδες SI: Pa, bar, J, W και οι βασικές μορφές ενέργειας",
+      "Θερμοδυναμική ισορροπία και σωστή επιλογή συστήματος",
+    ];
     let inner =
-      '<p class="kicker">Εισαγωγή στη μηχανολογία</p>';
+      '<p class="kicker">Εισαγωγή στη μηχανολογία</p><p style="font-family:var(--font-serif);color:var(--copper);margin:.6rem 0 0">Κεφάλαιο 1</p>';
     inner +=
       '<div style="display:grid;gap:1.5rem;align-items:center;margin-top:.3rem" class="grid-2">';
     inner +=
-      "<div><h1 style='font-size:clamp(2.4rem,6vw,3.6rem);line-height:.95'>Θερμοδυναμική</h1>";
+      "<div><h1 style='font-size:clamp(2.4rem,6vw,3.6rem);line-height:.95'>Βασικές έννοιες</h1>";
     inner +=
       '<p class="lead" style="margin-top:1rem">Σύντομες διδακτικές σημειώσεις και διαδραστικός πίνακας από την τράπεζα θεμάτων. Ο μαθητής σηκώνεται, λύνει, ελέγχει.</p>';
     inner +=
-      '<div class="btn-row"><button class="btn btn-copper" data-act="go" data-to="#/notes/' +
-      SECTIONS[0].slug +
-      '">Σημειώσεις</button><button class="btn btn-ink" data-act="go" data-to="#/board">Στον πίνακα</button></div></div>';
+      '<div class="btn-row"><button class="btn btn-copper" data-act="go" data-to="#/notes/genika">Σημειώσεις</button><button class="btn btn-ink" data-act="go" data-to="#/board">Στον πίνακα</button></div></div>';
     inner += '<div style="justify-self:center">' + shuttle() + "</div></div>";
+    inner += '<h2 style="margin:2.2rem 0 .8rem;font-size:1.5rem">Επιδιωκόμενοι στόχοι</h2><div class="grid-2">';
+    goals.forEach(function (g) {
+      inner += '<div class="card goal"><i></i><span>' + esc(g) + "</span></div>";
+    });
+    inner += "</div>";
     inner +=
-      '<div class="grid-2" style="margin-top:1.6rem"><button class="card" data-act="go" data-to="#/notes/' +
-      SECTIONS[0].slug +
-      '" style="text-align:left"><p class="kicker">Θεωρία</p><h2 style="font-size:1.5rem;margin-top:.2rem">' +
-      SECTIONS.length +
-      " σύντομες ενότητες</h2><p style=\"color:var(--muted);margin:.4rem 0 0\">" +
+      '<div class="grid-2" style="margin-top:1.6rem"><button class="card" data-act="go" data-to="#/notes/genika" style="text-align:left"><p class="kicker">Θεωρία</p><h2 style="font-size:1.5rem;margin-top:.2rem">Επτά σύντομες ενότητες</h2><p style="color:var(--muted);margin:.4rem 0 0">' +
       p.read.length +
       "/" +
       SECTIONS.length +
       " διαβάστηκαν</p></button>";
     inner +=
-      '<button class="card" data-act="go" data-to="#/board" style="text-align:left;background:var(--ink);color:var(--cream)"><p class="kicker">Τράπεζα θεμάτων</p><h2 style="font-size:1.5rem;margin-top:.2rem">' +
-      EXERCISES.length +
-      " ασκήσεις</h2><p style=\"opacity:.75;margin:.4rem 0 0\">" +
+      '<button class="card" data-act="go" data-to="#/board" style="text-align:left;background:var(--ink);color:var(--cream)"><p class="kicker">Τράπεζα θεμάτων</p><h2 style="font-size:1.5rem;margin-top:.2rem">Δεκατέσσερις ασκήσεις</h2><p style="opacity:.75;margin:.4rem 0 0">' +
       done +
       "/" +
       EXERCISES.length +
       " ολοκληρώθηκαν σωστά</p></button></div>";
     inner +=
       '<div class="card" style="padding:0;margin-top:1.6rem;overflow:hidden">';
-    const homeChapterIds = chaptersOf(SECTIONS, sectionChapter);
-    homeChapterIds.forEach(function (chId) {
-      if (homeChapterIds.length > 1)
-        inner +=
-          '<p class="kicker" style="padding:.8rem 1.1rem 0">Κεφάλαιο ' + esc(chId) + "</p>";
-      SECTIONS.filter(function (s) {
-        return sectionChapter(s) === chId;
-      }).forEach(function (s) {
-        inner +=
-          '<button class="toc-item" data-act="go" data-to="#/notes/' +
-          s.slug +
-          '"><span class="num">' +
-          esc(s.num) +
-          '</span><span style="flex:1;text-align:left"><b>' +
-          esc(s.title) +
-          '</b><br><span style="color:var(--muted);font-size:.9rem">' +
-          esc(s.kicker) +
-          "</span></span><span>→</span></button>";
-      });
+    SECTIONS.forEach(function (s) {
+      inner +=
+        '<button class="toc-item" data-act="go" data-to="#/notes/' +
+        s.slug +
+        '"><span class="num">' +
+        esc(s.num) +
+        '</span><span style="flex:1;text-align:left"><b>' +
+        esc(s.title) +
+        '</b><br><span style="color:var(--muted);font-size:.9rem">' +
+        esc(s.kicker) +
+        "</span></span><span>→</span></button>";
     });
     inner += "</div>";
     if (p.read.length + done > 0) {
@@ -446,16 +426,7 @@ window.KIND_LABEL = {
         '<p style="margin-top:1.4rem"><button class="btn btn-ghost" data-act="reset">Επαναφορά προόδου</button></p>';
     }
     inner +=
-      '<div style="margin-top:2rem;font-size:.85rem;color:var(--muted);line-height:1.6">' +
-      '<p><b>Πηγές εκπαιδευτικού υλικού</b></p>' +
-      '<p><b>Πηγή ασκήσεων:</b><br>Τα θέματα που περιλαμβάνονται στην παρούσα ιστοσελίδα προέρχονται και αντλήθηκαν από την πλατφόρμα της Τράπεζας Θεμάτων Διαβαθμισμένης Δυσκολίας, η οποία αναπτύχθηκε στο πλαίσιο του έργου MIS5070818 – «Τράπεζα θεμάτων Διαβαθμισμένης Δυσκολίας για τη Δευτεροβάθμια Εκπαίδευση, Γενικό Λύκειο-ΕΠΑΛ» και είναι διαθέσιμη διαδικτυακά στον δικτυακό τόπο του Ινστιτούτου Εκπαιδευτικής Πολιτικής (Ι.Ε.Π.): <a href="https://www.iep.edu.gr/trapeza-thematon-arxiki-selida/" target="_blank" rel="noopener">Τράπεζα Θεμάτων Ι.Ε.Π.</a></p>' +
-      '<p>Οι διαδραστικές δραστηριότητες, οι λύσεις, οι επεξηγήσεις και η εκπαιδευτική επεξεργασία των θεμάτων αποτελούν υλικό της παρούσας ιστοσελίδας.</p>' +
-      '<p><b>Πηγή ασκήσεων:</b> Τράπεζα Θεμάτων Ι.Ε.Π.: <a href="https://www.iep.edu.gr/trapeza-thematon-arxiki-selida/" target="_blank" rel="noopener">https://www.iep.edu.gr/trapeza-thematon-arxiki-selida/</a></p>' +
-      '<p><b>Πηγή θεωρίας:</b><br>Η θεωρία και το εκπαιδευτικό περιεχόμενο βασίζονται στο σχολικό εγχειρίδιο «Εισαγωγή στη Μηχανολογία», το οποίο χρησιμοποιείται για τη διδασκαλία του μαθήματος «Στοιχεία Τεχνικής Θερμοδυναμικής - Εφαρμογές» της Β΄ τάξης ΕΠΑ.Λ. Το σχολικό εγχειρίδιο διατίθεται μέσω της επίσημης πλατφόρμας Διαδραστικά Σχολικά Βιβλία (ebooks.edu.gr) του Υπουργείου Παιδείας και Θρησκευμάτων / ΙΤΥΕ «ΔΙΟΦΑΝΤΟΣ»: <a href="https://ebooks.edu.gr/ebooks/handle/8547/3914" target="_blank" rel="noopener">«Εισαγωγή στη Μηχανολογία»</a></p>' +
-      '<p><b>Πηγή θεωρίας:</b> «Εισαγωγή στη Μηχανολογία»: <a href="https://ebooks.edu.gr/ebooks/handle/8547/3914" target="_blank" rel="noopener">https://ebooks.edu.gr/ebooks/handle/8547/3914</a></p>' +
-      '<p>Σημείωση: Η παρούσα ιστοσελίδα αποτελεί ανεξάρτητη εκπαιδευτική προσπάθεια και δεν αποτελεί επίσημη ιστοσελίδα ούτε συνδέεται με το Ινστιτούτο Εκπαιδευτικής Πολιτικής, το Υπουργείο Παιδείας ή το ΙΤΥΕ «ΔΙΟΦΑΝΤΟΣ».</p>' +
-      '<p><b>Άδεια του πρωτότυπου υλικού της παρούσας ιστοσελίδας:</b><br>Το πρωτότυπο διαδραστικό εκπαιδευτικό υλικό που δημιουργήθηκε για την παρούσα ιστοσελίδα διανέμεται με άδεια Creative Commons Αναφορά Δημιουργού – Μη Εμπορική Χρήση – Παρόμοια Διανομή 4.0 Διεθνές (CC BY-NC-SA 4.0). Η άδεια αυτή αφορά το πρωτότυπο υλικό της παρούσας ιστοσελίδας και δεν επεκτείνεται σε υλικό τρίτων που αναφέρεται ή ενσωματώνεται στην ιστοσελίδα. <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> — Αναφορά Δημιουργού - Μη Εμπορική Χρήση - Παρόμοια Διανομή.</p>' +
-      '</div>';
+      '<p style="margin-top:2rem;font-size:.85rem;color:var(--muted)">Αυτό το αρχείο ανοίγει με διπλό κλικ στο Chrome, Edge ή Firefox. Δεν χρειάζεται internet (εκτός από τις γραμματοσειρές). Βάλε το σε USB για την τάξη.</p>';
     return shell(inner, false, { name: "home" });
   }
 
@@ -512,46 +483,36 @@ window.KIND_LABEL = {
       " από " +
       EXERCISES.length +
       " σωστά ολοκληρωμένες</p>";
-    const boardChapterIds = chaptersOf(GROUPS, function (g) { return g.chapter; });
-    boardChapterIds.forEach(function (chId) {
-      if (boardChapterIds.length > 1)
+    GROUPS.forEach(function (g) {
+      inner +=
+        '<section style="margin-top:2rem"><h2 style="font-size:1.5rem">' +
+        esc(g.title) +
+        '</h2><p style="opacity:.7;margin:.3rem 0 0;font-size:.92rem">' +
+        esc(g.blurb) +
+        "</p><div class=\"ex-list\">";
+      EXERCISES.filter(function (e) {
+        return e.group === g.id;
+      }).forEach(function (ex) {
+        const res = p.exercises[ex.id];
+        const cls = res ? (res.status === "done" ? "done" : "miss") : "";
         inner +=
-          '<h2 style="margin-top:2.4rem;font-family:var(--font-serif);color:var(--copper)">Κεφάλαιο ' +
-          esc(chId) +
-          "</h2>";
-      GROUPS.filter(function (g) {
-        return g.chapter === chId;
-      }).forEach(function (g) {
-        inner +=
-          '<section style="margin-top:1.4rem"><h3 style="font-size:1.3rem">' +
-          esc(g.title) +
-          '</h3><p style="opacity:.7;margin:.3rem 0 0;font-size:.92rem">' +
-          esc(g.blurb) +
-          "</p><div class=\"ex-list\">";
-        EXERCISES.filter(function (e) {
-          return e.group === g.id;
-        }).forEach(function (ex) {
-          const res = p.exercises[ex.id];
-          const cls = res ? (res.status === "done" ? "done" : "miss") : "";
-          inner +=
-            '<button class="ex-link ' +
-            cls +
-            '" data-act="go" data-to="#/board/' +
-            ex.id +
-            '"><span style="flex:1"><span style="display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7">' +
-            esc(KIND_LABEL[ex.kind]) +
-            " · " +
-            esc(ex.code) +
-            " · " +
-            ex.units +
-            ' μον.</span><span style="font-family:var(--font-serif);font-size:1.25rem">' +
-            esc(ex.title) +
-            "</span></span><span>" +
-            (res && res.status === "done" ? "✓" : "→") +
-            "</span></button>";
-        });
-        inner += "</div></section>";
+          '<button class="ex-link ' +
+          cls +
+          '" data-act="go" data-to="#/board/' +
+          ex.id +
+          '"><span style="flex:1"><span style="display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7">' +
+          esc(KIND_LABEL[ex.kind]) +
+          " · " +
+          esc(ex.code) +
+          " · " +
+          ex.units +
+          ' μον.</span><span style="font-family:var(--font-serif);font-size:1.25rem">' +
+          esc(ex.title) +
+          "</span></span><span>" +
+          (res && res.status === "done" ? "✓" : "→") +
+          "</span></button>";
       });
+      inner += "</div></section>";
     });
     return shell(inner, true, { name: "board" });
   }
