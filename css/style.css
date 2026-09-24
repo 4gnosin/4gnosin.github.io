@@ -19,6 +19,16 @@
   --shadow-paper: 0 0 0 1px rgb(26 23 20 / 0.06), 0 10px 24px -12px rgb(26 23 20 / 0.18);
   --shadow-board: 0 0 0 1px rgb(230 224 208 / 0.08), inset 0 0 80px rgb(0 0 0 / 0.28);
 }
+:root[data-theme="dark"] {
+  --paper: #1c1814;
+  --paper-2: #14110d;
+  --cream: #26211b;
+  --ink: #f4efe4;
+  --ink-soft: #d8d0c1;
+  --muted: #b0a797;
+  --line: #3a352c;
+  --shadow-paper: 0 0 0 1px rgb(0 0 0 / 0.3), 0 10px 24px -12px rgb(0 0 0 / 0.5);
+}
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; min-height: 100dvh; }
 html { -webkit-font-smoothing: antialiased; }
@@ -41,6 +51,10 @@ a { color: inherit; text-decoration: none; }
   background-size: 7px 7px, auto;
   color: var(--ink);
 }
+:root[data-theme="dark"] .paper {
+  background-color: var(--paper);
+  background-image: none;
+}
 .board {
   min-height: 100dvh;
   background-color: var(--board);
@@ -49,6 +63,41 @@ a { color: inherit; text-decoration: none; }
     radial-gradient(1200px 500px at 20% -10%, rgb(255 255 255 / 0.05), transparent 55%);
   background-size: 5px 5px, auto;
   color: var(--chalk);
+}
+/* Exercise area follows the selected site theme. */
+:root:not([data-theme="dark"]) .board {
+  --board: #f0e8d8;
+  --board-2: #e5dccb;
+  --chalk: #2b2620;
+  --chalk-dim: #665e52;
+  background-color: var(--board);
+  background-image: none;
+  color: var(--chalk);
+}
+:root:not([data-theme="dark"]) .board .topbar {
+  background: rgb(240 232 216 / 0.96);
+  border-bottom-color: var(--line);
+}
+:root:not([data-theme="dark"]) .board .sidebar {
+  border-right-color: var(--line);
+}
+:root:not([data-theme="dark"]) .board .nav a:hover,
+:root:not([data-theme="dark"]) .board .nav button.nav-link:hover {
+  background: rgb(26 23 20 / 0.05);
+}
+:root:not([data-theme="dark"]) .board .board-card {
+  background: rgb(255 251 243 / 0.88);
+  border-color: var(--line);
+  box-shadow: var(--shadow-paper);
+}
+:root:not([data-theme="dark"]) .board .drawer {
+  background: var(--cream);
+  color: var(--ink);
+}
+:root:not([data-theme="dark"]) .board .brand-sub,
+:root:not([data-theme="dark"]) .board .lead,
+:root:not([data-theme="dark"]) .board .col h4 {
+  color: var(--chalk-dim);
 }
 .layout { display: flex; max-width: 72rem; margin: 0 auto; }
 .sidebar {
@@ -79,6 +128,7 @@ a { color: inherit; text-decoration: none; }
   padding: 0.7rem 1rem; backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line); background: rgb(244 237 224 / 0.9);
 }
+:root[data-theme="dark"] .topbar { background: rgb(28 24 20 / 0.9); }
 .board .topbar { border-bottom-color: rgb(230 224 208 / 0.1); background: rgb(22 32 25 / 0.92); }
 .icon-btn {
   width: 2.75rem; height: 2.75rem; border: 0; border-radius: 999px;
@@ -250,4 +300,42 @@ table.units th { font-size: 0.75rem; letter-spacing: 0.04em; color: var(--muted)
   .topbar, .sidebar, .btn-row, .bank, .overlay { display: none !important; }
   .main { padding: 0; }
   .board { background: white; color: black; }
+}
+
+/* Strong contrast for navigation and main headings in dark mode. */
+:root[data-theme="dark"] h1,
+:root[data-theme="dark"] .brand,
+:root[data-theme="dark"] .topbar a {
+color: #ffffff;
+}
+ 
+:root[data-theme="dark"] .kicker,
+:root[data-theme="dark"] .nav-kicker {
+color: var(--copper);
+}
+ 
+/* Κανονικές κάρτες (θεωρία, links, μαθηματικά, μαθήματα) → ανοιχτά γράμματα */
+:root[data-theme="dark"] .card:not(.card-light) {
+  color: #f4efe4;
+}
+:root[data-theme="dark"] .card:not(.card-light) h1,
+:root[data-theme="dark"] .card:not(.card-light) h2,
+:root[data-theme="dark"] .card:not(.card-light) h3 {
+  color: #ffffff;
+}
+:root[data-theme="dark"] .card:not(.card-light) p,
+:root[data-theme="dark"] .card:not(.card-light) span {
+  color: inherit;
+}
+:root[data-theme="dark"] .card:not(.card-light) [style*="color:var(--muted)"] {
+  color: var(--muted) !important;
+}
+
+/* Β΄, Γ΄, Τράπεζα (card-light) → μαύρα γράμματα στο dark */
+:root[data-theme="dark"] .card-light,
+:root[data-theme="dark"] .card-light h1,
+:root[data-theme="dark"] .card-light h2,
+:root[data-theme="dark"] .card-light h3,
+:root[data-theme="dark"] .card-light p {
+  color: #1a1714 !important;
 }

@@ -64,6 +64,33 @@ window.KIND_LABEL = {
     render();
   }
 
+  const THEME_KEY = "site-theme-v1";
+  function loadTheme() {
+    try {
+      return localStorage.getItem(THEME_KEY) || "light";
+    } catch (e) {
+      return "light";
+    }
+  }
+  function saveTheme(t) {
+    try {
+      localStorage.setItem(THEME_KEY, t);
+    } catch (e) {}
+  }
+  function applyTheme() {
+    document.documentElement.setAttribute("data-theme", loadTheme());
+  }
+  function themeToggleBtn(extraStyle) {
+    const dark = loadTheme() === "dark";
+    return (
+      '<button class="btn btn-ghost" data-act="theme-toggle" style="' +
+      (extraStyle || "") +
+      '">' +
+      (dark ? "☀️ Φωτεινό θέμα" : "🌙 Σκοτεινό θέμα") +
+      "</button>"
+    );
+  }
+
   function parseNumber(raw) {
     const cleaned = String(raw).trim().replace(/\s/g, "").replace(",", ".");
     const match = cleaned.match(/-?\d+(?:\.\d+)?/);
@@ -80,11 +107,19 @@ window.KIND_LABEL = {
   function route() {
     const raw = decodeURIComponent((location.hash || "#/").replace(/^#/, ""));
     const parts = raw.split("/").filter(Boolean);
-    if (!parts.length) return { name: "home" };
-    if (parts[0] === "notes") return { name: "notes", slug: parts[1] || "genika" };
-    if (parts[0] === "board" && parts[1]) return { name: "exercise", id: parts[1] };
-    if (parts[0] === "board") return { name: "board" };
-    return { name: "home" };
+    if (!parts.length) return { name: "site-home" };
+    if (parts[0] === "grade" && parts[1]) return { name: "grade", id: parts[1] };
+    if (parts[0] === "links") return { name: "links" };
+    if (parts[0] === "math") return { name: "math" };
+    if (parts[0] === "thermo") {
+      const rest = parts.slice(1);
+      if (!rest.length) return { name: "home" };
+      if (rest[0] === "notes") return { name: "notes", slug: rest[1] || "genika" };
+      if (rest[0] === "board" && rest[1]) return { name: "exercise", id: rest[1] };
+      if (rest[0] === "board") return { name: "board" };
+      return { name: "home" };
+    }
+    return { name: "site-home" };
   }
   function go(hash) {
     state.menu = false;
@@ -173,8 +208,10 @@ window.KIND_LABEL = {
       return p.exercises[e.id] && p.exercises[e.id].status === "done";
     }).length;
     let html = "";
-    html += '<a class="brand" data-act="go" data-to="#/">Θερμοδυναμική</a>';
+    html += '<a data-act="go" data-to="#/" style="display:block;font-size:.85rem;color:var(--muted);margin-bottom:.6rem">← Όλα τα μαθήματα</a>';
+    html += '<a class="brand" data-act="go" data-to="#/thermo">Θερμοδυναμική</a>';
     html += '<p class="brand-sub">Σημειώσεις &amp; τράπεζα θεμάτων</p>';
+    html += themeToggleBtn("margin:0 0 .8rem");
     html += '<div class="nav">';
     const chapterIds = chaptersOf(SECTIONS, sectionChapter);
     chapterIds.forEach(function (chId) {
@@ -186,7 +223,7 @@ window.KIND_LABEL = {
         html +=
           '<a class="' +
           (on ? "active" : "") +
-          '" data-act="go" data-to="#/notes/' +
+          '" data-act="go" data-to="#/thermo/notes/' +
           s.slug +
           '"><span class="num">' +
           esc(s.num) +
@@ -199,7 +236,7 @@ window.KIND_LABEL = {
     html +=
       '<a class="' +
       (r.name === "board" || r.name === "exercise" ? "active" : "") +
-      '" data-act="go" data-to="#/board">Όλες οι ασκήσεις</a>';
+      '" data-act="go" data-to="#/thermo/board">Όλες οι ασκήσεις</a>';
     html += "</div>";
     return html;
   }
@@ -211,7 +248,10 @@ window.KIND_LABEL = {
       '">' +
       '<header class="topbar hidden-lg">' +
       '<button class="icon-btn" data-act="menu" aria-label="Περιεχόμενα">☰</button>' +
-      '<a data-act="go" data-to="#/" style="font-family:var(--font-serif);font-size:1.15rem">Θερμοδυναμική</a>' +
+      '<a data-act="go" data-to="#/thermo" style="font-family:var(--font-serif);font-size:1.15rem;flex:1">Θερμοδυναμική</a>' +
+      '<button class="icon-btn" data-act="theme-toggle" aria-label="Εναλλαγή θέματος" title="Εναλλαγή θέματος">' +
+      (loadTheme() === "dark" ? "☀️" : "🌙") +
+      "</button>" +
       "</header>" +
       (state.menu
         ? '<div class="overlay"><button class="dim" data-act="menu-close"></button><aside class="drawer">' +
@@ -382,6 +422,156 @@ window.KIND_LABEL = {
     return '<svg class="shuttle" viewBox="0 0 120 180" aria-hidden="true"><path d="M60 8c18 22 22 48 22 78 0 14-2 36-6 54H44c-4-18-6-40-6-54 0-30 4-56 22-78z" fill="#fbf6ec" stroke="#1a1714" stroke-width="2"/><rect x="48" y="70" width="24" height="18" rx="9" fill="#1a1714"/><path d="M38 86l-18 38 22-10" fill="#c45c26"/><path d="M82 86l18 38-22-10" fill="#c45c26"/><path d="M50 140h20l6 22H44l6-22z" fill="#9a471c"/><path d="M52 164c2 8 6 12 8 14 2-2 6-6 8-14" stroke="#c45c26" fill="none" stroke-width="3"/></svg>';
   }
 
+  function findGrade(id) {
+    return CATALOG.find(function (g) {
+      return g.id === id;
+    });
+  }
+
+  function licenseFooter() {
+    return (
+      '<p style="margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);font-size:.78rem;color:var(--muted)">Το πρωτότυπο υλικό αυτού του site διανέμεται με άδεια <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> — Αναφορά Δημιουργού · Μη Εμπορική Χρήση · Παρόμοια Διανομή.</p>'
+    );
+  }
+
+  function siteShell(inner) {
+    return (
+      '<div class="paper">' +
+      '<header class="topbar">' +
+      '<a data-act="go" data-to="#/" style="font-family:var(--font-serif);font-size:1.15rem;flex:1">Μηχανολογία ΕΠΑΛ</a>' +
+      '<button class="icon-btn" data-act="theme-toggle" aria-label="Εναλλαγή θέματος" title="Εναλλαγή θέματος">' +
+      (loadTheme() === "dark" ? "☀️" : "🌙") +
+      "</button>" +
+      "</header>" +
+      '<main class="main" id="main" style="max-width:52rem;margin:0 auto">' +
+      inner +
+      licenseFooter() +
+      "</main></div>"
+    );
+  }
+
+  function subjectCard(s) {
+    if (s.status === "ready") {
+      return (
+        '<button class="card" data-act="go" data-to="' +
+        esc(s.href) +
+        '" style="text-align:left;display:block;width:100%">' +
+        '<h3 style="font-size:1.25rem">' +
+        esc(s.title) +
+        "</h3>" +
+        '<p style="color:var(--muted);margin:.35rem 0 0">' +
+        esc(s.desc) +
+        "</p></button>"
+      );
+    }
+    return (
+      '<div class="card" style="opacity:.6">' +
+      '<div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap"><h3 style="font-size:1.25rem;margin:0">' +
+      esc(s.title) +
+      '</h3><span class="chip" style="font-size:.7rem">Σύντομα</span></div>' +
+      '<p style="color:var(--muted);margin:.35rem 0 0">' +
+      esc(s.desc) +
+      "</p></div>"
+    );
+  }
+
+  function siteHome() {
+    let inner = '<p class="kicker">Μηχανολογία ΕΠΑΛ</p>';
+    inner += '<h1 style="font-size:clamp(2rem,5vw,3rem);margin-top:.3rem">Διάλεξε τάξη</h1>';
+    inner +=
+      '<p class="lead" style="margin-top:.6rem">Σημειώσεις και διαδραστικές ασκήσεις, ανά τάξη και μάθημα.</p>';
+    inner += '<div class="grid-2" style="margin-top:1.6rem">';
+    CATALOG.forEach(function (g) {
+      const readyCount = g.subjects.filter(function (s) {
+        return s.status === "ready";
+      }).length;
+      inner +=
+	'<button class="card card-light" data-act="go" data-to="#/grade/' +
+        g.id +
+        '" style="text-align:left;background:var(--ink);color:var(--cream)">' +
+        '<p class="kicker">' +
+        g.subjects.length +
+        " μαθήματα</p>" +
+        '<h2 style="font-size:1.6rem;margin-top:.2rem">' +
+        esc(g.label) +
+        "</h2>" +
+        '<p style="opacity:.75;margin:.4rem 0 0">' +
+        readyCount +
+        " διαθέσιμο τώρα</p></button>";
+    });
+    inner += "</div>";
+    inner +=
+      '<div class="grid-2" style="margin-top:1.6rem">' +
+      '<button class="card" data-act="go" data-to="#/links" style="text-align:left;display:block;width:100%"><p class="kicker">Χρήσιμα</p><h2 style="font-size:1.3rem;margin-top:.2rem">Χρήσιμα Links</h2><p style="color:var(--muted);margin:.35rem 0 0">Σύνδεσμοι για μαθήματα και το σχολείο.</p></button>' +
+      '<button class="card" data-act="go" data-to="#/math" style="text-align:left;display:block;width:100%"><p class="kicker">Γρήγορη αναφορά</p><h2 style="font-size:1.3rem;margin-top:.2rem">Βασικά Μαθηματικά</h2><p style="color:var(--muted);margin:.35rem 0 0">Κλάσματα, ποσοστά, μετατροπές μονάδων.</p></button>' +
+      "</div>";
+    return siteShell(inner);
+  }
+
+  function gradePage(id) {
+    const g = findGrade(id);
+    if (!g)
+      return siteShell(
+        '<p class="kicker">Δεν βρέθηκε</p><h1 style="margin-top:.3rem">Η τάξη δεν βρέθηκε</h1><p style="margin-top:1.2rem"><button class="btn btn-ink" data-act="go" data-to="#/">← Πίσω</button></p>'
+      );
+    let inner = '<a data-act="go" data-to="#/" style="font-size:.85rem;color:var(--muted)">← Τάξεις</a>';
+    inner += '<p class="kicker" style="margin-top:1.2rem">Τάξη</p>';
+    inner += '<h1 style="font-size:clamp(2rem,5vw,3rem);margin-top:.2rem">' + esc(g.label) + "</h1>";
+    inner += '<div class="grid-2" style="margin-top:1.6rem">';
+    g.subjects.forEach(function (s) {
+      inner += subjectCard(s);
+    });
+    inner += "</div>";
+    return siteShell(inner);
+  }
+
+  function linksPage() {
+    let inner = '<a data-act="go" data-to="#/" style="font-size:.85rem;color:var(--muted)">← Αρχική</a>';
+    inner += '<p class="kicker" style="margin-top:1.2rem">Χρήσιμα</p>';
+    inner += '<h1 style="font-size:clamp(2rem,5vw,3rem);margin-top:.2rem">Χρήσιμα Links</h1>';
+    inner += '<div class="card" style="padding:0;margin-top:1.6rem;overflow:hidden">';
+    LINKS.forEach(function (group) {
+      inner += '<p class="kicker" style="padding:.9rem 1.1rem 0">' + esc(group.title) + "</p>";
+      group.items.forEach(function (l) {
+        inner +=
+          '<a class="toc-item" href="' +
+          esc(l.url) +
+          '" target="_blank" rel="noopener"><span style="flex:1"><b>' +
+          esc(l.title) +
+          "</b>" +
+          (l.desc
+            ? '<br><span style="color:var(--muted);font-size:.9rem">' + esc(l.desc) + "</span>"
+            : "") +
+          "</span><span>↗</span></a>";
+      });
+    });
+    inner += "</div>";
+    return siteShell(inner);
+  }
+
+  function mathPage() {
+    let inner = '<a data-act="go" data-to="#/" style="font-size:.85rem;color:var(--muted)">← Αρχική</a>';
+    inner += '<p class="kicker" style="margin-top:1.2rem">Γρήγορη αναφορά</p>';
+    inner += '<h1 style="font-size:clamp(2rem,5vw,3rem);margin-top:.2rem">Βασικά Μαθηματικά</h1>';
+    inner +=
+      '<p class="lead" style="margin-top:.6rem">Χρήσιμα σημεία που εμφανίζονται συχνά στα υπολογιστικά θέματα, ανεξαρτήτως μαθήματος.</p>';
+    inner += '<div class="grid-2" style="margin-top:1.6rem">';
+    MATH_TOPICS.forEach(function (t) {
+      inner +=
+        '<div class="card"><h3 style="font-size:1.15rem">' +
+        esc(t.title) +
+        '</h3><ul class="prose" style="margin-top:.5rem">' +
+        t.items
+          .map(function (it) {
+            return "<li>" + esc(it) + "</li>";
+          })
+          .join("") +
+        "</ul></div>";
+    });
+    inner += "</div>";
+    return siteShell(inner);
+  }
+
   function home() {
     const p = progress();
     const done = EXERCISES.filter(function (e) {
@@ -396,12 +586,12 @@ window.KIND_LABEL = {
     inner +=
       '<p class="lead" style="margin-top:1rem">Σύντομες διδακτικές σημειώσεις και διαδραστικός πίνακας από την τράπεζα θεμάτων. Ο μαθητής σηκώνεται, λύνει, ελέγχει.</p>';
     inner +=
-      '<div class="btn-row"><button class="btn btn-copper" data-act="go" data-to="#/notes/' +
+      '<div class="btn-row"><button class="btn btn-copper" data-act="go" data-to="#/thermo/notes/' +
       SECTIONS[0].slug +
-      '">Σημειώσεις</button><button class="btn btn-ink" data-act="go" data-to="#/board">Στον πίνακα</button></div></div>';
+      '">Σημειώσεις</button><button class="btn btn-ink" data-act="go" data-to="#/thermo/board">Στον πίνακα</button></div></div>';
     inner += '<div style="justify-self:center">' + shuttle() + "</div></div>";
     inner +=
-      '<div class="grid-2" style="margin-top:1.6rem"><button class="card" data-act="go" data-to="#/notes/' +
+      '<div class="grid-2" style="margin-top:1.6rem"><button class="card" data-act="go" data-to="#/thermo/notes/' +
       SECTIONS[0].slug +
       '" style="text-align:left"><p class="kicker">Θεωρία</p><h2 style="font-size:1.5rem;margin-top:.2rem">' +
       SECTIONS.length +
@@ -411,7 +601,7 @@ window.KIND_LABEL = {
       SECTIONS.length +
       " διαβάστηκαν</p></button>";
     inner +=
-      '<button class="card" data-act="go" data-to="#/board" style="text-align:left;background:var(--ink);color:var(--cream)"><p class="kicker">Τράπεζα θεμάτων</p><h2 style="font-size:1.5rem;margin-top:.2rem">' +
+      '<button class="card card-light" data-act="go" data-to="#/thermo/board" style="text-align:left;background:var(--ink);color:var(--cream)"><p class="kicker">Τράπεζα θεμάτων</p><h2 style="font-size:1.5rem;margin-top:.2rem">' +
       EXERCISES.length +
       " ασκήσεις</h2><p style=\"opacity:.75;margin:.4rem 0 0\">" +
       done +
@@ -429,7 +619,7 @@ window.KIND_LABEL = {
         return sectionChapter(s) === chId;
       }).forEach(function (s) {
         inner +=
-          '<button class="toc-item" data-act="go" data-to="#/notes/' +
+          '<button class="toc-item" data-act="go" data-to="#/thermo/notes/' +
           s.slug +
           '"><span class="num">' +
           esc(s.num) +
@@ -476,22 +666,23 @@ window.KIND_LABEL = {
     inner += '<div class="btn-row" style="margin-top:2rem">';
     if (adj.prev)
       inner +=
-        '<button class="btn btn-ghost" data-act="go" data-to="#/notes/' +
+        '<button class="btn btn-ghost" data-act="go" data-to="#/thermo/notes/' +
         adj.prev.slug +
         '">← ' +
         esc(adj.prev.title) +
         "</button>";
     if (adj.next)
       inner +=
-        '<button class="btn btn-copper" data-act="go" data-to="#/notes/' +
+        '<button class="btn btn-copper" data-act="go" data-to="#/thermo/notes/' +
         adj.next.slug +
         '">' +
         esc(adj.next.title) +
         " →</button>";
     else
       inner +=
-        '<button class="btn btn-ink" data-act="go" data-to="#/board">Στον πίνακα →</button>';
+        '<button class="btn btn-ink" data-act="go" data-to="#/thermo/board">Στον πίνακα →</button>';
     inner += "</div>";
+    inner += licenseFooter();
     return shell(inner, false, { name: "notes", slug: s.slug });
   }
 
@@ -534,7 +725,7 @@ window.KIND_LABEL = {
           inner +=
             '<button class="ex-link ' +
             cls +
-            '" data-act="go" data-to="#/board/' +
+            '" data-act="go" data-to="#/thermo/board/' +
             ex.id +
             '"><span style="flex:1"><span style="display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7">' +
             esc(KIND_LABEL[ex.kind]) +
@@ -765,7 +956,7 @@ window.KIND_LABEL = {
   function exercisePage(id) {
     const ex = getExercise(id);
     if (!ex) {
-      return shell('<h1>Η άσκηση δεν βρέθηκε</h1><button class="btn btn-chalk" data-act="go" data-to="#/board">Πίσω</button>', true, { name: "board" });
+      return shell('<h1>Η άσκηση δεν βρέθηκε</h1><button class="btn btn-chalk" data-act="go" data-to="#/thermo/board">Πίσω</button>', true, { name: "board" });
     }
     if (state.exId !== ex.id) resetEngine(ex);
     const theory = getSection(ex.theory);
@@ -777,10 +968,10 @@ window.KIND_LABEL = {
     const ok = state.results[state.step];
 
     let inner =
-      '<div style="display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin-bottom:1.1rem"><button class="btn btn-chalk" data-act="go" data-to="#/board">← Όλες οι ασκήσεις</button>';
+      '<div style="display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin-bottom:1.1rem"><button class="btn btn-chalk" data-act="go" data-to="#/thermo/board">← Όλες οι ασκήσεις</button>';
     if (theory)
       inner +=
-        '<button class="btn btn-chalk" style="margin-left:auto" data-act="go" data-to="#/notes/' +
+        '<button class="btn btn-chalk" style="margin-left:auto" data-act="go" data-to="#/thermo/notes/' +
         theory.slug +
         '">' +
         esc(theory.num) +
@@ -859,14 +1050,14 @@ window.KIND_LABEL = {
     inner += '<div class="btn-row">';
     if (adj.prev)
       inner +=
-        '<button class="btn btn-chalk" data-act="go" data-to="#/board/' +
+        '<button class="btn btn-chalk" data-act="go" data-to="#/thermo/board/' +
         adj.prev.id +
         '">← ' +
         esc(adj.prev.title) +
         "</button>";
     if (adj.next)
       inner +=
-        '<button class="btn btn-chalk" data-act="go" data-to="#/board/' +
+        '<button class="btn btn-chalk" data-act="go" data-to="#/thermo/board/' +
         adj.next.id +
         '">' +
         esc(adj.next.title) +
@@ -876,9 +1067,14 @@ window.KIND_LABEL = {
   }
 
   function render() {
+    applyTheme();
     const r = route();
     const root = document.getElementById("app");
-    if (r.name === "notes") root.innerHTML = notes(r.slug);
+    if (r.name === "site-home") root.innerHTML = siteHome();
+    else if (r.name === "grade") root.innerHTML = gradePage(r.id);
+    else if (r.name === "links") root.innerHTML = linksPage();
+    else if (r.name === "math") root.innerHTML = mathPage();
+    else if (r.name === "notes") root.innerHTML = notes(r.slug);
     else if (r.name === "board") root.innerHTML = boardIndex();
     else if (r.name === "exercise") root.innerHTML = exercisePage(r.id);
     else root.innerHTML = home();
@@ -914,6 +1110,11 @@ window.KIND_LABEL = {
     }
     if (act === "reset") {
       resetProgress();
+      return;
+    }
+    if (act === "theme-toggle") {
+      saveTheme(loadTheme() === "dark" ? "light" : "dark");
+      render();
       return;
     }
     const ex = currentEx();
