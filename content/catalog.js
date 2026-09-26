@@ -16,8 +16,9 @@ window.CATALOG = [
       {
         "id": "antoxi",
         "title": "Αντοχή Υλικών",
-        "desc": "Έρχεται σύντομα.",
-        "status": "soon"
+        "desc": "Σημειώσεις και διαδραστικός πίνακας ασκήσεων.",
+        "status": "ready",
+        "href": "#/antoxi"
       }
     ]
   },
