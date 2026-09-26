@@ -8,8 +8,34 @@ window.KIND_LABEL = {
 };
 (function () {
   const GREEK = { a: "α", b: "β", c: "γ", d: "δ", e: "ε", f: "στ" };
-  const KEY = "thermo-ch1-html-progress-v1";
   const CALLOUT_LAB = { def: "Ορισμός", example: "Παράδειγμα", remember: "Θυμήσου" };
+  const SUBJECTS = {
+    thermo: {
+      title: "Θερμοδυναμική",
+      kicker: "Εισαγωγή στη μηχανολογία",
+      lead: "Σύντομες διδακτικές σημειώσεις και διαδραστικός πίνακας από την τράπεζα θεμάτων. Ο μαθητής σηκώνεται, λύνει, ελέγχει.",
+      progressKey: "thermo-ch1-html-progress-v1",
+      mark: "shuttle",
+    },
+    antoxi: {
+      title: "Αντοχή Υλικών",
+      kicker: "Εισαγωγή στη μηχανολογία",
+      lead: "Δυνάμεις, αρχές στατικής και διαδραστικός πίνακας από την τράπεζα θεμάτων. Ο μαθητής σηκώνεται, λύνει, ελέγχει.",
+      progressKey: "antoxi-html-progress-v1",
+      mark: "forces",
+    },
+  };
+  let ctx = {
+    id: "thermo",
+    title: "Θερμοδυναμική",
+    kicker: "",
+    lead: "",
+    mark: "shuttle",
+    sections: [],
+    groups: [],
+    exercises: [],
+    base: "#/thermo",
+  };
 
   const state = {
     menu: false,
@@ -33,16 +59,19 @@ window.KIND_LABEL = {
   function letter(id) {
     return GREEK[id] || id;
   }
+  function progressKey() {
+    return (SUBJECTS[ctx.id] && SUBJECTS[ctx.id].progressKey) || "thermo-ch1-html-progress-v1";
+  }
   function loadProgress() {
     try {
-      return JSON.parse(localStorage.getItem(KEY) || "{}");
+      return JSON.parse(localStorage.getItem(progressKey()) || "{}");
     } catch (e) {
       return {};
     }
   }
   function saveProgress(p) {
     try {
-      localStorage.setItem(KEY, JSON.stringify(p));
+      localStorage.setItem(progressKey(), JSON.stringify(p));
     } catch (e) {}
   }
   function progress() {
@@ -111,15 +140,46 @@ window.KIND_LABEL = {
     if (parts[0] === "grade" && parts[1]) return { name: "grade", id: parts[1] };
     if (parts[0] === "links") return { name: "links" };
     if (parts[0] === "math") return { name: "math" };
-    if (parts[0] === "thermo") {
+    if (SUBJECTS[parts[0]]) {
+      const subject = parts[0];
       const rest = parts.slice(1);
-      if (!rest.length) return { name: "home" };
-      if (rest[0] === "notes") return { name: "notes", slug: rest[1] || "genika" };
-      if (rest[0] === "board" && rest[1]) return { name: "exercise", id: rest[1] };
-      if (rest[0] === "board") return { name: "board" };
-      return { name: "home" };
+      if (!rest.length) return { name: "home", subject: subject };
+      if (rest[0] === "notes") return { name: "notes", slug: rest[1] || "", subject: subject };
+      if (rest[0] === "board" && rest[1]) return { name: "exercise", id: rest[1], subject: subject };
+      if (rest[0] === "board") return { name: "board", subject: subject };
+      return { name: "home", subject: subject };
     }
     return { name: "site-home" };
+  }
+  function subjectData(id) {
+    if (id === "antoxi") {
+      const d = (window.SUBJECT_DATA && window.SUBJECT_DATA.antoxi) || {};
+      return {
+        sections: d.sections || [],
+        groups: d.groups || [],
+        exercises: d.exercises || [],
+      };
+    }
+    return {
+      sections: window.SECTIONS || [],
+      groups: window.GROUPS || [],
+      exercises: window.EXERCISES || [],
+    };
+  }
+  function setCtx(subjectId) {
+    const meta = SUBJECTS[subjectId] || SUBJECTS.thermo;
+    const data = subjectData(subjectId);
+    ctx = {
+      id: subjectId,
+      title: meta.title,
+      kicker: meta.kicker,
+      lead: meta.lead,
+      mark: meta.mark,
+      sections: data.sections,
+      groups: data.groups,
+      exercises: data.exercises,
+      base: "#/" + subjectId,
+    };
   }
   function go(hash) {
     state.menu = false;
@@ -127,7 +187,7 @@ window.KIND_LABEL = {
   }
 
   function getSection(slug) {
-    return SECTIONS.find(function (s) {
+    return ctx.sections.find(function (s) {
       return s.slug === slug;
     });
   }
@@ -143,7 +203,7 @@ window.KIND_LABEL = {
     return seen;
   }
   function getExercise(id) {
-    return EXERCISES.find(function (e) {
+    return ctx.exercises.find(function (e) {
       return e.id === id;
     });
   }
@@ -204,26 +264,28 @@ window.KIND_LABEL = {
 
   function navHtml(r, board) {
     const p = progress();
-    const done = EXERCISES.filter(function (e) {
+    const done = ctx.exercises.filter(function (e) {
       return p.exercises[e.id] && p.exercises[e.id].status === "done";
     }).length;
     let html = "";
     html += '<a data-act="go" data-to="#/" style="display:block;font-size:.85rem;color:var(--muted);margin-bottom:.6rem">← Όλα τα μαθήματα</a>';
-    html += '<a class="brand" data-act="go" data-to="#/thermo">Θερμοδυναμική</a>';
+    html += '<a class="brand" data-act="go" data-to="' + ctx.base + '">' + esc(ctx.title) + "</a>";
     html += '<p class="brand-sub">Σημειώσεις &amp; τράπεζα θεμάτων</p>';
     html += themeToggleBtn("margin:0 0 .8rem");
     html += '<div class="nav">';
-    const chapterIds = chaptersOf(SECTIONS, sectionChapter);
+    const chapterIds = chaptersOf(ctx.sections, sectionChapter);
     chapterIds.forEach(function (chId) {
       html += '<p class="nav-kicker">' + (chapterIds.length > 1 ? "Κεφάλαιο " + chId : "Σημειώσεις") + "</p>";
-      SECTIONS.filter(function (s) {
+      ctx.sections.filter(function (s) {
         return sectionChapter(s) === chId;
       }).forEach(function (s) {
         const on = r.name === "notes" && r.slug === s.slug;
         html +=
           '<a class="' +
           (on ? "active" : "") +
-          '" data-act="go" data-to="#/thermo/notes/' +
+          '" data-act="go" data-to="' +
+          ctx.base +
+          "/notes/" +
           s.slug +
           '"><span class="num">' +
           esc(s.num) +
@@ -232,11 +294,13 @@ window.KIND_LABEL = {
           "</span></a>";
       });
     });
-    html += '<p class="nav-kicker">Πίνακας · ' + done + "/" + EXERCISES.length + "</p>";
+    html += '<p class="nav-kicker">Πίνακας · ' + done + "/" + ctx.exercises.length + "</p>";
     html +=
       '<a class="' +
       (r.name === "board" || r.name === "exercise" ? "active" : "") +
-      '" data-act="go" data-to="#/thermo/board">Όλες οι ασκήσεις</a>';
+      '" data-act="go" data-to="' +
+      ctx.base +
+      '/board">Όλες οι ασκήσεις</a>';
     html += "</div>";
     return html;
   }
@@ -248,7 +312,11 @@ window.KIND_LABEL = {
       '">' +
       '<header class="topbar hidden-lg">' +
       '<button class="icon-btn" data-act="menu" aria-label="Περιεχόμενα">☰</button>' +
-      '<a data-act="go" data-to="#/thermo" style="font-family:var(--font-serif);font-size:1.15rem;flex:1">Θερμοδυναμική</a>' +
+      '<a data-act="go" data-to="' +
+      ctx.base +
+      '" style="font-family:var(--font-serif);font-size:1.15rem;flex:1">' +
+      esc(ctx.title) +
+      "</a>" +
       '<button class="icon-btn" data-act="theme-toggle" aria-label="Εναλλαγή θέματος" title="Εναλλαγή θέματος">' +
       (loadTheme() === "dark" ? "☀️" : "🌙") +
       "</button>" +
@@ -421,6 +489,12 @@ window.KIND_LABEL = {
   function shuttle() {
     return '<svg class="shuttle" viewBox="0 0 120 180" aria-hidden="true"><path d="M60 8c18 22 22 48 22 78 0 14-2 36-6 54H44c-4-18-6-40-6-54 0-30 4-56 22-78z" fill="#fbf6ec" stroke="#1a1714" stroke-width="2"/><rect x="48" y="70" width="24" height="18" rx="9" fill="#1a1714"/><path d="M38 86l-18 38 22-10" fill="#c45c26"/><path d="M82 86l18 38-22-10" fill="#c45c26"/><path d="M50 140h20l6 22H44l6-22z" fill="#9a471c"/><path d="M52 164c2 8 6 12 8 14 2-2 6-6 8-14" stroke="#c45c26" fill="none" stroke-width="3"/></svg>';
   }
+  function forcesMark() {
+    return '<svg class="shuttle" viewBox="0 0 180 180" aria-hidden="true"><rect x="28" y="78" width="124" height="18" rx="3" fill="#fbf6ec" stroke="#1a1714" stroke-width="2"/><path d="M90 78V28" stroke="#c45c26" stroke-width="3"/><polygon points="90,18 84,34 96,34" fill="#c45c26"/><path d="M28 87H8" stroke="#1a1714" stroke-width="3"/><polygon points="2,87 16,81 16,93" fill="#1a1714"/><path d="M152 87h20" stroke="#1a1714" stroke-width="3"/><polygon points="178,87 164,81 164,93" fill="#1a1714"/><text x="82" y="154" fill="currentColor" font-size="13" font-family="serif">Σ</text></svg>';
+  }
+  function subjectMark() {
+    return ctx.mark === "forces" ? forcesMark() : shuttle();
+  }
 
   function findGrade(id) {
     return CATALOG.find(function (g) {
@@ -582,52 +656,65 @@ window.KIND_LABEL = {
 
   function home() {
     const p = progress();
-    const done = EXERCISES.filter(function (e) {
+    const first = ctx.sections[0];
+    const done = ctx.exercises.filter(function (e) {
       return p.exercises[e.id] && p.exercises[e.id].status === "done";
     }).length;
     let inner =
-      '<p class="kicker">Εισαγωγή στη μηχανολογία</p>';
+      '<p class="kicker">' + esc(ctx.kicker) + "</p>";
     inner +=
       '<div style="display:grid;gap:1.5rem;align-items:center;margin-top:.3rem" class="grid-2">';
     inner +=
-      "<div><h1 style='font-size:clamp(2.4rem,6vw,3.6rem);line-height:.95'>Θερμοδυναμική</h1>";
+      "<div><h1 style='font-size:clamp(2.4rem,6vw,3.6rem);line-height:.95'>" +
+      esc(ctx.title) +
+      "</h1>";
     inner +=
-      '<p class="lead" style="margin-top:1rem">Σύντομες διδακτικές σημειώσεις και διαδραστικός πίνακας από την τράπεζα θεμάτων. Ο μαθητής σηκώνεται, λύνει, ελέγχει.</p>';
+      '<p class="lead" style="margin-top:1rem">' + esc(ctx.lead) + "</p>";
     inner +=
-      '<div class="btn-row"><button class="btn btn-copper" data-act="go" data-to="#/thermo/notes/' +
-      SECTIONS[0].slug +
-      '">Σημειώσεις</button><button class="btn btn-ink" data-act="go" data-to="#/thermo/board">Στον πίνακα</button></div></div>';
-    inner += '<div style="justify-self:center">' + shuttle() + "</div></div>";
+      '<div class="btn-row"><button class="btn btn-copper" data-act="go" data-to="' +
+      ctx.base +
+      "/notes/" +
+      first.slug +
+      '">Σημειώσεις</button><button class="btn btn-ink" data-act="go" data-to="' +
+      ctx.base +
+      '/board">Στον πίνακα</button></div></div>';
+    inner += '<div style="justify-self:center">' + subjectMark() + "</div></div>";
     inner +=
-      '<div class="grid-2" style="margin-top:1.6rem"><button class="card" data-act="go" data-to="#/thermo/notes/' +
-      SECTIONS[0].slug +
+      '<div class="grid-2" style="margin-top:1.6rem"><button class="card" data-act="go" data-to="' +
+      ctx.base +
+      "/notes/" +
+      first.slug +
       '" style="text-align:left"><p class="kicker">Θεωρία</p><h2 style="font-size:1.5rem;margin-top:.2rem">' +
-      SECTIONS.length +
+      ctx.sections.length +
       " σύντομες ενότητες</h2><p style=\"color:var(--muted);margin:.4rem 0 0\">" +
       p.read.length +
       "/" +
-      SECTIONS.length +
+      ctx.sections.length +
       " διαβάστηκαν</p></button>";
     inner +=
-      '<button class="card card-light" data-act="go" data-to="#/thermo/board" style="text-align:left;background:var(--ink);color:var(--cream)"><p class="kicker">Τράπεζα θεμάτων</p><h2 style="font-size:1.5rem;margin-top:.2rem">' +
-      EXERCISES.length +
+      '<button class="card card-light" data-act="go" data-to="' +
+      ctx.base +
+      '/board" style="text-align:left;background:var(--ink);color:var(--cream)"><p class="kicker">Τράπεζα θεμάτων</p><h2 style="font-size:1.5rem;margin-top:.2rem">' +
+      ctx.exercises.length +
       " ασκήσεις</h2><p style=\"opacity:.75;margin:.4rem 0 0\">" +
       done +
       "/" +
-      EXERCISES.length +
+      ctx.exercises.length +
       " ολοκληρώθηκαν σωστά</p></button></div>";
     inner +=
       '<div class="card" style="padding:0;margin-top:1.6rem;overflow:hidden">';
-    const homeChapterIds = chaptersOf(SECTIONS, sectionChapter);
+    const homeChapterIds = chaptersOf(ctx.sections, sectionChapter);
     homeChapterIds.forEach(function (chId) {
       if (homeChapterIds.length > 1)
         inner +=
           '<p class="kicker" style="padding:.8rem 1.1rem 0">Κεφάλαιο ' + esc(chId) + "</p>";
-      SECTIONS.filter(function (s) {
+      ctx.sections.filter(function (s) {
         return sectionChapter(s) === chId;
       }).forEach(function (s) {
         inner +=
-          '<button class="toc-item" data-act="go" data-to="#/thermo/notes/' +
+          '<button class="toc-item" data-act="go" data-to="' +
+          ctx.base +
+          "/notes/" +
           s.slug +
           '"><span class="num">' +
           esc(s.num) +
@@ -647,9 +734,9 @@ window.KIND_LABEL = {
   }
 
   function notes(slug) {
-    const s = getSection(slug) || SECTIONS[0];
+    const s = getSection(slug) || ctx.sections[0];
     markRead(s.slug);
-    const adj = adjacent(SECTIONS, "slug", s.slug);
+    const adj = adjacent(ctx.sections, "slug", s.slug);
     let inner = '<p class="kicker">' + esc(s.kicker) + "</p>";
     inner +=
       '<p style="font-family:var(--font-serif);color:var(--copper);margin:.4rem 0 0">' +
@@ -665,28 +752,34 @@ window.KIND_LABEL = {
     inner += '<div class="btn-row" style="margin-top:2rem">';
     if (adj.prev)
       inner +=
-        '<button class="btn btn-ghost" data-act="go" data-to="#/thermo/notes/' +
+        '<button class="btn btn-ghost" data-act="go" data-to="' +
+        ctx.base +
+        "/notes/" +
         adj.prev.slug +
         '">← ' +
         esc(adj.prev.title) +
         "</button>";
     if (adj.next)
       inner +=
-        '<button class="btn btn-copper" data-act="go" data-to="#/thermo/notes/' +
+        '<button class="btn btn-copper" data-act="go" data-to="' +
+        ctx.base +
+        "/notes/" +
         adj.next.slug +
         '">' +
         esc(adj.next.title) +
         " →</button>";
     else
       inner +=
-        '<button class="btn btn-ink" data-act="go" data-to="#/thermo/board">Στον πίνακα →</button>';
+        '<button class="btn btn-ink" data-act="go" data-to="' +
+        ctx.base +
+        '/board">Στον πίνακα →</button>';
     inner += "</div>";
     return shell(inner, false, { name: "notes", slug: s.slug });
   }
 
   function boardIndex() {
     const p = progress();
-    const done = EXERCISES.filter(function (e) {
+    const done = ctx.exercises.filter(function (e) {
       return p.exercises[e.id] && p.exercises[e.id].status === "done";
     }).length;
     let inner = '<p class="kicker">Τράπεζα θεμάτων</p>';
@@ -697,16 +790,16 @@ window.KIND_LABEL = {
       '<p style="margin-top:1rem;opacity:.75">' +
       done +
       " από " +
-      EXERCISES.length +
+      ctx.exercises.length +
       " σωστά ολοκληρωμένες</p>";
-    const boardChapterIds = chaptersOf(GROUPS, function (g) { return g.chapter; });
+    const boardChapterIds = chaptersOf(ctx.groups, function (g) { return g.chapter; });
     boardChapterIds.forEach(function (chId) {
       if (boardChapterIds.length > 1)
         inner +=
           '<h2 style="margin-top:2.4rem;font-family:var(--font-serif);color:var(--copper)">Κεφάλαιο ' +
           esc(chId) +
           "</h2>";
-      GROUPS.filter(function (g) {
+      ctx.groups.filter(function (g) {
         return g.chapter === chId;
       }).forEach(function (g) {
         inner +=
@@ -715,7 +808,7 @@ window.KIND_LABEL = {
           '</h3><p style="opacity:.7;margin:.3rem 0 0;font-size:.92rem">' +
           esc(g.blurb) +
           "</p><div class=\"ex-list\">";
-        EXERCISES.filter(function (e) {
+        ctx.exercises.filter(function (e) {
           return e.group === g.id;
         }).forEach(function (ex) {
           const res = p.exercises[ex.id];
@@ -723,7 +816,9 @@ window.KIND_LABEL = {
           inner +=
             '<button class="ex-link ' +
             cls +
-            '" data-act="go" data-to="#/thermo/board/' +
+            '" data-act="go" data-to="' +
+            ctx.base +
+            "/board/" +
             ex.id +
             '"><span style="flex:1"><span style="display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7">' +
             esc(KIND_LABEL[ex.kind]) +
@@ -954,11 +1049,11 @@ window.KIND_LABEL = {
   function exercisePage(id) {
     const ex = getExercise(id);
     if (!ex) {
-      return shell('<h1>Η άσκηση δεν βρέθηκε</h1><button class="btn btn-chalk" data-act="go" data-to="#/thermo/board">Πίσω</button>', true, { name: "board" });
+      return shell('<h1>Η άσκηση δεν βρέθηκε</h1><button class="btn btn-chalk" data-act="go" data-to="' + ctx.base + '/board">Πίσω</button>', true, { name: "board" });
     }
     if (state.exId !== ex.id) resetEngine(ex);
     const theory = getSection(ex.theory);
-    const adj = adjacent(EXERCISES, "id", ex.id);
+    const adj = adjacent(ctx.exercises, "id", ex.id);
     const item = ex.items[state.step];
     const answer = state.answers[state.step];
     const last = state.step === ex.items.length - 1;
@@ -966,10 +1061,14 @@ window.KIND_LABEL = {
     const ok = state.results[state.step];
 
     let inner =
-      '<div style="display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin-bottom:1.1rem"><button class="btn btn-chalk" data-act="go" data-to="#/thermo/board">← Όλες οι ασκήσεις</button>';
+      '<div style="display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin-bottom:1.1rem"><button class="btn btn-chalk" data-act="go" data-to="' +
+      ctx.base +
+      '/board">← Όλες οι ασκήσεις</button>';
     if (theory)
       inner +=
-        '<button class="btn btn-chalk" style="margin-left:auto" data-act="go" data-to="#/thermo/notes/' +
+        '<button class="btn btn-chalk" style="margin-left:auto" data-act="go" data-to="' +
+        ctx.base +
+        "/notes/" +
         theory.slug +
         '">' +
         esc(theory.num) +
@@ -1002,7 +1101,7 @@ window.KIND_LABEL = {
       esc(ex.code) +
       "</p>";
     inner += itemView(item, answer, state.checked);
-    if (item.kind === "calc") {
+    if (item.hint) {
       inner +=
         '<p><button class="btn btn-chalk" style="margin-top:.8rem" data-act="hint">' +
         (state.hint ? "Απόκρυψη υπόδειξης" : "Υπόδειξη") +
@@ -1011,9 +1110,8 @@ window.KIND_LABEL = {
         inner +=
           '<div class="hintbox" style="margin-top:.5rem">' +
           esc(item.hint) +
-          '<span class="f">' +
-          esc(item.formula) +
-          "</span></div>";
+          (item.formula ? '<span class="f">' + esc(item.formula) + "</span>" : "") +
+          "</div>";
     }
     if (state.checked) {
       inner +=
@@ -1048,14 +1146,18 @@ window.KIND_LABEL = {
     inner += '<div class="btn-row">';
     if (adj.prev)
       inner +=
-        '<button class="btn btn-chalk" data-act="go" data-to="#/thermo/board/' +
+        '<button class="btn btn-chalk" data-act="go" data-to="' +
+        ctx.base +
+        "/board/" +
         adj.prev.id +
         '">← ' +
         esc(adj.prev.title) +
         "</button>";
     if (adj.next)
       inner +=
-        '<button class="btn btn-chalk" data-act="go" data-to="#/thermo/board/' +
+        '<button class="btn btn-chalk" data-act="go" data-to="' +
+        ctx.base +
+        "/board/" +
         adj.next.id +
         '">' +
         esc(adj.next.title) +
@@ -1064,9 +1166,12 @@ window.KIND_LABEL = {
     return shell(inner, true, { name: "exercise", id: ex.id });
   }
 
-  function render() {
+  function render(opts) {
+    opts = opts || {};
+    const y = window.scrollY;
     applyTheme();
     const r = route();
+    if (r.subject) setCtx(r.subject);
     const root = document.getElementById("app");
     if (r.name === "site-home") root.innerHTML = siteHome();
     else if (r.name === "grade") root.innerHTML = gradePage(r.id);
@@ -1076,7 +1181,10 @@ window.KIND_LABEL = {
     else if (r.name === "board") root.innerHTML = boardIndex();
     else if (r.name === "exercise") root.innerHTML = exercisePage(r.id);
     else root.innerHTML = home();
-    window.scrollTo(0, 0);
+    window.scrollTo(0, opts.keepScroll ? y : 0);
+  }
+  function stay() {
+    render({ keepScroll: true });
   }
 
   function currentEx() {
@@ -1098,12 +1206,12 @@ window.KIND_LABEL = {
     }
     if (act === "menu") {
       state.menu = !state.menu;
-      render();
+      stay();
       return;
     }
     if (act === "menu-close") {
       state.menu = false;
-      render();
+      stay();
       return;
     }
     if (act === "reset") {
@@ -1112,7 +1220,7 @@ window.KIND_LABEL = {
     }
     if (act === "theme-toggle") {
       saveTheme(loadTheme() === "dark" ? "light" : "dark");
-      render();
+      stay();
       return;
     }
     const ex = currentEx();
@@ -1120,12 +1228,12 @@ window.KIND_LABEL = {
     const ans = ex ? state.answers[state.step] : null;
     if (act === "mc" && item && !state.checked) {
       patchAnswer({ mc: el.getAttribute("data-id") });
-      render();
+      stay();
       return;
     }
     if (act === "tf" && item && !state.checked) {
       patchAnswer({ tf: el.getAttribute("data-v") === "true" });
-      render();
+      stay();
       return;
     }
     if (act === "match-left" && item && !state.checked) {
@@ -1138,7 +1246,7 @@ window.KIND_LABEL = {
       } else {
         state.matchPicked = id;
       }
-      render();
+      stay();
       return;
     }
     if (act === "match-unpair" && item && !state.checked) {
@@ -1147,7 +1255,7 @@ window.KIND_LABEL = {
       delete value[id];
       patchAnswer({ match: value });
       state.matchPicked = id;
-      render();
+      stay();
       return;
     }
     if (act === "match-right" && item && !state.checked && state.matchPicked) {
@@ -1159,12 +1267,12 @@ window.KIND_LABEL = {
       value[state.matchPicked] = rid;
       patchAnswer({ match: value });
       state.matchPicked = null;
-      render();
+      stay();
       return;
     }
     if (act === "blank-word" && item && !state.checked) {
       state.blankPicked = decodeURIComponent(el.getAttribute("data-word"));
-      render();
+      stay();
       return;
     }
     if (act === "blank-slot" && item && !state.checked) {
@@ -1177,12 +1285,12 @@ window.KIND_LABEL = {
         next[i] = state.blankPicked;
         patchAnswer({ blank: next });
       }
-      render();
+      stay();
       return;
     }
     if (act === "hint") {
       state.hint = !state.hint;
-      render();
+      stay();
       return;
     }
     if (act === "check" && item) {
@@ -1197,13 +1305,13 @@ window.KIND_LABEL = {
           max: ex.items.length,
         });
       }
-      render();
+      stay();
       return;
     }
     if (act === "retry") {
       state.checked = false;
       state.hint = false;
-      render();
+      stay();
       return;
     }
     if (act === "next") {
