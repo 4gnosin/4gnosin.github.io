@@ -152,18 +152,18 @@ window.KIND_LABEL = {
     return { name: "site-home" };
   }
   function subjectData(id) {
-    if (id === "antoxi") {
-      const d = (window.SUBJECT_DATA && window.SUBJECT_DATA.antoxi) || {};
+    const d = (window.SUBJECT_DATA && window.SUBJECT_DATA[id]) || {};
+    if (id === "thermo") {
       return {
-        sections: d.sections || [],
-        groups: d.groups || [],
-        exercises: d.exercises || [],
+        sections: (window.SECTIONS || []).concat(d.sections || []),
+        groups: (window.GROUPS || []).concat(d.groups || []),
+        exercises: (window.EXERCISES || []).concat(d.exercises || []),
       };
     }
     return {
-      sections: window.SECTIONS || [],
-      groups: window.GROUPS || [],
-      exercises: window.EXERCISES || [],
+      sections: d.sections || [],
+      groups: d.groups || [],
+      exercises: d.exercises || [],
     };
   }
   function setCtx(subjectId) {
@@ -1182,6 +1182,34 @@ window.KIND_LABEL = {
     else if (r.name === "exercise") root.innerHTML = exercisePage(r.id);
     else root.innerHTML = home();
     window.scrollTo(0, opts.keepScroll ? y : 0);
+
+    // KaTeX – τρέχει μετά από κάθε αλλαγή περιεχομένου
+    if (typeof renderMathInElement === "function") {
+      renderMathInElement(root, {
+        delimiters: [
+          {left: "\\(", right: "\\)", display: false},
+          {left: "\\[", right: "\\]", display: true},
+          {left: "$", right: "$", display: false},
+          {left: "$$", right: "$$", display: true}
+        ],
+        throwOnError: false
+      });
+    } else {
+      // Αν το KaTeX δεν έχει φορτώσει ακόμα, δοκίμασε ξανά σε λίγο
+      setTimeout(function () {
+        if (typeof renderMathInElement === "function") {
+          renderMathInElement(root, {
+            delimiters: [
+              {left: "\\(", right: "\\)", display: false},
+              {left: "\\[", right: "\\]", display: true},
+              {left: "$", right: "$", display: false},
+              {left: "$$", right: "$$", display: true}
+            ],
+            throwOnError: false
+          });
+        }
+      }, 300);
+    }
   }
   function stay() {
     render({ keepScroll: true });
