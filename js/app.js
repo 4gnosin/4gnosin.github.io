@@ -275,7 +275,7 @@ window.KIND_LABEL = {
     html += '<div class="nav">';
     const chapterIds = chaptersOf(ctx.sections, sectionChapter);
     chapterIds.forEach(function (chId) {
-      html += '<p class="nav-kicker">' + (chapterIds.length > 1 ? "Κεφάλαιο " + chId : "Σημειώσεις") + "</p>";
+      html += '<p class="nav-kicker">' + "Κεφάλαιο " + chId + "</p>";
       ctx.sections.filter(function (s) {
         return sectionChapter(s) === chId;
       }).forEach(function (s) {
@@ -705,9 +705,8 @@ window.KIND_LABEL = {
       '<div class="card" style="padding:0;margin-top:1.6rem;overflow:hidden">';
     const homeChapterIds = chaptersOf(ctx.sections, sectionChapter);
     homeChapterIds.forEach(function (chId) {
-      if (homeChapterIds.length > 1)
-        inner +=
-          '<p class="kicker" style="padding:.8rem 1.1rem 0">Κεφάλαιο ' + esc(chId) + "</p>";
+      inner +=
+        '<p class="kicker" style="padding:.8rem 1.1rem 0">Κεφάλαιο ' + esc(chId) + "</p>";
       ctx.sections.filter(function (s) {
         return sectionChapter(s) === chId;
       }).forEach(function (s) {
