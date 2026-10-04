@@ -8,10 +8,17 @@ window.CATALOG = [
     "subjects": [
       {
         "id": "thermo",
-        "title": "Θερμοδυναμική",
+        "title": "Θερμοδυναμική Θεωρία",
         "desc": "Σημειώσεις και διαδραστικός πίνακας ασκήσεων.",
         "status": "ready",
         "href": "#/thermo"
+      },
+      {
+        "id": "thermo-lab",
+        "title": "Θερμοδυναμική Εργαστήριο",
+        "desc": "Εργαστηριακά κεφάλαια και όργανα μέτρησης.",
+        "status": "ready",
+        "href": "#/thermo-lab"
       },
       {
         "id": "antoxi",
