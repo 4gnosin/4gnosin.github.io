@@ -11,11 +11,19 @@ window.KIND_LABEL = {
   const CALLOUT_LAB = { def: "Ορισμός", example: "Παράδειγμα", remember: "Θυμήσου" };
   const SUBJECTS = {
     thermo: {
-      title: "Θερμοδυναμική",
+      title: "Θερμοδυναμική Θεωρία",
       kicker: "Εισαγωγή στη μηχανολογία",
       lead: "Σύντομες διδακτικές σημειώσεις και διαδραστικός πίνακας από την τράπεζα θεμάτων. Ο μαθητής σηκώνεται, λύνει, ελέγχει.",
       progressKey: "thermo-ch1-html-progress-v1",
       mark: "shuttle",
+    },
+    "thermo-lab": {
+      title: "Θερμοδυναμική Εργαστήριο",
+      kicker: "Εργαστηριακή θερμοδυναμική",
+      lead: "Εργαστηριακά κεφάλαια για όργανα μέτρησης και ελέγχου θερμοδυναμικών μεγεθών.",
+      progressKey: "thermo-lab-html-progress-v1",
+      mark: "shuttle",
+      hasExercises: false,
     },
     antoxi: {
       title: "Αντοχή Υλικών",
@@ -27,7 +35,7 @@ window.KIND_LABEL = {
   };
   let ctx = {
     id: "thermo",
-    title: "Θερμοδυναμική",
+    title: "Θερμοδυναμική Θεωρία",
     kicker: "",
     lead: "",
     mark: "shuttle",
@@ -147,6 +155,8 @@ window.KIND_LABEL = {
       const rest = parts.slice(1);
       if (!rest.length) return { name: "home", subject: subject };
       if (rest[0] === "notes") return { name: "notes", slug: rest[1] || "", subject: subject };
+      if (rest[0] === "board" && SUBJECTS[subject].hasExercises === false)
+        return { name: "home", subject: subject };
       if (rest[0] === "board" && rest[1]) return { name: "exercise", id: rest[1], subject: subject };
       if (rest[0] === "board") return { name: "board", subject: subject };
       return { name: "home", subject: subject };
@@ -177,6 +187,7 @@ window.KIND_LABEL = {
       kicker: meta.kicker,
       lead: meta.lead,
       mark: meta.mark,
+      hasExercises: meta.hasExercises !== false,
       sections: data.sections,
       groups: data.groups,
       exercises: data.exercises,
@@ -292,7 +303,10 @@ window.KIND_LABEL = {
     let html = "";
     html += '<a data-act="go" data-to="#/" style="display:block;font-size:.85rem;color:var(--muted);margin-bottom:.6rem">← Όλα τα μαθήματα</a>';
     html += '<a class="brand" data-act="go" data-to="' + ctx.base + '">' + esc(ctx.title) + "</a>";
-    html += '<p class="brand-sub">Σημειώσεις &amp; τράπεζα θεμάτων</p>';
+    html +=
+      '<p class="brand-sub">' +
+      (ctx.hasExercises ? "Σημειώσεις &amp; τράπεζα θεμάτων" : "Εργαστηριακές σημειώσεις") +
+      "</p>";
     html += themeToggleBtn("margin:0 0 .8rem");
     html += '<div class="nav">';
     const theoryOpen = openSection === "theory";
@@ -342,71 +356,73 @@ window.KIND_LABEL = {
         }
       });
     }
-    const exercisesOpen = openSection === "exercises";
-    html +=
-      '<button type="button" class="nav-link nav-section-toggle' +
-      (exercisesOpen ? " active" : "") +
-      '" data-act="nav-section-toggle" data-section="exercises" data-expanded="' +
-      exercisesOpen +
-      '" aria-expanded="' +
-      exercisesOpen +
-      '"><span>Ασκήσεις τράπεζας θεμάτων</span><span class="nav-chevron">' +
-      (exercisesOpen ? "−" : "+") +
-      "</span></button>";
-    if (exercisesOpen) {
+    if (ctx.hasExercises) {
+      const exercisesOpen = openSection === "exercises";
       html +=
-        '<a class="nav-subitem' +
-        (r.name === "board" ? " active" : "") +
-        '" data-act="go" data-to="' +
-        ctx.base +
-        '/board">Όλες οι ασκήσεις · ' +
-        done +
-        "/" +
-        ctx.exercises.length +
-        "</a>";
-      const groupsWithExercises = ctx.groups.filter(function (g) {
-        return ctx.exercises.some(function (e) {
-          return e.group === g.id;
-        });
-      });
-      chaptersOf(groupsWithExercises, function (g) {
-        return String(g.chapter);
-      }).forEach(function (chId) {
-        const chapterOpen = String(openChapter) === String(chId);
+        '<button type="button" class="nav-link nav-section-toggle' +
+        (exercisesOpen ? " active" : "") +
+        '" data-act="nav-section-toggle" data-section="exercises" data-expanded="' +
+        exercisesOpen +
+        '" aria-expanded="' +
+        exercisesOpen +
+        '"><span>Ασκήσεις τράπεζας θεμάτων</span><span class="nav-chevron">' +
+        (exercisesOpen ? "−" : "+") +
+        "</span></button>";
+      if (exercisesOpen) {
         html +=
-          '<button type="button" class="nav-link nav-chapter-toggle" data-act="nav-chapter-toggle" data-section="exercises" data-chapter="' +
-          esc(chId) +
-          '" data-expanded="' +
-          chapterOpen +
-          '" aria-expanded="' +
-          chapterOpen +
-          '"><span>Κεφάλαιο ' +
-          esc(chId) +
-          '</span><span class="nav-chevron">' +
-          (chapterOpen ? "−" : "+") +
-          "</span></button>";
-        if (chapterOpen) {
-          groupsWithExercises.filter(function (g) {
-            return String(g.chapter) === String(chId);
-          }).forEach(function (g) {
-            html += '<p class="nav-group-title">' + esc(g.title) + "</p>";
-            ctx.exercises.filter(function (e) {
-              return e.group === g.id;
-            }).forEach(function (e) {
-              html +=
-                '<a class="nav-subitem nav-exercise-item' +
-                (r.name === "exercise" && r.id === e.id ? " active" : "") +
-                '" data-act="go" data-to="' +
-                ctx.base +
-                "/board/" +
-                e.id +
-                '">' +
-                esc(e.title) +
-                "</a>";
-            });
+          '<a class="nav-subitem' +
+          (r.name === "board" ? " active" : "") +
+          '" data-act="go" data-to="' +
+          ctx.base +
+          '/board">Όλες οι ασκήσεις · ' +
+          done +
+          "/" +
+          ctx.exercises.length +
+          "</a>";
+        const groupsWithExercises = ctx.groups.filter(function (g) {
+          return ctx.exercises.some(function (e) {
+            return e.group === g.id;
           });
-        }
-      });
+        });
+        chaptersOf(groupsWithExercises, function (g) {
+          return String(g.chapter);
+        }).forEach(function (chId) {
+          const chapterOpen = String(openChapter) === String(chId);
+          html +=
+            '<button type="button" class="nav-link nav-chapter-toggle" data-act="nav-chapter-toggle" data-section="exercises" data-chapter="' +
+            esc(chId) +
+            '" data-expanded="' +
+            chapterOpen +
+            '" aria-expanded="' +
+            chapterOpen +
+            '"><span>Κεφάλαιο ' +
+            esc(chId) +
+            '</span><span class="nav-chevron">' +
+            (chapterOpen ? "−" : "+") +
+            "</span></button>";
+          if (chapterOpen) {
+            groupsWithExercises.filter(function (g) {
+              return String(g.chapter) === String(chId);
+            }).forEach(function (g) {
+              html += '<p class="nav-group-title">' + esc(g.title) + "</p>";
+              ctx.exercises.filter(function (e) {
+                return e.group === g.id;
+              }).forEach(function (e) {
+                html +=
+                  '<a class="nav-subitem nav-exercise-item' +
+                  (r.name === "exercise" && r.id === e.id ? " active" : "") +
+                  '" data-act="go" data-to="' +
+                  ctx.base +
+                  "/board/" +
+                  e.id +
+                  '">' +
+                  esc(e.title) +
+                  "</a>";
+              });
+            });
+          }
+        });
+      }
     }
     html += "</div>";
     return html;
@@ -527,6 +543,19 @@ window.KIND_LABEL = {
   function renderBlock(b) {
     if (b.type === "p") return "<p>" + esc(b.text) + "</p>";
     if (b.type === "h") return "<h2 style='margin:1.4rem 0 .5rem;font-size:1.45rem'>" + esc(b.text) + "</h2>";
+    if (b.type === "image") {
+      const src = typeof b.src === "string" ? b.src.trim() : "";
+      if (!src) return "";
+      return (
+        '<figure class="note-image"><img src="' +
+        esc(src) +
+        '" alt="' +
+        esc(b.alt || "") +
+        '" loading="lazy">' +
+        (b.caption ? "<figcaption>" + esc(b.caption) + "</figcaption>" : "") +
+        "</figure>"
+      );
+    }
     if (b.type === "ul") {
       return (
         "<ul>" +
@@ -677,7 +706,7 @@ window.KIND_LABEL = {
         "</h2>" +
         '<p style="opacity:.75;margin:.4rem 0 0">' +
         readyCount +
-        " διαθέσιμο τώρα</p></button>";
+        " διαθέσιμα τώρα</p></button>";
     });
     inner += "</div>";
     inner +=
@@ -782,12 +811,16 @@ window.KIND_LABEL = {
       ctx.base +
       "/notes/" +
       first.slug +
-      '">Σημειώσεις</button><button class="btn btn-ink" data-act="go" data-to="' +
-      ctx.base +
-      '/board">Στον πίνακα</button></div></div>';
+      '">Σημειώσεις</button>' +
+      (ctx.hasExercises
+        ? '<button class="btn btn-ink" data-act="go" data-to="' + ctx.base + '/board">Στον πίνακα</button>'
+        : "") +
+      "</div></div>";
     inner += '<div style="justify-self:center">' + subjectMark() + "</div></div>";
     inner +=
-      '<div class="grid-2" style="margin-top:1.6rem"><button class="card" data-act="go" data-to="' +
+      '<div class="' +
+      (ctx.hasExercises ? "grid-2" : "") +
+      '" style="margin-top:1.6rem"><button class="card" data-act="go" data-to="' +
       ctx.base +
       "/notes/" +
       first.slug +
@@ -798,16 +831,19 @@ window.KIND_LABEL = {
       "/" +
       ctx.sections.length +
       " διαβάστηκαν</p></button>";
-    inner +=
-      '<button class="card card-light" data-act="go" data-to="' +
-      ctx.base +
-      '/board" style="text-align:left;background:var(--ink);color:var(--cream)"><p class="kicker">Τράπεζα θεμάτων</p><h2 style="font-size:1.5rem;margin-top:.2rem">' +
-      ctx.exercises.length +
-      " ασκήσεις</h2><p style=\"opacity:.75;margin:.4rem 0 0\">" +
-      done +
-      "/" +
-      ctx.exercises.length +
-      " ολοκληρώθηκαν σωστά</p></button></div>";
+    if (ctx.hasExercises) {
+      inner +=
+        '<button class="card card-light" data-act="go" data-to="' +
+        ctx.base +
+        '/board" style="text-align:left;background:var(--ink);color:var(--cream)"><p class="kicker">Τράπεζα θεμάτων</p><h2 style="font-size:1.5rem;margin-top:.2rem">' +
+        ctx.exercises.length +
+        " ασκήσεις</h2><p style=\"opacity:.75;margin:.4rem 0 0\">" +
+        done +
+        "/" +
+        ctx.exercises.length +
+        " ολοκληρώθηκαν σωστά</p></button>";
+    }
+    inner += "</div>";
     inner +=
       '<div class="card" style="padding:0;margin-top:1.6rem;overflow:hidden">';
     const homeChapterIds = chaptersOf(ctx.sections, sectionChapter);
@@ -855,7 +891,8 @@ window.KIND_LABEL = {
       inner += renderBlock(b);
     });
     inner += "</div>";
-    inner += '<div class="btn-row" style="margin-top:2rem">';
+    if (adj.prev || adj.next || ctx.hasExercises)
+      inner += '<div class="btn-row" style="margin-top:2rem">';
     if (adj.prev)
       inner +=
         '<button class="btn btn-ghost" data-act="go" data-to="' +
@@ -874,12 +911,12 @@ window.KIND_LABEL = {
         '">' +
         esc(adj.next.title) +
         " →</button>";
-    else
+    else if (ctx.hasExercises)
       inner +=
         '<button class="btn btn-ink" data-act="go" data-to="' +
         ctx.base +
         '/board">Στον πίνακα →</button>';
-    inner += "</div>";
+    if (adj.prev || adj.next || ctx.hasExercises) inner += "</div>";
     return shell(inner, false, { name: "notes", slug: s.slug });
   }
 
