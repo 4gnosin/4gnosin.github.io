@@ -33,6 +33,16 @@ window.KIND_LABEL = {
       mark: "forces",
     },
   };
+  const SIMULATIONS = [
+    {
+      id: "fwg",
+      title: "Αποστακτήρας κενού (Fresh Water Generator)",
+      description: "Διαδικασία εκκίνησης και ρύθμισης αποστακτήρα κενού.",
+      intro: "Προσομοίωση της διαδικασίας εκκίνησης και ρύθμισης αποστακτήρα κενού.",
+      mount: "mountFreshWaterGenerator",
+      containerId: "simulation-app",
+    },
+  ];
   let ctx = {
     id: "thermo",
     title: "Θερμοδυναμική Θεωρία",
@@ -58,6 +68,7 @@ window.KIND_LABEL = {
     blankPicked: null,
     exId: null,
   };
+  let simulationCleanup = null;
 
   function esc(s) {
     return String(s)
@@ -150,6 +161,15 @@ window.KIND_LABEL = {
     if (parts[0] === "grade" && parts[1]) return { name: "grade", id: parts[1] };
     if (parts[0] === "links") return { name: "links" };
     if (parts[0] === "math") return { name: "math" };
+    if (parts[0] === "simulations") {
+      if (!parts[1]) return { name: "simulations" };
+      const simulation = SIMULATIONS.find(function (item) {
+        return item.id === parts[1];
+      });
+      return simulation
+        ? { name: "simulation", id: simulation.id }
+        : { name: "simulations" };
+    }
     if (SUBJECTS[parts[0]]) {
       const subject = parts[0];
       const rest = parts.slice(1);
@@ -644,7 +664,7 @@ window.KIND_LABEL = {
     );
   }
 
-  function siteShell(inner) {
+  function siteShell(inner, wide) {
     return (
       '<div class="paper">' +
       '<header class="topbar">' +
@@ -653,7 +673,9 @@ window.KIND_LABEL = {
       (loadTheme() === "dark" ? "☀️" : "🌙") +
       "</button>" +
       "</header>" +
-      '<main class="main" id="main" style="max-width:52rem;margin:0 auto">' +
+      '<main class="main" id="main" style="max-width:' +
+      (wide ? "90rem" : "52rem") +
+      ';margin:0 auto">' +
       inner +
       "</main></div>"
     );
@@ -710,6 +732,8 @@ window.KIND_LABEL = {
     });
     inner += "</div>";
     inner +=
+      '<button class="card" data-act="go" data-to="#/simulations" style="text-align:left;display:block;width:100%;margin-top:1.6rem"><h2 style="font-size:1.6rem">Διαδραστικές Προσομοιώσεις</h2></button>';
+    inner +=
       '<div class="grid-2" style="margin-top:1.6rem">' +
       '<button class="card" data-act="go" data-to="#/links" style="text-align:left;display:block;width:100%"><p class="kicker">Χρήσιμα</p><h2 style="font-size:1.3rem;margin-top:.2rem">Χρήσιμα Links</h2><p style="color:var(--muted);margin:.35rem 0 0">Σύνδεσμοι για μαθήματα και το σχολείο.</p></button>' +
       '<button class="card" data-act="go" data-to="#/math" style="text-align:left;display:block;width:100%"><p class="kicker">Γρήγορη αναφορά</p><h2 style="font-size:1.3rem;margin-top:.2rem">Βασικά Μαθηματικά</h2><p style="color:var(--muted);margin:.35rem 0 0">Κλάσματα, ποσοστά, μετατροπές μονάδων.</p></button>' +
@@ -724,6 +748,44 @@ window.KIND_LABEL = {
       '<p><b>Άδεια του πρωτότυπου υλικού της παρούσας ιστοσελίδας:</b><br>Το πρωτότυπο διαδραστικό εκπαιδευτικό υλικό που δημιουργήθηκε για την παρούσα ιστοσελίδα διανέμεται με άδεια Creative Commons Αναφορά Δημιουργού – Μη Εμπορική Χρήση – Παρόμοια Διανομή 4.0 Διεθνές (CC BY-NC-SA 4.0). Η άδεια αυτή αφορά το πρωτότυπο υλικό της παρούσας ιστοσελίδας και δεν επεκτείνεται σε υλικό τρίτων που αναφέρεται ή ενσωματώνεται στην ιστοσελίδα. <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> — Αναφορά Δημιουργού · Μη Εμπορική Χρήση · Παρόμοια Διανομή.<br>Κωνσταντίνος Μηναΐδης 2026 · <a href="https://github.com/4gnosin" target="_blank" rel="noopener">github.com/4gnosin</a></p>' +
       '</div>';
     return siteShell(inner);
+  }
+
+  function simulationsPage() {
+    let inner = '<a data-act="go" data-to="#/" style="font-size:.85rem;color:var(--muted)">← Αρχική</a>';
+    inner += '<p class="kicker" style="margin-top:1.2rem">Διαδραστικές Προσομοιώσεις</p>';
+    inner += '<h1 style="font-size:clamp(2rem,5vw,3rem);margin-top:.2rem">Επίλεξε προσομοίωση</h1>';
+    inner += '<div class="grid-2" style="margin-top:1.6rem">';
+    SIMULATIONS.forEach(function (simulation) {
+      inner +=
+        '<button class="card" data-act="go" data-to="#/simulations/' +
+        esc(simulation.id) +
+        '" style="text-align:left;display:block;width:100%"><h2 style="font-size:1.4rem">' +
+        esc(simulation.title) +
+        '</h2><p style="color:var(--muted);margin:.4rem 0 0">' +
+        esc(simulation.description) +
+        "</p></button>";
+    });
+    inner += "</div>";
+    return siteShell(inner);
+  }
+
+  function simulationPage(id) {
+    const simulation = SIMULATIONS.find(function (item) {
+      return item.id === id;
+    });
+    if (!simulation) return simulationsPage();
+    const inner =
+      '<a data-act="go" data-to="#/simulations" style="font-size:.85rem;color:var(--muted)">← Διαδραστικές Προσομοιώσεις</a>' +
+      '<p class="kicker" style="margin-top:1.2rem">Διαδραστικές Προσομοιώσεις</p>' +
+      '<h1 style="font-size:clamp(2rem,5vw,3rem);margin-top:.2rem">' +
+      esc(simulation.title) +
+      '</h1><p class="lead" style="margin-top:.6rem">' +
+      esc(simulation.intro) +
+      "</p>" +
+      '<div id="' +
+      esc(simulation.containerId) +
+      '" class="fwg-simulation" style="margin-top:1.5rem"></div>';
+    return siteShell(inner, true);
   }
 
   function gradePage(id) {
@@ -1312,6 +1374,10 @@ window.KIND_LABEL = {
   function render(opts) {
     opts = opts || {};
     const y = window.scrollY;
+    if (simulationCleanup) {
+      simulationCleanup();
+      simulationCleanup = null;
+    }
     applyTheme();
     const r = route();
     if (r.subject) setCtx(r.subject);
@@ -1320,6 +1386,19 @@ window.KIND_LABEL = {
     else if (r.name === "grade") root.innerHTML = gradePage(r.id);
     else if (r.name === "links") root.innerHTML = linksPage();
     else if (r.name === "math") root.innerHTML = mathPage();
+    else if (r.name === "simulations") root.innerHTML = simulationsPage();
+    else if (r.name === "simulation") {
+      const simulation = SIMULATIONS.find(function (item) {
+        return item.id === r.id;
+      });
+      root.innerHTML = simulationPage(r.id);
+      const mountSimulation = simulation && window[simulation.mount];
+      if (typeof mountSimulation !== "function")
+        throw new Error("Simulation script is not loaded for: " + r.id);
+      simulationCleanup = mountSimulation(
+        document.getElementById(simulation.containerId)
+      );
+    }
     else if (r.name === "notes") root.innerHTML = notes(r.slug);
     else if (r.name === "board") root.innerHTML = boardIndex();
     else if (r.name === "exercise") root.innerHTML = exercisePage(r.id);
@@ -1406,6 +1485,11 @@ window.KIND_LABEL = {
     }
     if (act === "theme-toggle") {
       saveTheme(loadTheme() === "dark" ? "light" : "dark");
+      if (route().name === "simulation") {
+        applyTheme();
+        el.textContent = loadTheme() === "dark" ? "☀️" : "🌙";
+        return;
+      }
       stay();
       return;
     }
