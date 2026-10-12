@@ -42,6 +42,14 @@ window.KIND_LABEL = {
       mount: "mountFreshWaterGenerator",
       containerId: "simulation-app",
     },
+    {
+      id: "hydrophore",
+      title: "Υδροφορικό δοχείο γλυκού νερού (Hydrophore)",
+      description: "Προσομοίωση υδροφορικού συστήματος πλοίου, αεροφυλακίου, πρεσσοστάτη, στραγγαλισμού κατάθλιψης και συμπλήρωσης πεπιεσμένου αέρα.",
+      intro: "Διαδραστική προσομοίωση πιεστικού δοχείου (Hydrophore) γλυκού νερού πλοίου. Στραγγαλισμός επιστομίου κατάθλιψης αντλίας (έως 7.3 Bar), προστασία ασφαλιστικού (7.0 Bar), βάνα εξαέρωσης συντήρησης, ρύθμιση πρεσσοστάτη και συμπλήρωση πεπιεσμένου αέρα (6.0–7.0 Bar).",
+      mount: "mountHydrophore",
+      containerId: "simulation-app",
+    },
   ];
   let ctx = {
     id: "thermo",
@@ -160,7 +168,10 @@ window.KIND_LABEL = {
     if (!parts.length) return { name: "site-home" };
     if (parts[0] === "grade" && parts[1]) return { name: "grade", id: parts[1] };
     if (parts[0] === "links") return { name: "links" };
-    if (parts[0] === "math") return { name: "math" };
+    if (parts[0] === "math") {
+      if (!parts[1]) return { name: "math" };
+      return { name: "math-section", id: parts[1] };
+    }
     if (parts[0] === "simulations") {
       if (!parts[1]) return { name: "simulations" };
       const simulation = SIMULATIONS.find(function (item) {
@@ -736,7 +747,7 @@ window.KIND_LABEL = {
     inner +=
       '<div class="grid-2" style="margin-top:1.6rem">' +
       '<button class="card" data-act="go" data-to="#/links" style="text-align:left;display:block;width:100%"><p class="kicker">Χρήσιμα</p><h2 style="font-size:1.3rem;margin-top:.2rem">Χρήσιμα Links</h2><p style="color:var(--muted);margin:.35rem 0 0">Σύνδεσμοι για μαθήματα και το σχολείο.</p></button>' +
-      '<button class="card" data-act="go" data-to="#/math" style="text-align:left;display:block;width:100%"><p class="kicker">Γρήγορη αναφορά</p><h2 style="font-size:1.3rem;margin-top:.2rem">Βασικά Μαθηματικά</h2><p style="color:var(--muted);margin:.35rem 0 0">Κλάσματα, ποσοστά, μετατροπές μονάδων.</p></button>' +
+      '<button class="card" data-act="go" data-to="#/math" style="text-align:left;display:block;width:100%"><p class="kicker">Γρήγορη αναφορά</p><h2 style="font-size:1.3rem;margin-top:.2rem">Βασικά Μαθηματικά</h2><p style="color:var(--muted);margin:.35rem 0 0">Δεκαδικά κλάσματα και μεθοδολογίες μετατροπής σε δεκαδικό αριθμό.</p></button>' +
       "</div>";
     inner +=
       '<div style="margin-top:2rem;font-size:.85rem;color:var(--muted);line-height:1.6">' +
@@ -829,27 +840,170 @@ window.KIND_LABEL = {
     return siteShell(inner);
   }
 
+  function renderLatex(str) {
+    if (!str) return "";
+    if (typeof katex === "undefined") return esc(str);
+    // Αν περιέχει \(...\), κάνε render τα μαθηματικά τμήματα
+    if (str.indexOf("\\(") !== -1) {
+      return str.replace(/\\\(([\s\S]*?)\\\)/g, function (_, expr) {
+        try {
+          return katex.renderToString(expr, { throwOnError: false, displayMode: false });
+        } catch (e) {
+          return esc(expr);
+        }
+      });
+    }
+    try {
+      return katex.renderToString(str, { throwOnError: false, displayMode: false });
+    } catch (e) {
+      return esc(str);
+    }
+  }
+
+  /* "Βήμα 1ο" → "ΒΗΜΑ 1<sup>ο</sup>" — το ο ως εκθέτης */
+  function fmtStepLabel(lbl) {
+    return esc(lbl).replace(/(\d+)ο/g, '$1<sup style="font-size:.65em;vertical-align:super;line-height:1;font-weight:700">ο</sup>');
+  }
+
   function mathPage() {
+    const list = window.MATH_SECTIONS || [
+      {
+        id: "dekadika-klasmata",
+        title: "Δεκαδικά Κλάσματα",
+        kicker: "Βασικά Μαθηματικά",
+        description: "Ορισμός κλάσματος και αναλυτικές μεθοδολογίες μετατροπής σε δεκαδικό αριθμό με βήματα."
+      }
+    ];
     let inner = '<a data-act="go" data-to="#/" style="font-size:.85rem;color:var(--muted)">← Αρχική</a>';
     inner += '<p class="kicker" style="margin-top:1.2rem">Γρήγορη αναφορά</p>';
     inner += '<h1 style="font-size:clamp(2rem,5vw,3rem);margin-top:.2rem">Βασικά Μαθηματικά</h1>';
-    inner +=
-      '<p class="lead" style="margin-top:.6rem">Χρήσιμα σημεία που εμφανίζονται συχνά στα υπολογιστικά θέματα, ανεξαρτήτως μαθήματος.</p>';
+    inner += '<p class="lead" style="margin-top:.6rem">Επίλεξε ενότητα για να δεις τη θεωρία, τους ορισμούς και τις μεθοδολογίες βήμα-βήμα.</p>';
     inner += '<div class="grid-2" style="margin-top:1.6rem">';
-    MATH_TOPICS.forEach(function (t) {
+    list.forEach(function (sec) {
       inner +=
-        '<div class="card"><h3 style="font-size:1.15rem">' +
-        esc(t.title) +
-        '</h3><ul class="prose" style="margin-top:.5rem">' +
-        t.items
-          .map(function (it) {
-            return "<li>" + esc(it) + "</li>";
-          })
-          .join("") +
-        "</ul></div>";
+        '<button class="card" data-act="go" data-to="#/math/' +
+        esc(sec.id) +
+        '" style="text-align:left;display:block;width:100%">' +
+        '<p class="kicker">' + esc(sec.kicker || "Ενότητα") + '</p>' +
+        '<h2 style="font-size:1.4rem;margin-top:.2rem">' +
+        esc(sec.title) +
+        '</h2><p style="color:var(--muted);margin:.4rem 0 0">' +
+        esc(sec.description) +
+        "</p></button>";
     });
     inner += "</div>";
     return siteShell(inner);
+  }
+
+  function mathSectionPage(id) {
+    const list = window.MATH_SECTIONS || [];
+    const sec = list.find(function (s) { return s.id === id; }) || list[0];
+    if (!sec) return mathPage();
+
+    var html = "";
+    html += '<a data-act="go" data-to="#/math" style="font-size:.85rem;color:var(--muted)">← Βασικά Μαθηματικά</a>';
+    html += '<p class="kicker" style="margin-top:1.4rem">' + esc(sec.kicker || "Βασικά Μαθηματικά") + '</p>';
+    html += '<h1 style="font-size:clamp(2rem,5vw,3rem);margin-top:.25rem;line-height:1.1">' + esc(sec.title) + '</h1>';
+    html += '<p class="lead" style="margin-top:.65rem">' + esc(sec.lead) + '</p>';
+    html += '<div style="display:flex;flex-direction:column;gap:1.5rem;margin-top:2rem;max-width:52rem">';
+
+    (sec.topics || []).forEach(function (t, ti) {
+      html += '<div class="card" style="padding:1.4rem 1.6rem;border-radius:1.2rem">';
+      html += '<div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.9rem">';
+      html += '<span style="display:grid;place-items:center;width:2.1rem;height:2.1rem;border-radius:50%;'
+            + 'background:var(--copper);color:var(--cream);font-weight:700;font-size:.95rem;flex-shrink:0">'
+            + (ti + 1) + '</span>';
+      html += '<h2 style="font-size:1.25rem;margin:0">' + esc(t.title) + '</h2>';
+      html += '</div>';
+
+      if (t.intro) {
+        html += '<p style="margin:.2rem 0 1rem;font-size:1.05rem;line-height:1.6;color:var(--ink-soft)">'
+              + renderLatex(t.intro) + '</p>';
+      }
+
+      if (t.def && t.def.length) {
+        html += '<div style="display:flex;flex-wrap:wrap;gap:.55rem;margin-bottom:1rem">';
+        t.def.forEach(function (d) {
+          html += '<div style="flex:1;min-width:10rem;background:rgba(196,92,38,.08);border:1px solid rgba(196,92,38,.22);'
+                + 'border-radius:.85rem;padding:.7rem .95rem">';
+          html += '<div style="font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;'
+                + 'color:var(--copper);margin-bottom:.25rem">' + esc(d.label) + '</div>';
+          html += '<div style="font-size:.97rem;color:var(--ink-soft)">' + esc(d.desc) + '</div>';
+          html += '</div>';
+        });
+        html += '</div>';
+      }
+
+      if (t.steps && t.steps.length) {
+        html += '<div style="display:flex;flex-direction:column;gap:.75rem">';
+        t.steps.forEach(function (s, si) {
+          var isLast = si === t.steps.length - 1;
+          html += '<div style="display:flex;gap:.9rem;align-items:flex-start">';
+          html += '<div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">';
+          html += '<div style="width:1.7rem;height:1.7rem;border-radius:50%;border:2px solid var(--copper);'
+                + 'display:grid;place-items:center;font-size:.78rem;font-weight:700;color:var(--copper);'
+                + 'background:var(--cream);z-index:1">' + (si + 1) + '</div>';
+          if (!isLast) {
+            html += '<div style="width:2px;flex:1;min-height:.8rem;background:rgba(196,92,38,.2);margin:.15rem 0"></div>';
+          }
+          html += '</div>';
+          html += '<div style="flex:1;padding-bottom:' + (isLast ? "0" : ".5rem") + '">';
+          html += '<div style="font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;'
+                + 'color:var(--copper);margin-bottom:.35rem">' + fmtStepLabel(s.label) + '</div>';
+          html += '<div style="background:var(--paper-2);border:1px solid var(--line);border-radius:.85rem;'
+                + 'padding:.8rem 1.1rem;font-size:1.25rem;text-align:center;overflow-x:auto">'
+                + renderLatex(s.latex) + '</div>';
+          if (s.note) {
+            html += '<p style="margin:.45rem .25rem 0;font-size:.92rem;color:var(--ink-soft);line-height:1.55">'
+                  + esc(s.note) + '</p>';
+          }
+          html += '</div>';
+          html += '</div>';
+        });
+        html += '</div>';
+      }
+
+      html += '</div>';
+    });
+
+    /* ── 20 Ασκήσεις Εξάσκησης στο τέλος ── */
+    if (sec.exercises && sec.exercises.length) {
+      html += '<div class="card" style="padding:1.6rem;border-radius:1.2rem;border:2px solid rgba(196,92,38,.28);margin-top:.8rem">';
+      html += '<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;border-bottom:1px solid var(--line);padding-bottom:1rem;margin-bottom:1.4rem">';
+      html += '<div>';
+      html += '<p class="kicker" style="margin:0 0 .2rem">Διαδραστική Εξάσκηση</p>';
+      html += '<h2 style="font-size:1.45rem;margin:0">' + sec.exercises.length + ' Ασκήσεις: Μετατροπή σε Δεκαδικό</h2>';
+      html += '<p style="color:var(--muted);margin:.3rem 0 0;font-size:.92rem">Συμπλήρωσε το αποτέλεσμα (με κόμμα ή τελεία) και πάτησε «Έλεγχος» ή Enter.</p>';
+      html += '</div>';
+      html += '<div style="display:flex;align-items:center;gap:.75rem">';
+      html += '<div id="math-practice-score" style="background:var(--paper-2);border:1px solid var(--line);border-radius:.8rem;padding:.45rem .95rem;font-weight:700;font-size:.95rem">';
+      html += 'Σκορ: <span id="math-score-num">0</span> / ' + sec.exercises.length;
+      html += '</div>';
+      html += '<button class="btn btn-ghost" data-act="math-reset-all" style="min-height:2.4rem;padding:0 .9rem;font-size:.85rem">Επαναφορά</button>';
+      html += '</div>';
+      html += '</div>';
+
+      html += '<div class="grid-2" style="gap:1rem">';
+      sec.exercises.forEach(function (ex, i) {
+        html += '<div class="card math-practice-item" data-idx="' + i + '" style="background:var(--paper);border:1px solid var(--line);border-radius:1rem;padding:1rem 1.15rem;display:flex;flex-direction:column;gap:.65rem">';
+        html += '<div style="display:flex;align-items:center;justify-content:space-between">';
+        html += '<span style="font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--copper)">Άσκηση ' + (i + 1) + '</span>';
+        html += '<span class="math-item-status" style="font-size:.82rem;font-weight:700"></span>';
+        html += '</div>';
+        html += '<div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">';
+        html += '<div style="font-size:1.35rem;min-width:4.2rem;text-align:center">' + renderLatex(ex.latex + " = ") + '</div>';
+        html += '<input type="text" class="math-practice-input" data-idx="' + i + '" placeholder="0,..." autocomplete="off" style="width:6.2rem;height:2.6rem;padding:0 .5rem;text-align:center;font-size:1.15rem;font-weight:600;border-radius:.6rem;border:1px solid var(--line);background:var(--paper-2);color:inherit;outline:none">';
+        html += '<button class="btn btn-copper" data-act="math-check-item" data-idx="' + i + '" style="min-height:2.6rem;padding:0 .9rem;font-size:.85rem">Έλεγχος</button>';
+        html += '</div>';
+        html += '<div class="math-item-feedback" style="display:none;font-size:.88rem;line-height:1.45;padding:.5rem .75rem;border-radius:.6rem"></div>';
+        html += '</div>';
+      });
+      html += '</div>';
+      html += '</div>';
+    }
+
+    html += '</div>';
+    return siteShell(html);
   }
 
   function home() {
@@ -1386,6 +1540,7 @@ window.KIND_LABEL = {
     else if (r.name === "grade") root.innerHTML = gradePage(r.id);
     else if (r.name === "links") root.innerHTML = linksPage();
     else if (r.name === "math") root.innerHTML = mathPage();
+    else if (r.name === "math-section") root.innerHTML = mathSectionPage(r.id);
     else if (r.name === "simulations") root.innerHTML = simulationsPage();
     else if (r.name === "simulation") {
       const simulation = SIMULATIONS.find(function (item) {
@@ -1446,10 +1601,119 @@ window.KIND_LABEL = {
     });
   }
 
+  function checkMathItem(idx) {
+    const itemEl = document.querySelector('.math-practice-item[data-idx="' + idx + '"]');
+    if (!itemEl) return;
+    const input = itemEl.querySelector('.math-practice-input');
+    const status = itemEl.querySelector('.math-item-status');
+    const feedback = itemEl.querySelector('.math-item-feedback');
+    if (!input || !status || !feedback) return;
+
+    const valStr = input.value.trim().replace(',', '.');
+    const num = parseFloat(valStr);
+
+    const sec = (window.MATH_SECTIONS || []).find(function (s) { return s.id === "dekadika-klasmata"; }) || (window.MATH_SECTIONS && window.MATH_SECTIONS[0]);
+    const ex = sec && sec.exercises && sec.exercises[idx];
+    if (!ex) return;
+
+    if (valStr === "" || isNaN(num)) {
+      status.style.color = "var(--wrong, #e07a5f)";
+      status.textContent = "Συμπλήρωσε αριθμό";
+      return;
+    }
+
+    const isOk = Math.abs(num - ex.value) < 1e-5;
+    if (isOk) {
+      status.style.color = "var(--correct, #2e7d32)";
+      status.textContent = "✓ Σωστό!";
+      input.style.borderColor = "var(--correct, #2e7d32)";
+      input.style.backgroundColor = "rgba(143,219,154,.15)";
+      feedback.style.display = "block";
+      feedback.style.backgroundColor = "rgba(143,219,154,.12)";
+      feedback.innerHTML = "<b>Μπράβο!</b> " + esc(ex.explain);
+      itemEl.setAttribute("data-solved", "1");
+    } else {
+      status.style.color = "var(--wrong, #e07a5f)";
+      status.textContent = "✗ Λάθος";
+      input.style.borderColor = "var(--wrong, #e07a5f)";
+      input.style.backgroundColor = "rgba(224,122,95,.12)";
+      feedback.style.display = "block";
+      feedback.style.backgroundColor = "rgba(224,122,95,.1)";
+      feedback.innerHTML = "Προσπάθησε ξανά! <button class=\"btn btn-ghost\" data-act=\"math-reveal\" data-idx=\"" + idx + "\" style=\"min-height:1.7rem;padding:0 .5rem;font-size:.78rem;margin-left:.4rem\">Δες τη λύση</button>";
+      itemEl.removeAttribute("data-solved");
+    }
+    updateMathScore();
+  }
+
+  function revealMathItem(idx) {
+    const itemEl = document.querySelector('.math-practice-item[data-idx="' + idx + '"]');
+    if (!itemEl) return;
+    const input = itemEl.querySelector('.math-practice-input');
+    const status = itemEl.querySelector('.math-item-status');
+    const feedback = itemEl.querySelector('.math-item-feedback');
+    if (!input || !status || !feedback) return;
+
+    const sec = (window.MATH_SECTIONS || []).find(function (s) { return s.id === "dekadika-klasmata"; }) || (window.MATH_SECTIONS && window.MATH_SECTIONS[0]);
+    const ex = sec && sec.exercises && sec.exercises[idx];
+    if (!ex) return;
+
+    input.value = String(ex.value).replace('.', ',');
+    input.style.borderColor = "var(--copper)";
+    input.style.backgroundColor = "rgba(196,92,38,.12)";
+    status.style.color = "var(--copper)";
+    status.textContent = "Λύση";
+    feedback.style.display = "block";
+    feedback.style.backgroundColor = "rgba(196,92,38,.08)";
+    feedback.innerHTML = "<b>Αποτέλεσμα:</b> " + esc(ex.explain);
+    itemEl.removeAttribute("data-solved");
+    updateMathScore();
+  }
+
+  function resetAllMathItems() {
+    const items = document.querySelectorAll('.math-practice-item');
+    items.forEach(function (itemEl) {
+      itemEl.removeAttribute("data-solved");
+      const input = itemEl.querySelector('.math-practice-input');
+      const status = itemEl.querySelector('.math-item-status');
+      const feedback = itemEl.querySelector('.math-item-feedback');
+      if (input) {
+        input.value = "";
+        input.style.borderColor = "";
+        input.style.backgroundColor = "";
+      }
+      if (status) status.textContent = "";
+      if (feedback) {
+        feedback.style.display = "none";
+        feedback.innerHTML = "";
+      }
+    });
+    updateMathScore();
+  }
+
+  function updateMathScore() {
+    const solved = document.querySelectorAll('.math-practice-item[data-solved="1"]').length;
+    const scoreEl = document.getElementById("math-score-num");
+    if (scoreEl) scoreEl.textContent = solved;
+  }
+
   document.addEventListener("click", function (e) {
     const el = e.target.closest("[data-act]");
     if (!el) return;
     const act = el.getAttribute("data-act");
+    if (act === "math-check-item") {
+      const idx = Number(el.getAttribute("data-idx"));
+      checkMathItem(idx);
+      return;
+    }
+    if (act === "math-reveal") {
+      const idx = Number(el.getAttribute("data-idx"));
+      revealMathItem(idx);
+      return;
+    }
+    if (act === "math-reset-all") {
+      resetAllMathItems();
+      return;
+    }
     if (act === "nav-section-toggle") {
       const section = el.getAttribute("data-section");
       state.navSection = el.getAttribute("data-expanded") === "true" ? null : section;
@@ -1605,6 +1869,14 @@ window.KIND_LABEL = {
     patchAnswer({ calc: e.target.value });
     const btn = document.querySelector('[data-act="check"]');
     if (btn) btn.disabled = parseNumber(e.target.value) === null;
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && e.target && e.target.classList.contains("math-practice-input")) {
+      e.preventDefault();
+      const idx = Number(e.target.getAttribute("data-idx"));
+      if (!isNaN(idx)) checkMathItem(idx);
+    }
   });
 
   window.addEventListener("hashchange", function () {
