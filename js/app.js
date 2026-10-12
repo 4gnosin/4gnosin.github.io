@@ -170,6 +170,9 @@ window.KIND_LABEL = {
     if (parts[0] === "links") return { name: "links" };
     if (parts[0] === "math") {
       if (!parts[1]) return { name: "math" };
+      if (parts[2]) return { name: "math-section", id: parts[2], categoryId: parts[1] };
+      if ((window.MATH_CATEGORIES || []).some(function (category) { return category.id === parts[1]; }))
+        return { name: "math-category", id: parts[1] };
       return { name: "math-section", id: parts[1] };
     }
     if (parts[0] === "simulations") {
@@ -747,7 +750,7 @@ window.KIND_LABEL = {
     inner +=
       '<div class="grid-2" style="margin-top:1.6rem">' +
       '<button class="card" data-act="go" data-to="#/links" style="text-align:left;display:block;width:100%"><p class="kicker">Χρήσιμα</p><h2 style="font-size:1.3rem;margin-top:.2rem">Χρήσιμα Links</h2><p style="color:var(--muted);margin:.35rem 0 0">Σύνδεσμοι για μαθήματα και το σχολείο.</p></button>' +
-      '<button class="card" data-act="go" data-to="#/math" style="text-align:left;display:block;width:100%"><p class="kicker">Γρήγορη αναφορά</p><h2 style="font-size:1.3rem;margin-top:.2rem">Βασικά Μαθηματικά</h2><p style="color:var(--muted);margin:.35rem 0 0">Δεκαδικά κλάσματα και μεθοδολογίες μετατροπής σε δεκαδικό αριθμό.</p></button>' +
+      '<button class="card" data-act="go" data-to="#/math" style="text-align:left;display:block;width:100%"><p class="kicker">Γρήγορη αναφορά</p><h2 style="font-size:1.3rem;margin-top:.2rem">Βασικά Μαθηματικά</h2><p style="color:var(--muted);margin:.35rem 0 0">Προαπαιτούμενες γνώσεις, ταυτότητες και μαθηματικά για όλους.</p></button>' +
       "</div>";
     inner +=
       '<div style="margin-top:2rem;font-size:.85rem;color:var(--muted);line-height:1.6">' +
@@ -866,23 +869,24 @@ window.KIND_LABEL = {
   }
 
   function mathPage() {
-    const list = window.MATH_SECTIONS || [
+    const categories = window.MATH_CATEGORIES || [];
+    const list = categories.length ? categories : (window.MATH_SECTIONS || [
       {
         id: "dekadika-klasmata",
         title: "Δεκαδικά Κλάσματα",
         kicker: "Βασικά Μαθηματικά",
         description: "Ορισμός κλάσματος και αναλυτικές μεθοδολογίες μετατροπής σε δεκαδικό αριθμό με βήματα."
       }
-    ];
+    ]);
     let inner = '<a data-act="go" data-to="#/" style="font-size:.85rem;color:var(--muted)">← Αρχική</a>';
     inner += '<p class="kicker" style="margin-top:1.2rem">Γρήγορη αναφορά</p>';
     inner += '<h1 style="font-size:clamp(2rem,5vw,3rem);margin-top:.2rem">Βασικά Μαθηματικά</h1>';
-    inner += '<p class="lead" style="margin-top:.6rem">Επίλεξε ενότητα για να δεις τη θεωρία, τους ορισμούς και τις μεθοδολογίες βήμα-βήμα.</p>';
+    inner += '<p class="lead" style="margin-top:.6rem">Επίλεξε κατηγορία για να δεις τις υποκατηγορίες και το εκπαιδευτικό υλικό.</p>';
     inner += '<div class="grid-2" style="margin-top:1.6rem">';
     list.forEach(function (sec) {
       inner +=
-        '<button class="card" data-act="go" data-to="#/math/' +
-        esc(sec.id) +
+        '<button class="card" data-act="go" data-to="' +
+        esc("#/math/" + sec.id) +
         '" style="text-align:left;display:block;width:100%">' +
         '<p class="kicker">' + esc(sec.kicker || "Ενότητα") + '</p>' +
         '<h2 style="font-size:1.4rem;margin-top:.2rem">' +
@@ -895,13 +899,46 @@ window.KIND_LABEL = {
     return siteShell(inner);
   }
 
-  function mathSectionPage(id) {
+  function mathCategoryPage(id) {
+    const category = (window.MATH_CATEGORIES || []).find(function (item) { return item.id === id; });
+    if (!category) return mathPage();
+    let inner = '<a data-act="go" data-to="#/math" style="font-size:.85rem;color:var(--muted)">← Βασικά Μαθηματικά</a>';
+    inner += '<p class="kicker" style="margin-top:1.2rem">' + esc(category.kicker || "Βασικά Μαθηματικά") + '</p>';
+    inner += '<h1 style="font-size:clamp(2rem,5vw,3rem);margin-top:.2rem">' + esc(category.title) + '</h1>';
+    inner += '<p class="lead" style="margin-top:.6rem">' + esc(category.description || "") + '</p>';
+    inner += '<div class="grid-2" style="margin-top:1.6rem">';
+    (category.subcategories || []).forEach(function (section) {
+      inner +=
+        '<button class="card" data-act="go" data-to="#/math/' +
+        esc(category.id) +
+        '/' +
+        esc(section.id) +
+        '" style="text-align:left;display:block;width:100%">' +
+        '<p class="kicker">' + esc(section.kicker || category.title) + '</p>' +
+        '<h2 style="font-size:1.4rem;margin-top:.2rem">' + esc(section.title) + '</h2>' +
+        '<p style="color:var(--muted);margin:.4rem 0 0">' + esc(section.description || "") + '</p></button>';
+    });
+    inner += "</div>";
+    return siteShell(inner);
+  }
+
+  function mathSectionPage(id, categoryId) {
     const list = window.MATH_SECTIONS || [];
-    const sec = list.find(function (s) { return s.id === id; }) || list[0];
+    const categories = window.MATH_CATEGORIES || [];
+    const category = categoryId
+      ? categories.find(function (item) { return item.id === categoryId; })
+      : null;
+    if (categoryId && !category) return mathPage();
+    const sec = categoryId
+      ? (category.subcategories || []).find(function (item) { return item.id === id; })
+      : list.find(function (s) { return s.id === id; }) || list[0];
+    if (categoryId && !sec) return mathCategoryPage(categoryId);
     if (!sec) return mathPage();
 
     var html = "";
-    html += '<a data-act="go" data-to="#/math" style="font-size:.85rem;color:var(--muted)">← Βασικά Μαθηματικά</a>';
+    html += category
+      ? '<a data-act="go" data-to="#/math/' + esc(category.id) + '" style="font-size:.85rem;color:var(--muted)">← ' + esc(category.title) + '</a>'
+      : '<a data-act="go" data-to="#/math" style="font-size:.85rem;color:var(--muted)">← Βασικά Μαθηματικά</a>';
     html += '<p class="kicker" style="margin-top:1.4rem">' + esc(sec.kicker || "Βασικά Μαθηματικά") + '</p>';
     html += '<h1 style="font-size:clamp(2rem,5vw,3rem);margin-top:.25rem;line-height:1.1">' + esc(sec.title) + '</h1>';
     html += '<p class="lead" style="margin-top:.65rem">' + esc(sec.lead) + '</p>';
@@ -1540,7 +1577,8 @@ window.KIND_LABEL = {
     else if (r.name === "grade") root.innerHTML = gradePage(r.id);
     else if (r.name === "links") root.innerHTML = linksPage();
     else if (r.name === "math") root.innerHTML = mathPage();
-    else if (r.name === "math-section") root.innerHTML = mathSectionPage(r.id);
+    else if (r.name === "math-category") root.innerHTML = mathCategoryPage(r.id);
+    else if (r.name === "math-section") root.innerHTML = mathSectionPage(r.id, r.categoryId);
     else if (r.name === "simulations") root.innerHTML = simulationsPage();
     else if (r.name === "simulation") {
       const simulation = SIMULATIONS.find(function (item) {
