@@ -42,6 +42,14 @@ window.KIND_LABEL = {
       mount: "mountFreshWaterGenerator",
       containerId: "simulation-app",
     },
+    {
+      id: "hydrophore",
+      title: "Υδροφορικό δοχείο γλυκού νερού (Hydrophore)",
+      description: "Προσομοίωση υδροφορικού συστήματος πλοίου, αεροφυλακίου, πρεσσοστάτη, στραγγαλισμού κατάθλιψης και συμπλήρωσης πεπιεσμένου αέρα.",
+      intro: "Διαδραστική προσομοίωση πιεστικού δοχείου (Hydrophore) γλυκού νερού πλοίου. Στραγγαλισμός επιστομίου κατάθλιψης αντλίας (έως 7.3 Bar), προστασία ασφαλιστικού (7.0 Bar), βάνα εξαέρωσης συντήρησης, ρύθμιση πρεσσοστάτη και συμπλήρωση πεπιεσμένου αέρα (6.0–7.0 Bar).",
+      mount: "mountHydrophore",
+      containerId: "simulation-app",
+    },
   ];
   let ctx = {
     id: "thermo",
