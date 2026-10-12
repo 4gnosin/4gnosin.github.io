@@ -34,7 +34,7 @@
   </div>
 </div>
 
-<div data-hydro="alarm-banner" class="hydro-alarm-banner"></div>
+<div data-hydro="alarm-banner" class="hydro-alarm-banner" role="status" aria-live="polite" aria-atomic="true"></div>
 
 <div class="hydro-layout">
   <!-- Αριστερή Στήλη: Σχηματικό Διάγραμμα & Μετρήσεις -->
@@ -519,6 +519,17 @@
   window.mountHydrophore = function (container) {
     if (!container) throw new Error("Hydrophore container not found.");
     container.innerHTML = template;
+    const layout = container.querySelector(".hydro-layout");
+    const aside = layout && layout.querySelector("aside");
+    const simulation = layout && layout.querySelector("section.hydro-panel");
+    const theory = container.querySelector(".hydro-theory-details");
+    if (!layout || !aside || !simulation || !theory)
+      throw new Error("Hydrophore layout, controls, or theory section is missing.");
+    const mainColumn = document.createElement("div");
+    mainColumn.className = "hydro-main-column";
+    layout.insertBefore(mainColumn, aside);
+    mainColumn.appendChild(simulation);
+    mainColumn.appendChild(theory);
 
     const $ = function (selector) {
       if (selector.startsWith("[data-hydro")) {
@@ -819,25 +830,27 @@
         modeColor = "#f59e0b";
       }
       $("val-pump-status").textContent = modeText;
+      $("val-pump-status").title = modeText;
       $("val-pump-status").style.color = modeColor;
       $("sub-pump-starts").textContent = `Κατάθλιψη: ${Math.round(state.dischValve * 100)}% | Εκκιν.: ${startsPerMin}/min`;
 
       // 2. Alarm Banner
       const banner = $("alarm-banner");
+      let bannerClass = "hydro-alarm-banner";
+      let bannerMessage = "";
       if (state.safetyPopped) {
-        banner.className = "hydro-alarm-banner hunting";
-        banner.style.display = "flex";
-        banner.innerHTML = `⚠️ <b>ΑΣΦΑΛΙΣΤΙΚΟ ΕΠΙΣΤΟΜΙΟ ΑΝΟΙΧΤΟ (7.0 Bar):</b> Υπέρβαση μέγιστης πίεσης (${state.pressure.toFixed(2)} Bar &ge; 7.0 Bar)! Εκτόνωση! Χάνεται πεπιεσμένος αέρας από το αερομαξιλάρι!`;
+        bannerClass += " safety";
+        bannerMessage = "⚠️ <b>ΑΣΦΑΛΙΣΤΙΚΟ ΕΠΙΣΤΟΜΙΟ ΑΝΟΙΧΤΟ (7.0 Bar):</b> Υπέρβαση μέγιστης πίεσης! Εκτόνωση! Χάνεται πεπιεσμένος αέρας από το αερομαξιλάρι!";
       } else if (state.huntingAlarm) {
-        banner.className = "hydro-alarm-banner hunting";
-        banner.style.display = "flex";
-        banner.innerHTML = `⚠️ <b>ΣΥΝΑΓΕΡΜΟΣ HUNTING ΑΝΤΛΙΑΣ:</b> Υπερβολικά συχνές εκκινήσεις (${startsPerMin}/λεπτό)! Το δοχείο είναι υδρόπληκτο. Κίνδυνος καψίματος του ηλεκτροκινητήρα!`;
+        bannerClass += " hunting";
+        bannerMessage = "⚠️ <b>ΣΥΝΑΓΕΡΜΟΣ HUNTING ΑΝΤΛΙΑΣ:</b> Υπερβολικά συχνές εκκινήσεις! Το δοχείο είναι υδρόπληκτο. Κίνδυνος καψίματος του ηλεκτροκινητήρα!";
       } else if (state.stepCompleted[6]) {
-        banner.className = "hydro-alarm-banner success";
-        banner.style.display = "flex";
-        banner.innerHTML = `🎉 <b>ΕΠΙΤΥΧΙΑ:</b> Το υδροφορικό λειτουργεί άριστα! Στραγγαλισμένη κατάθλιψη, σωστός αεροθύλακας, καμία διαφυγή από το ασφαλιστικό των 7.0 Bar.`;
-      } else {
-        banner.style.display = "none";
+        bannerClass += " success";
+        bannerMessage = "🎉 <b>ΕΠΙΤΥΧΙΑ:</b> Το υδροφορικό λειτουργεί άριστα! Στραγγαλισμένη κατάθλιψη, σωστός αεροθύλακας, καμία διαφυγή από το ασφαλιστικό των 7.0 Bar.";
+      }
+      if (banner.className !== bannerClass || banner.innerHTML !== bannerMessage) {
+        banner.className = bannerClass;
+        banner.innerHTML = bannerMessage;
       }
 
       // 3. SVG Elements
