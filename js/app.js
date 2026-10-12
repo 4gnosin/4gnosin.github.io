@@ -1039,6 +1039,32 @@ window.KIND_LABEL = {
       html += '</div>';
     }
 
+    if (sec.exerciseGroups && sec.exerciseGroups.length) {
+      html += '<p style="margin:1.4rem 0 .5rem;color:var(--muted);font-size:.92rem">Γράψε τις δυνάμεις με ^ (π.χ. x^2). Ο πολλαπλασιασμός μπορεί να γραφτεί με ή χωρίς * (π.χ. 3*x ή 3x).</p>';
+      sec.exerciseGroups.forEach(function (group, gi) {
+        html += '<div class="card" style="padding:1.4rem;border-radius:1.2rem;border:2px solid rgba(196,92,38,.28);margin-top:1.2rem">';
+        html += '<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;border-bottom:1px solid var(--line);padding-bottom:1rem;margin-bottom:1.2rem">';
+        html += '<div><p class="kicker" style="margin:0 0 .2rem">Διαδραστική Εξάσκηση</p>';
+        html += '<h2 style="font-size:1.35rem;margin:0">' + esc(group.title) + '</h2>';
+        html += '<p style="color:var(--muted);margin:.3rem 0 0;font-size:.92rem">' + esc(group.description || "Γράψε την ισοδύναμη παράσταση και πάτησε «Έλεγχος» ή Enter.") + '</p></div>';
+        html += '<div style="background:var(--paper-2);border:1px solid var(--line);border-radius:.8rem;padding:.45rem .95rem;font-weight:700;font-size:.95rem">Σκορ: <span class="algebra-score" data-group="' + gi + '">0</span> / ' + group.items.length + '</div>';
+        html += '</div><div class="grid-2" style="gap:1rem">';
+        group.items.forEach(function (ex, ei) {
+          html += '<div class="card algebra-practice-item" data-group="' + gi + '" data-idx="' + ei + '" data-mode="' + esc(ex.mode || group.mode || "expanded") + '" style="background:var(--paper);border:1px solid var(--line);border-radius:1rem;padding:1rem 1.15rem;display:flex;flex-direction:column;gap:.65rem">';
+          html += '<div style="display:flex;align-items:center;justify-content:space-between"><span style="font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--copper)">Άσκηση ' + (ei + 1) + '</span><span class="math-item-status" style="font-size:.82rem;font-weight:700"></span></div>';
+          html += '<p style="margin:0;color:var(--muted);font-size:.9rem">' + esc(ex.instruction || group.instruction || "") + '</p>';
+          html += '<div style="font-size:1.2rem;overflow-x:auto">' + renderLatex("\\(" + ex.prompt + "\\)") + '</div>';
+          html += '<div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">';
+          html += '<input type="text" class="algebra-practice-input" data-group="' + gi + '" data-idx="' + ei + '" aria-label="Απάντηση στην άσκηση ' + (ei + 1) + '" placeholder="π.χ. (x+1)^2" autocomplete="off" style="flex:1;min-width:12rem;height:2.6rem;padding:0 .65rem;font-size:1rem;border-radius:.6rem;border:1px solid var(--line);background:var(--paper-2);color:inherit;outline:none">';
+          html += '<button class="btn btn-copper" data-act="math-check-algebra" data-group="' + gi + '" data-idx="' + ei + '" style="min-height:2.6rem;padding:0 .9rem;font-size:.85rem">Έλεγχος</button></div>';
+          html += '<div class="math-item-feedback" style="display:none;font-size:.88rem;line-height:1.55;padding:.5rem .75rem;border-radius:.6rem"></div>';
+          html += '</div>';
+        });
+        html += '</div></div>';
+      });
+      html += '<p style="margin-top:1rem"><button class="btn btn-ghost" data-act="math-reset-all">Επαναφορά απαντήσεων</button></p>';
+    }
+
     html += '</div>';
     return siteShell(html);
   }
@@ -1639,6 +1665,219 @@ window.KIND_LABEL = {
     });
   }
 
+  function tokenizeAlgebra(input) {
+    const source = input.replace(/[\s\u00a0]/g, "").replace(/[−–]/g, "-").replace(/[×·]/g, "*");
+    if (source.length > 200) throw new Error("expression too large");
+    const tokens = source.match(/\d+|[a-zA-Z]|[()+\-*^]/g) || [];
+    if (!source || tokens.join("") !== source) throw new Error("invalid syntax");
+    return tokens;
+  }
+
+  function polynomialConstant(value) {
+    return { "0,0,0,0,0,0": value };
+  }
+
+  function polynomialVariable(variable) {
+    const powers = [0, 0, 0, 0, 0, 0];
+    const index = ["a", "b", "c", "x", "y", "z"].indexOf(variable);
+    if (index < 0) throw new Error("unsupported variable");
+    powers[index] = 1;
+    const result = {};
+    result[powers.join(",")] = 1;
+    return result;
+  }
+
+  function addPolynomials(left, right, sign) {
+    const result = Object.assign({}, left);
+    Object.keys(right).forEach(function (key) {
+      result[key] = (result[key] || 0) + sign * right[key];
+      if (!Number.isSafeInteger(result[key])) throw new Error("coefficient too large");
+      if (result[key] === 0) delete result[key];
+      if (Object.keys(result).length > 200) throw new Error("expression too large");
+    });
+    return result;
+  }
+
+  function multiplyPolynomials(left, right) {
+    const result = {};
+    Object.keys(left).forEach(function (leftKey) {
+      Object.keys(right).forEach(function (rightKey) {
+        const powers = leftKey.split(",").map(function (power, index) {
+          return Number(power) + Number(rightKey.split(",")[index]);
+        });
+        if (powers.some(function (power) { return power > 12; }))
+          throw new Error("expression too large");
+        const key = powers.join(",");
+        result[key] = (result[key] || 0) + left[leftKey] * right[rightKey];
+        if (!Number.isSafeInteger(result[key])) throw new Error("coefficient too large");
+        if (result[key] === 0) delete result[key];
+        if (Object.keys(result).length > 200) throw new Error("expression too large");
+      });
+    });
+    return result;
+  }
+
+  function parseAlgebra(input) {
+    const tokens = tokenizeAlgebra(input);
+    let position = 0;
+    function peek() { return tokens[position]; }
+    function parseExpression() {
+      let result = parseProduct();
+      while (peek() === "+" || peek() === "-") {
+        const sign = peek() === "+" ? 1 : -1;
+        position++;
+        result = {
+          polynomial: addPolynomials(result.polynomial, parseProduct().polynomial, sign),
+          root: "sum"
+        };
+      }
+      return result;
+    }
+    function startsFactor(token) {
+      return token && (/^\d+$/.test(token) || /^[a-zA-Z]$/.test(token) || token === "(");
+    }
+    function parseProduct() {
+      let result = parseUnary();
+      while (peek() === "*" || startsFactor(peek())) {
+        if (peek() === "*") position++;
+        const next = parseUnary();
+        result = { polynomial: multiplyPolynomials(result.polynomial, next.polynomial), root: "product" };
+      }
+      return result;
+    }
+    function parseUnary() {
+      if (peek() === "+" || peek() === "-") {
+        const negative = peek() === "-";
+        position++;
+        const value = parseUnary();
+        if (!negative) return value;
+        const polynomial = {};
+        Object.keys(value.polynomial).forEach(function (key) {
+          polynomial[key] = -value.polynomial[key];
+        });
+        return { polynomial: polynomial, root: "unary" };
+      }
+      let value;
+      if (peek() === "(") {
+        position++;
+        value = parseExpression();
+        if (peek() !== ")") throw new Error("unclosed parenthesis");
+        position++;
+      } else if (/^\d+$/.test(peek() || "")) {
+        value = { polynomial: polynomialConstant(Number(peek())), root: "number" };
+        position++;
+      } else if (/^[a-zA-Z]$/.test(peek() || "")) {
+        value = { polynomial: polynomialVariable(peek().toLowerCase()), root: "variable" };
+        position++;
+      } else {
+        throw new Error("expected term");
+      }
+      while (peek() === "^") {
+        position++;
+        if (!/^\d+$/.test(peek() || "")) throw new Error("invalid exponent");
+        const exponent = Number(peek());
+        position++;
+        if (exponent > 8) throw new Error("expression too large");
+        let polynomial = polynomialConstant(1);
+        for (let i = 0; i < exponent; i++)
+          polynomial = multiplyPolynomials(polynomial, value.polynomial);
+        value = { polynomial: polynomial, root: "power" };
+      }
+      return value;
+    }
+    const parsed = parseExpression();
+    if (position !== tokens.length) throw new Error("unexpected token");
+    return parsed;
+  }
+
+  function checkMathAlgebra(groupIndex, idx) {
+    const itemEl = document.querySelector('.algebra-practice-item[data-group="' + groupIndex + '"][data-idx="' + idx + '"]');
+    if (!itemEl) return;
+    const input = itemEl.querySelector(".algebra-practice-input");
+    const status = itemEl.querySelector(".math-item-status");
+    const feedback = itemEl.querySelector(".math-item-feedback");
+    const section = window.MATH_SUBCATEGORIES && window.MATH_SUBCATEGORIES.tautotites;
+    const group = section && section.exerciseGroups && section.exerciseGroups[groupIndex];
+    const exercise = group && group.items[idx];
+    if (!input || !status || !feedback || !exercise) return;
+
+    const answer = input.value.trim();
+    if (!answer) {
+      itemEl.removeAttribute("data-solved");
+      status.style.color = "var(--wrong, #e07a5f)";
+      status.textContent = "Συμπλήρωσε απάντηση";
+      input.style.borderColor = "var(--wrong, #e07a5f)";
+      input.style.backgroundColor = "rgba(224,122,95,.12)";
+      feedback.style.display = "none";
+      updateMathScore();
+      return;
+    }
+    let parsed;
+    let expected;
+    try {
+      parsed = parseAlgebra(answer);
+      expected = parseAlgebra(exercise.answer);
+    } catch (error) {
+      itemEl.removeAttribute("data-solved");
+      status.style.color = "var(--wrong, #e07a5f)";
+      status.textContent = "Μη έγκυρη παράσταση";
+      input.style.borderColor = "var(--wrong, #e07a5f)";
+      input.style.backgroundColor = "rgba(224,122,95,.12)";
+      feedback.style.display = "block";
+      feedback.style.backgroundColor = "rgba(224,122,95,.1)";
+      feedback.textContent = "Χρησιμοποίησε αριθμούς, μεταβλητές a, b, c, x, y, z, παρενθέσεις και δυνάμεις με ^.";
+      updateMathScore();
+      return;
+    }
+    const keys = Object.keys(parsed.polynomial).concat(Object.keys(expected.polynomial));
+    const samePolynomial = keys.every(function (key) {
+      return (parsed.polynomial[key] || 0) === (expected.polynomial[key] || 0);
+    });
+    const needsFactors = itemEl.getAttribute("data-mode") === "factored";
+    const hasFactorForm = parsed.root === "product" || parsed.root === "power";
+    if (samePolynomial && (!needsFactors || hasFactorForm)) {
+      status.style.color = "var(--correct, #2e7d32)";
+      status.textContent = "✓ Σωστό!";
+      input.style.borderColor = "var(--correct, #2e7d32)";
+      input.style.backgroundColor = "rgba(143,219,154,.15)";
+      feedback.style.display = "block";
+      feedback.style.backgroundColor = "rgba(143,219,154,.12)";
+      feedback.innerHTML = "<b>Μπράβο!</b> Ισοδύναμη παράσταση: " + renderLatex("\\(" + exercise.solution + "\\)");
+      itemEl.setAttribute("data-solved", "1");
+    } else {
+      status.style.color = "var(--wrong, #e07a5f)";
+      status.textContent = samePolynomial ? "Γράψε γινόμενο παραγόντων" : "✗ Λάθος";
+      input.style.borderColor = "var(--wrong, #e07a5f)";
+      input.style.backgroundColor = "rgba(224,122,95,.12)";
+      feedback.style.display = "block";
+      feedback.style.backgroundColor = "rgba(224,122,95,.1)";
+      feedback.innerHTML = "Προσπάθησε ξανά! <button class=\"btn btn-ghost\" data-act=\"math-reveal-algebra\" data-group=\"" + groupIndex + "\" data-idx=\"" + idx + "\" style=\"min-height:1.7rem;padding:0 .5rem;font-size:.78rem;margin-left:.4rem\">Δες τη λύση</button>";
+      itemEl.removeAttribute("data-solved");
+    }
+    updateMathScore();
+  }
+
+  function revealMathAlgebra(groupIndex, idx) {
+    const itemEl = document.querySelector('.algebra-practice-item[data-group="' + groupIndex + '"][data-idx="' + idx + '"]');
+    const section = window.MATH_SUBCATEGORIES && window.MATH_SUBCATEGORIES.tautotites;
+    const group = section && section.exerciseGroups && section.exerciseGroups[groupIndex];
+    const exercise = group && group.items[idx];
+    if (!itemEl || !exercise) return;
+    const input = itemEl.querySelector(".algebra-practice-input");
+    const status = itemEl.querySelector(".math-item-status");
+    const feedback = itemEl.querySelector(".math-item-feedback");
+    input.value = exercise.solution;
+    input.style.borderColor = "var(--copper)";
+    input.style.backgroundColor = "rgba(196,92,38,.12)";
+    status.style.color = "var(--copper)";
+    status.textContent = "Λύση";
+    feedback.style.display = "block";
+    feedback.style.backgroundColor = "rgba(196,92,38,.08)";
+    feedback.innerHTML = "<b>Αποτέλεσμα:</b> " + renderLatex("\\(" + exercise.solution + "\\)");
+    itemEl.removeAttribute("data-solved");
+    updateMathScore();
+  }
+
   function checkMathItem(idx) {
     const itemEl = document.querySelector('.math-practice-item[data-idx="' + idx + '"]');
     if (!itemEl) return;
@@ -1708,10 +1947,10 @@ window.KIND_LABEL = {
   }
 
   function resetAllMathItems() {
-    const items = document.querySelectorAll('.math-practice-item');
+    const items = document.querySelectorAll('.math-practice-item, .algebra-practice-item');
     items.forEach(function (itemEl) {
       itemEl.removeAttribute("data-solved");
-      const input = itemEl.querySelector('.math-practice-input');
+      const input = itemEl.querySelector('.math-practice-input, .algebra-practice-input');
       const status = itemEl.querySelector('.math-item-status');
       const feedback = itemEl.querySelector('.math-item-feedback');
       if (input) {
@@ -1732,6 +1971,10 @@ window.KIND_LABEL = {
     const solved = document.querySelectorAll('.math-practice-item[data-solved="1"]').length;
     const scoreEl = document.getElementById("math-score-num");
     if (scoreEl) scoreEl.textContent = solved;
+    document.querySelectorAll(".algebra-score").forEach(function (score) {
+      const group = score.getAttribute("data-group");
+      score.textContent = document.querySelectorAll('.algebra-practice-item[data-group="' + group + '"][data-solved="1"]').length;
+    });
   }
 
   document.addEventListener("click", function (e) {
@@ -1741,6 +1984,14 @@ window.KIND_LABEL = {
     if (act === "math-check-item") {
       const idx = Number(el.getAttribute("data-idx"));
       checkMathItem(idx);
+      return;
+    }
+    if (act === "math-check-algebra") {
+      checkMathAlgebra(Number(el.getAttribute("data-group")), Number(el.getAttribute("data-idx")));
+      return;
+    }
+    if (act === "math-reveal-algebra") {
+      revealMathAlgebra(Number(el.getAttribute("data-group")), Number(el.getAttribute("data-idx")));
       return;
     }
     if (act === "math-reveal") {
@@ -1914,6 +2165,10 @@ window.KIND_LABEL = {
       e.preventDefault();
       const idx = Number(e.target.getAttribute("data-idx"));
       if (!isNaN(idx)) checkMathItem(idx);
+    }
+    if (e.key === "Enter" && e.target && e.target.classList.contains("algebra-practice-input")) {
+      e.preventDefault();
+      checkMathAlgebra(Number(e.target.getAttribute("data-group")), Number(e.target.getAttribute("data-idx")));
     }
   });
 
