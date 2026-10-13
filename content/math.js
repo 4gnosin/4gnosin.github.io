@@ -5,7 +5,10 @@ window.MATH_CATEGORIES = [
     "title": "Προαπαιτούμενες Γνώσεις",
     "kicker": "Μαθηματικά Γ΄ Λυκείου",
     "description": "Βασικές γνώσεις από προηγούμενες τάξεις που χρειάζονται για τα Μαθηματικά της Γ΄ ΕΠΑΛ.",
-    "subcategories": [window.MATH_SUBCATEGORIES["tautotites"]]
+    "subcategories": [
+      window.MATH_SUBCATEGORIES["tautotites"],
+      window.MATH_SUBCATEGORIES["idiotites-dynameon"]
+    ]
   },
   {
     "id": "mathimatika-gia-olous",
