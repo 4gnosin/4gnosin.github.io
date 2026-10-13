@@ -27,6 +27,7 @@
 - `#/math/proapaitoumenes-gnoseis` — προαπαιτούμενες γνώσεις για τα Μαθηματικά Γ΄ Λυκείου
 - `#/math/proapaitoumenes-gnoseis/tautotites` — οι βασικές αλγεβρικές ταυτότητες με αποδείξεις
 - `#/math/proapaitoumenes-gnoseis/idiotites-dynameon` — οι ιδιότητες δυνάμεων και οι προϋποθέσεις εφαρμογής τους
+- `#/math/proapaitoumenes-gnoseis/kanones-paragontopoiisis` — κανόνες και μέθοδοι παραγοντοποίησης
 - `#/math/mathimatika-gia-olous` — βασικά μαθηματικά για όλους, μαζί με τα δεκαδικά κλάσματα
 - `#/math/mathimatika-gia-olous/dekadika-klasmata` — δεκαδικά κλάσματα
 - `#/math/dekadika-klasmata` — παλιός σύνδεσμος προς την ενότητα δεκαδικών κλασμάτων

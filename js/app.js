@@ -863,6 +863,19 @@ window.KIND_LABEL = {
     }
   }
 
+  function renderMathText(str) {
+    if (!str) return "";
+    if (typeof katex === "undefined") return esc(str);
+    return str.split(/\\\(([\s\S]*?)\\\)/g).map(function (part, index) {
+      if (index % 2 === 0) return esc(part);
+      try {
+        return katex.renderToString(part, { throwOnError: false, displayMode: false });
+      } catch (e) {
+        return esc("\\(" + part + "\\)");
+      }
+    }).join("");
+  }
+
   /* "Βήμα 1ο" → "ΒΗΜΑ 1<sup>ο</sup>" — το ο ως εκθέτης */
   function fmtStepLabel(lbl) {
     return esc(lbl).replace(/(\d+)ο/g, '$1<sup style="font-size:.65em;vertical-align:super;line-height:1;font-weight:700">ο</sup>');
@@ -955,7 +968,7 @@ window.KIND_LABEL = {
 
       if (t.intro) {
         html += '<p style="margin:.2rem 0 1rem;font-size:1.05rem;line-height:1.6;color:var(--ink-soft)">'
-              + renderLatex(t.intro) + '</p>';
+              + renderMathText(t.intro) + '</p>';
       }
 
       if (t.def && t.def.length) {

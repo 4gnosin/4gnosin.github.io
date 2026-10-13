@@ -7,7 +7,8 @@ window.MATH_CATEGORIES = [
     "description": "Βασικές γνώσεις από προηγούμενες τάξεις που χρειάζονται για τα Μαθηματικά της Γ΄ ΕΠΑΛ.",
     "subcategories": [
       window.MATH_SUBCATEGORIES["tautotites"],
-      window.MATH_SUBCATEGORIES["idiotites-dynameon"]
+      window.MATH_SUBCATEGORIES["idiotites-dynameon"],
+      window.MATH_SUBCATEGORIES["kanones-paragontopoiisis"]
     ]
   },
   {
