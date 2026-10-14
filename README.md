@@ -7,7 +7,9 @@
 - `css/style.css`: όλο το CSS (περιλαμβάνει και τα dark-mode χρώματα)
 - `content/catalog.js`: οι τάξεις (Β', Γ') και τα μαθήματά τους — εδώ προσθέτεις νέο μάθημα ή το κάνεις "ready" όταν είναι έτοιμο
 - `content/links.js`: η σελίδα «Χρήσιμα Links» — εδώ προσθέτεις συνδέσμους για μαθήματα/σχολείο
-- `content/math.js`: η σελίδα «Βασικά Μαθηματικά» — γρήγορη αναφορά, κοινή για όλα τα μαθήματα
+- `content/math.js`: οι κατηγορίες της σελίδας «Βασικά Μαθηματικά»
+- `content/math/<υποκατηγορία>.js`: το περιεχόμενο κάθε υποκατηγορίας (π.χ. `dekadika-klasmata.js`, `tautotites.js`), που φορτώνεται πριν από το `content/math.js`
+- Οι διαδραστικές ασκήσεις ταυτοτήτων ορίζονται σε ομάδες μέσα στο `content/math/tautotites.js` και ελέγχουν ισοδυναμία αλγεβρικών παραστάσεων.
 - `content/<τάξη>/<μάθημα>/chapter-0N/`: θεωρία ανά κεφάλαιο ενός μαθήματος (π.χ. `content/b/thermod/chapter-01/`), μία ενότητα ανά αρχείο. Το πεδίο `num`, π.χ. `"2.7"`, καθορίζει σε ποιο κεφάλαιο ανήκει η ενότητα
 - `exercises/<τάξη>/<μάθημα>/chapter-0N/groups.js`: οι ομάδες ασκήσεων του κεφαλαίου (κάθε ομάδα έχει `chapter` ώστε ο πίνακας να τις χωρίζει ανά κεφάλαιο)
 - `exercises/<τάξη>/<μάθημα>/chapter-0N/*.js`: οι ίδιες οι ασκήσεις, ανά ομάδα
@@ -20,8 +22,17 @@
 - `#/grade/b`, `#/grade/c` — μαθήματα της τάξης
 - `#/simulations` — κατάλογος διαδραστικών προσομοιώσεων
 - `#/simulations/fwg` — αποστακτήρας κενού (Fresh Water Generator)
+- `#/simulations/hydrophore` — υδροφορικό δοχείο γλυκού νερού
+- `#/simulations/ejector` — εγχυτήρας νερού (Ejector)
 - `#/links` — χρήσιμα links
 - `#/math` — βασικά μαθηματικά
+- `#/math/proapaitoumenes-gnoseis` — προαπαιτούμενες γνώσεις για τα Μαθηματικά Γ΄ Λυκείου
+- `#/math/proapaitoumenes-gnoseis/tautotites` — οι βασικές αλγεβρικές ταυτότητες με αποδείξεις
+- `#/math/proapaitoumenes-gnoseis/idiotites-dynameon` — οι ιδιότητες δυνάμεων και οι προϋποθέσεις εφαρμογής τους
+- `#/math/proapaitoumenes-gnoseis/kanones-paragontopoiisis` — κανόνες και μέθοδοι παραγοντοποίησης
+- `#/math/mathimatika-gia-olous` — βασικά μαθηματικά για όλους, μαζί με τα δεκαδικά κλάσματα
+- `#/math/mathimatika-gia-olous/dekadika-klasmata` — δεκαδικά κλάσματα
+- `#/math/dekadika-klasmata` — παλιός σύνδεσμος προς την ενότητα δεκαδικών κλασμάτων
 - `#/thermo` και παρακάτω — το μάθημα Θερμοδυναμική (σημειώσεις + πίνακας ασκήσεων), περιεχόμενο στο `content/b/thermod/` και `exercises/b/thermod/`
 
 ### Προσθήκη νέου μαθήματος
