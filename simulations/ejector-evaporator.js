@@ -106,6 +106,7 @@
     '<button type="button" data-view="full" aria-pressed="false">Κλειστό</button></div>' +
     '<button type="button" class="btn btn-ghost" data-eje="labels" aria-pressed="true">Ετικέτες</button>' +
     '<button type="button" class="btn btn-ghost" data-eje="camera">Κεντράρισμα κάμερας</button>' +
+    '<button type="button" class="btn btn-ghost" data-eje="fullscreen" aria-pressed="false">Μεγέθυνση προσομοίωσης</button>' +
     '<button type="button" class="btn btn-ghost" data-eje="reset">Επανεκκίνηση</button></div>' +
     '<div class="eje-layout"><div>' +
     '<section class="eje-panel"><h2>Τζιφάρι εβαπορέτας (εγχυτήρας αέρα και άλμης)</h2>' +
@@ -488,12 +489,45 @@
       $("overlay").hidden = !on;
     });
     $("camera").addEventListener("click", function () { if (view3d) view3d.resetCamera(); });
+    function syncFullscreenButton() {
+      const expanded = document.fullscreenElement === container.querySelector(".eje3d-simulation")
+        || container.querySelector(".eje3d-simulation").classList.contains("is-expanded");
+      $("fullscreen").setAttribute("aria-pressed", String(expanded));
+      $("fullscreen").textContent = expanded ? "Σμίκρυνση προσομοίωσης" : "Μεγέθυνση προσομοίωσης";
+    }
+    function onFullscreenChange() {
+      syncFullscreenButton();
+      if (view3d) view3d.resize();
+    }
+    document.addEventListener("fullscreenchange", onFullscreenChange);
+    $("fullscreen").addEventListener("click", function () {
+      const root = container.querySelector(".eje3d-simulation");
+      if (document.fullscreenElement === root) {
+        document.exitFullscreen();
+      } else if (root.classList.contains("is-expanded")) {
+        root.classList.remove("is-expanded");
+      } else if (root.requestFullscreen) {
+        root.requestFullscreen().catch(function (error) {
+          console.warn("Fullscreen mode is unavailable; using the in-page expanded view.", error);
+          root.classList.add("is-expanded");
+          syncFullscreenButton();
+          if (view3d) view3d.resize();
+        });
+      } else {
+        root.classList.add("is-expanded");
+        syncFullscreenButton();
+        if (view3d) view3d.resize();
+      }
+    });
 
     defaults();
     render();
     typeset($("theory"));
 
     return function () {
+      document.removeEventListener("fullscreenchange", onFullscreenChange);
+      const root = container.querySelector(".eje3d-simulation");
+      if (root && root.classList.contains("is-expanded")) root.classList.remove("is-expanded");
       if (view3d) view3d.dispose();
       container.innerHTML = "";
     };
@@ -1305,6 +1339,7 @@
       update: update,
       setMode: setMode,
       resetCamera: resetCamera,
+      resize: resize,
       dispose: function () {
         window.cancelAnimationFrame(raf);
         ro.disconnect();
