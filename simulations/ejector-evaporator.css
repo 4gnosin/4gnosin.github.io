@@ -1,0 +1,125 @@
+.eje3d-simulation .eje-toolbar .eje-seg {
+  display: inline-flex;
+  overflow: hidden;
+  border: 1px solid var(--copper);
+  border-radius: 0.55rem;
+}
+.eje3d-simulation .eje-seg button {
+  padding: 0.4rem 0.8rem;
+  border: 0;
+  background: var(--cream);
+  color: var(--copper);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.eje3d-simulation .eje-seg button + button {
+  border-left: 1px solid var(--copper);
+}
+.eje3d-simulation .eje-seg button.active {
+  background: var(--copper);
+  color: var(--cream);
+}
+.eje3d-simulation .btn[aria-pressed="false"] { opacity: 0.6; }
+.eje3d-simulation .eje-glossary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.4rem 1.2rem;
+  margin-top: 0.65rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 0.65rem;
+  background: var(--paper);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.eje3d-simulation .eje-glossary div { color: var(--ink); }
+.eje3d-simulation .eje-glossary b { font-weight: 700; }
+.eje3d-simulation .eje3d-view {
+  position: relative;
+  height: clamp(360px, 54vw, 600px);
+  overflow: hidden;
+  border-radius: 0.7rem;
+  background: #1c242b;
+}
+.eje3d-simulation .eje3d-view canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  cursor: grab;
+}
+.eje3d-simulation .eje3d-view canvas:active { cursor: grabbing; }
+.eje3d-simulation .eje3d-overlay {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.eje3d-simulation .eje3d-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+}
+.eje3d-simulation .eje3d-dot {
+  position: absolute;
+  left: -3px;
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--copper);
+  box-shadow: 0 0 0 2px rgb(0 0 0 / 45%);
+}
+.eje3d-simulation .eje3d-chip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 3px 7px;
+  border: 1px solid rgb(255 255 255 / 16%);
+  border-radius: 6px;
+  background: rgb(12 19 26 / 84%);
+  color: #e7eff4;
+  font: 500 11px/1.35 var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.eje3d-simulation .eje3d-chip b { color: var(--copper); }
+.eje3d-simulation .eje3d-chip.good { border-color: #3ecf6e; }
+.eje3d-simulation .eje3d-chip.bad {
+  border-color: #ef5350;
+  color: #ffd2d0;
+}
+.eje3d-simulation .eje3d-above { transform: translate(-50%, calc(-100% - 9px)); }
+.eje3d-simulation .eje3d-below { transform: translate(-50%, 9px); }
+.eje3d-simulation .eje3d-left { transform: translate(calc(-100% - 9px), -50%); }
+.eje3d-simulation .eje3d-right { transform: translate(9px, -50%); }
+.eje3d-simulation .eje3d-hint {
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  left: 10px;
+  color: rgb(231 239 244 / 70%);
+  font-size: 11px;
+  pointer-events: none;
+}
+.eje3d-simulation .eje3d-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 1.5rem;
+  color: #e7eff4;
+  font-size: 0.95rem;
+  text-align: center;
+}
+@media (max-width: 560px) {
+  .eje3d-simulation .eje3d-chip {
+    padding: 2px 5px;
+    font-size: 10px;
+  }
+  .eje3d-simulation .eje3d-hint { display: none; }
+}

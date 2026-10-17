@@ -50,6 +50,14 @@ window.KIND_LABEL = {
       mount: "mountHydrophore",
       containerId: "simulation-app",
     },
+    {
+      id: "ejector-evaporator",
+      title: "Τζιφάρι εβαπορέτας — Τρισδιάστατη προσομοίωση",
+      description: "Τρισδιάστατη τομή εγχυτήρα αέρα και άλμης με ζωντανή υδραυλική, μετρήσεις πίεσης και ροής.",
+      intro: "Περιστρέψτε το μοντέλο και αλλάξτε τις συνθήκες λειτουργίας για να παρατηρήσετε τη ροή κινητήριου νερού, την αναρρόφηση άλμης και αέρα, καθώς και τις πιέσεις στον εγχυτήρα.",
+      mount: "mountEvaporatorEjector",
+      containerId: "simulation-app",
+    },
   ];
   let ctx = {
     id: "thermo",
