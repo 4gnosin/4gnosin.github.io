@@ -22,8 +22,6 @@
 - `#/grade/b`, `#/grade/c` — μαθήματα της τάξης
 - `#/simulations` — κατάλογος διαδραστικών προσομοιώσεων
 - `#/simulations/fwg` — αποστακτήρας κενού (Fresh Water Generator)
-- `#/simulations/hydrophore` — υδροφορικό δοχείο γλυκού νερού
-- `#/simulations/ejector` — εγχυτήρας νερού (Ejector)
 - `#/links` — χρήσιμα links
 - `#/math` — βασικά μαθηματικά
 - `#/math/proapaitoumenes-gnoseis` — προαπαιτούμενες γνώσεις για τα Μαθηματικά Γ΄ Λυκείου

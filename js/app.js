@@ -50,14 +50,6 @@ window.KIND_LABEL = {
       mount: "mountHydrophore",
       containerId: "simulation-app",
     },
-    {
-      id: "ejector",
-      title: "Εγχυτήρας (Ejector)",
-      description: "Διαδραστική προσομοίωση εγχυτήρα νερού με ρυθμίσεις γεωμετρίας και πίεσης, μετρήσεις, προκλήσεις και θεωρητικό πλαίσιο.",
-      intro: "Μελέτησε τη λειτουργία του εγχυτήρα και παρατήρησε πώς οι διατομές, οι πιέσεις και το άνοιγμα αναρρόφησης επηρεάζουν την παροχή, το κενό και τη σπηλαίωση.",
-      mount: "mountEjector",
-      containerId: "simulation-app",
-    },
   ];
   let ctx = {
     id: "thermo",
