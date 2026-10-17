@@ -1,3 +1,40 @@
+/* ===== Τζιφάρι εβαπορέτας 3D: στυλ ===== */
+
+/* 1. Μεταβλητές θέματος και σελίδα.
+   Αν το έργο σου ορίζει ήδη --line, --cream, --board-2 κ.λπ., μπορείς να σβήσεις αυτό το μέρος. */
+/* Χαρτί εγχειριδίου μηχανοστασίου με σκούρο πίνακα για τα διαγράμματα (επιλεγμένα μονοθεματικό) */
+:root {
+  color-scheme: light;
+  --paper: #eef1f3;
+  --cream: #fbfcfc;
+  --ink: #18222c;
+  --muted: #56636f;
+  --line: #c5cdd6;
+  --board-2: #0f2230;
+  --chalk: #dbe8ef;
+  --copper: #b5651d;
+  --shadow-paper: 0 1px 2px rgba(15, 34, 48, 0.08), 0 6px 18px rgba(15, 34, 48, 0.06);
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-sans: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+}
+body { background: var(--paper); color: var(--ink); font-family: var(--font-sans); }
+.page {
+  max-width: 1280px; margin: 0 auto;
+  padding-block: 1.2rem 2rem;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.page-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1rem; margin-bottom: 0.9rem; }
+.page-head h1 { margin: 0; font-family: var(--font-serif); font-size: 1.7rem; text-wrap: balance; }
+.page-head p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+.btn {
+  font: inherit; font-size: 0.88rem; font-weight: 600; cursor: pointer;
+  padding: 0.4rem 0.9rem; border-radius: 0.55rem;
+  border: 1px solid var(--copper); color: var(--copper); background: transparent;
+}
+.btn:hover { background: var(--copper); color: var(--cream); }
+
+/* 2. Προσομοίωση εγχυτήρα (το αρχικό σου CSS, αμετάβλητο) */
 .eje-simulation {
   --eje-green: #3ecf6e;
   --eje-amber: #f0b429;
@@ -176,3 +213,38 @@
 @media (prefers-reduced-motion: reduce) {
   .eje-flow { animation: none; }
 }
+
+/* 3. Προσθήκες για το 3D μοντέλο, την γραμμή εργαλείων και τις ετικέτες */
+.eje-toolbar .eje-seg { display: inline-flex; border: 1px solid var(--copper); border-radius: 0.55rem; overflow: hidden; }
+.eje-seg button { font: inherit; font-size: 0.86rem; font-weight: 600; padding: 0.4rem 0.8rem; border: 0; background: var(--cream); color: var(--copper); cursor: pointer; }
+.eje-seg button + button { border-left: 1px solid var(--copper); }
+.eje-seg button.active { background: var(--copper); color: var(--cream); }
+.btn[aria-pressed="false"] { opacity: 0.6; }
+.eje3d-view {
+  position: relative; height: clamp(360px, 54vw, 600px); border-radius: 0.7rem; overflow: hidden;
+  background: #1c242b;
+}
+.eje3d-view canvas { display: block; width: 100% !important; height: 100% !important; cursor: grab; }
+.eje3d-view canvas:active { cursor: grabbing; }
+.eje3d-overlay { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.eje3d-label { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+.eje3d-dot { position: absolute; left: -3px; top: -3px; width: 6px; height: 6px; border-radius: 50%; background: #f0b429; box-shadow: 0 0 0 2px rgba(0,0,0,.45); }
+.eje3d-chip {
+  position: absolute; left: 0; top: 0; white-space: nowrap;
+  padding: 3px 7px; border-radius: 6px; font: 500 11px/1.35 var(--font-sans);
+  font-variant-numeric: tabular-nums; color: #e7eff4; background: rgba(12, 19, 26, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+.eje3d-chip b { color: #f0b429; }
+.eje3d-chip.good { border-color: #3ecf6e; }
+.eje3d-chip.bad { border-color: #ef5350; color: #ffd2d0; }
+.eje3d-above { transform: translate(-50%, calc(-100% - 9px)); }
+.eje3d-below { transform: translate(-50%, 9px); }
+.eje3d-left { transform: translate(calc(-100% - 9px), -50%); }
+.eje3d-right { transform: translate(9px, -50%); }
+.eje3d-hint {
+  position: absolute; left: 10px; bottom: 8px; right: 10px; pointer-events: none;
+  font-size: 11px; color: rgba(231, 239, 244, 0.7);
+}
+.eje3d-fallback { position: absolute; inset: 0; margin: 0; display: grid; place-items: center; padding: 1.5rem; text-align: center; color: #e7eff4; font-size: 0.95rem; }
+@media (max-width: 560px) { .eje3d-chip { font-size: 10px; padding: 2px 5px; } .eje3d-hint { display: none; } }
