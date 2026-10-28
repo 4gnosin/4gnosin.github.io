@@ -96,6 +96,11 @@ window.KIND_LABEL = {
   function letter(id) {
     return GREEK[id] || id;
   }
+  /* «Θέμα 2ο» / «Θέμα 4<sup>ο</sup>» → ανώτερος δείκτης κολλητά στον αριθμό */
+  function fmtOrd(s) {
+    return esc(s)
+      .replace(/Θέμα\s+(\d{1,2})(?:&lt;sup&gt;\s*ο\s*&lt;\/sup&gt;|[οo°])/g, 'Θέμα <span class="ord">$1<span class="ord-o">ο</span></span>');
+  }
   function progressKey() {
     return (SUBJECTS[ctx.id] && SUBJECTS[ctx.id].progressKey) || "thermo-ch1-html-progress-v1";
   }
@@ -174,7 +179,8 @@ window.KIND_LABEL = {
     const raw = decodeURIComponent((location.hash || "#/").replace(/^#/, ""));
     const parts = raw.split("/").filter(Boolean);
     if (!parts.length) return { name: "site-home" };
-    if (parts[0] === "grade" && parts[1]) return { name: "grade", id: parts[1] };
+    if (parts[0] === "grade" && parts[1])
+      return { name: "grade", id: parts[1], specializationId: parts[2] };
     if (parts[0] === "links") return { name: "links" };
     if (parts[0] === "math") {
       if (!parts[1]) return { name: "math" };
@@ -254,10 +260,24 @@ window.KIND_LABEL = {
   function chaptersOf(list, chapterKey) {
     const seen = [];
     list.forEach(function (item) {
-      const c = chapterKey(item);
-      if (seen.indexOf(c) === -1) seen.push(c);
+      const c = String(chapterKey(item));
+      if (c && seen.indexOf(c) === -1) seen.push(c);
     });
-    return seen;
+    /* Πάντα αριθμητική σειρά κεφαλαίων (1, 2, 3…), ανεξάρτητα από τη σειρά φόρτωσης των script tags */
+    return seen.sort(function (a, b) {
+      const na = parseInt(a, 10);
+      const nb = parseInt(b, 10);
+      if (!isNaN(na) && !isNaN(nb) && na !== nb) return na - nb;
+      return String(a).localeCompare(String(b), "el");
+    });
+  }
+  function sortedExercises(list) {
+    return list.slice().sort(function (a, b) {
+      const sa = a.sourceOrder != null ? Number(a.sourceOrder) : Infinity;
+      const sb = b.sourceOrder != null ? Number(b.sourceOrder) : Infinity;
+      if (sa !== sb) return sa - sb;
+      return String(a.id || "").localeCompare(String(b.id || ""), "el");
+    });
   }
   function getExercise(id) {
     return ctx.exercises.find(function (e) {
@@ -310,11 +330,11 @@ window.KIND_LABEL = {
 
   function resetEngine(ex) {
     state.exId = ex.id;
-    state.step = 0;
+    state.step = 0; /* τώρα = ενεργό item (για picks) */
     state.answers = ex.items.map(emptyAnswer);
     state.checked = false;
     state.results = ex.items.map(function () { return null; });
-    state.hint = false;
+    state.hints = {};
     state.matchPicked = null;
     state.blankPicked = null;
   }
@@ -447,9 +467,9 @@ window.KIND_LABEL = {
               return String(g.chapter) === String(chId);
             }).forEach(function (g) {
               html += '<p class="nav-group-title">' + esc(g.title) + "</p>";
-              ctx.exercises.filter(function (e) {
+              sortedExercises(ctx.exercises.filter(function (e) {
                 return e.group === g.id;
-              }).forEach(function (e) {
+              })).forEach(function (e) {
                 html +=
                   '<a class="nav-subitem nav-exercise-item' +
                   (r.name === "exercise" && r.id === e.id ? " active" : "") +
@@ -458,7 +478,7 @@ window.KIND_LABEL = {
                   "/board/" +
                   e.id +
                   '">' +
-                  esc(e.title) +
+                  fmtOrd(e.title) +
                   "</a>";
               });
             });
@@ -743,8 +763,8 @@ window.KIND_LABEL = {
         g.id +
         '" style="text-align:left;background:var(--ink);color:var(--cream)">' +
         '<p class="kicker">' +
-        g.subjects.length +
-        " μαθήματα</p>" +
+        (g.specializations ? g.specializations.length + " ειδικότητες" : g.subjects.length + " μαθήματα") +
+        "</p>" +
         '<h2 style="font-size:1.6rem;margin-top:.2rem">' +
         esc(g.label) +
         "</h2>" +
@@ -810,19 +830,61 @@ window.KIND_LABEL = {
     return siteShell(inner, true);
   }
 
-  function gradePage(id) {
+  function gradePage(id, specializationId) {
     const g = findGrade(id);
     if (!g)
       return siteShell(
         '<p class="kicker">Δεν βρέθηκε</p><h1 style="margin-top:.3rem">Η τάξη δεν βρέθηκε</h1><p style="margin-top:1.2rem"><button class="btn btn-ink" data-act="go" data-to="#/">← Πίσω</button></p>'
       );
+    if (specializationId) {
+      const specialization = (g.specializations || []).find(function (item) {
+        return item.id === specializationId;
+      });
+      if (!specialization)
+        return siteShell(
+          '<p class="kicker">Δεν βρέθηκε</p><h1 style="margin-top:.3rem">Η ειδικότητα δεν βρέθηκε</h1><p style="margin-top:1.2rem"><button class="btn btn-ink" data-act="go" data-to="#/grade/' +
+            esc(g.id) +
+            '">← Πίσω στις ειδικότητες</button></p>'
+        );
+      let inner =
+        '<a data-act="go" data-to="#/grade/' +
+        esc(g.id) +
+        '" style="font-size:.85rem;color:var(--muted)">← Ειδικότητες</a>';
+      inner += '<p class="kicker" style="margin-top:1.2rem">Ειδικότητα · ' + esc(g.label) + "</p>";
+      inner +=
+        '<h1 style="font-size:clamp(2rem,5vw,3rem);margin-top:.2rem">' +
+        esc(specialization.title) +
+        "</h1>";
+      inner += '<div class="grid-2" style="margin-top:1.6rem">';
+      specialization.subjectIds.forEach(function (subjectId) {
+        const subject = g.subjects.find(function (item) {
+          return item.id === subjectId;
+        });
+        if (subject) inner += subjectCard(subject);
+      });
+      inner += "</div>";
+      return siteShell(inner);
+    }
     let inner = '<a data-act="go" data-to="#/" style="font-size:.85rem;color:var(--muted)">← Τάξεις</a>';
     inner += '<p class="kicker" style="margin-top:1.2rem">Τάξη</p>';
     inner += '<h1 style="font-size:clamp(2rem,5vw,3rem);margin-top:.2rem">' + esc(g.label) + "</h1>";
     inner += '<div class="grid-2" style="margin-top:1.6rem">';
-    g.subjects.forEach(function (s) {
-      inner += subjectCard(s);
-    });
+    if (g.specializations) {
+      g.specializations.forEach(function (specialization) {
+        inner +=
+          '<button class="card" data-act="go" data-to="#/grade/' +
+          esc(g.id) +
+          "/" +
+          esc(specialization.id) +
+          '" style="text-align:left;display:block;width:100%"><h2 style="font-size:1.35rem">' +
+          esc(specialization.title) +
+          '</h2><p style="color:var(--muted);margin:.35rem 0 0">Επίλεξε για να δεις τα μαθήματα της ειδικότητας.</p></button>';
+      });
+    } else {
+      g.subjects.forEach(function (s) {
+        inner += subjectCard(s);
+      });
+    }
     inner += "</div>";
     return siteShell(inner);
   }
@@ -1251,9 +1313,9 @@ window.KIND_LABEL = {
           '</h3><p style="opacity:.7;margin:.3rem 0 0;font-size:.92rem">' +
           esc(g.blurb) +
           "</p><div class=\"ex-list\">";
-        ctx.exercises.filter(function (e) {
+        sortedExercises(ctx.exercises.filter(function (e) {
           return e.group === g.id;
-        }).forEach(function (ex) {
+        })).forEach(function (ex) {
           const res = p.exercises[ex.id];
           const cls = res ? (res.status === "done" ? "done" : "miss") : "";
           inner +=
@@ -1266,11 +1328,11 @@ window.KIND_LABEL = {
             '"><span style="flex:1"><span style="display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7">' +
             esc(KIND_LABEL[ex.kind]) +
             " · " +
-            esc(ex.code) +
+            fmtOrd(ex.code) +
             " · " +
             ex.units +
             ' μον.</span><span style="font-family:var(--font-serif);font-size:1.25rem">' +
-            esc(ex.title) +
+            fmtOrd(ex.title) +
             "</span></span><span>" +
             (res && res.status === "done" ? "✓" : "→") +
             "</span></button>";
@@ -1281,7 +1343,9 @@ window.KIND_LABEL = {
     return shell(inner, true, { name: "board" });
   }
 
-  function itemView(item, answer, checked) {
+  function itemView(item, answer, checked, idx) {
+    const matchPicked = idx === state.step ? state.matchPicked : null;
+    const blankPicked = idx === state.step ? state.blankPicked : null;
     if (item.kind === "mc") {
       let h = '<fieldset><legend style="font-family:var(--font-serif);font-size:1.5rem;margin-bottom:.8rem">' + esc(item.prompt) + "</legend>";
       item.options.forEach(function (opt) {
@@ -1375,7 +1439,7 @@ window.KIND_LABEL = {
       remainingLeft.forEach(function (it) {
         h +=
           '<button class="match-item ' +
-          (state.matchPicked === it.id ? "picked" : "") +
+          (matchPicked === it.id ? "picked" : "") +
           '" data-act="match-left" data-id="' +
           it.id +
           '"' +
@@ -1390,14 +1454,14 @@ window.KIND_LABEL = {
       h += "</div>";
       h +=
         '<div class="col ' +
-        (state.matchPicked && !checked ? "wait" : "") +
+        (matchPicked && !checked ? "wait" : "") +
         '"><h4>Στήλη Β</h4>';
       remainingRight.forEach(function (it) {
         h +=
           '<button class="match-item" data-act="match-right" data-id="' +
           it.id +
           '"' +
-          (checked || !state.matchPicked ? " disabled" : "") +
+          (checked || !matchPicked ? " disabled" : "") +
           "><b>" +
           letter(it.id) +
           ".</b> " +
@@ -1452,7 +1516,7 @@ window.KIND_LABEL = {
         const spent = left <= 0;
         h +=
           '<button class="word ' +
-          (state.blankPicked === word && !spent ? "picked" : "") +
+          (blankPicked === word && !spent ? "picked" : "") +
           (spent ? " spent" : "") +
           '" data-act="blank-word" data-word="' +
           encodeURIComponent(word) +
@@ -1497,37 +1561,21 @@ window.KIND_LABEL = {
     if (state.exId !== ex.id) resetEngine(ex);
     const theory = getSection(ex.theory);
     const adj = adjacent(ctx.exercises, "id", ex.id);
-    const item = ex.items[state.step];
-    const answer = state.answers[state.step];
-    const last = state.step === ex.items.length - 1;
-    const ready = isFilled(item, answer);
-    const ok = state.results[state.step];
+    const allReady = ex.items.every(function (it, i) { return isFilled(it, state.answers[i]); });
+    const score = state.results.filter(Boolean).length;
 
     let inner =
       '<div style="display:flex;flex-wrap:wrap;gap:.7rem;align-items:center;margin-bottom:1.1rem"><button class="btn btn-chalk" data-act="go" data-to="' +
-      ctx.base +
-      '/board">← Όλες οι ασκήσεις</button>';
+      ctx.base + '/board">← Όλες οι ασκήσεις</button>';
     if (theory)
-      inner +=
-        '<button class="btn btn-chalk" style="margin-left:auto" data-act="go" data-to="' +
-        ctx.base +
-        "/notes/" +
-        theory.slug +
-        '">' +
-        esc(theory.num) +
-        " " +
-        esc(theory.title) +
-        "</button>";
+      inner += '<button class="btn btn-chalk" style="margin-left:auto" data-act="go" data-to="' +
+        ctx.base + "/notes/" + theory.slug + '">' + esc(theory.num) + " " + esc(theory.title) + "</button>";
     inner += "</div>";
     inner += '<div class="board-card">';
-    inner +=
-      '<p class="kicker">' +
-      esc(KIND_LABEL[ex.kind]) +
-      " · " +
-      ex.units +
-      " μονάδες</p>";
-    inner += '<h1 style="font-size:clamp(1.7rem,4vw,2.4rem);margin-top:.35rem">' + esc(ex.title) + "</h1>";
-    if (ex.stem) inner += '<p style="margin-top:.7rem;opacity:.8;line-height:1.5">' + esc(ex.stem) + "</p>";
+    inner += '<p class="kicker">' + esc(KIND_LABEL[ex.kind]) + " · " + ex.units + " μονάδες</p>";
+    inner += '<h1 style="font-size:clamp(1.7rem,4vw,2.4rem);margin-top:.35rem">' + fmtOrd(ex.title) + "</h1>";
+    inner += '<p style="margin:.4rem 0 0;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;opacity:.65">' + fmtOrd(ex.code) + "</p>";
+    if (ex.stem) inner += '<p style="margin-top:.7rem;opacity:.8;line-height:1.5;white-space:pre-line">' + esc(ex.stem) + "</p>";
     if (ex.givens) {
       inner += '<div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem">';
       ex.givens.forEach(function (g) {
@@ -1535,76 +1583,44 @@ window.KIND_LABEL = {
       });
       inner += "</div>";
     }
-    inner +=
-      '<p style="margin:1.1rem 0 .6rem;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;opacity:.65">Βήμα ' +
-      (state.step + 1) +
-      " από " +
-      ex.items.length +
-      " · " +
-      esc(ex.code) +
-      "</p>";
-    inner += itemView(item, answer, state.checked);
-    if (item.hint) {
-      inner +=
-        '<p><button class="btn btn-chalk" style="margin-top:.8rem" data-act="hint">' +
-        (state.hint ? "Απόκρυψη υπόδειξης" : "Υπόδειξη") +
-        "</button></p>";
-      if (state.hint)
-        inner +=
-          '<div class="hintbox" style="margin-top:.5rem">' +
-          esc(item.hint) +
-          (item.formula ? '<span class="f">' + esc(item.formula) + "</span>" : "") +
-          "</div>";
-    }
-    if (state.checked) {
-      inner +=
-        '<div class="feedback ' +
-        (ok ? "ok" : "bad") +
-        '"><b>' +
-        (ok ? "Σωστά" : "Όχι ακριβώς") +
-        "</b><p style='margin:.35rem 0 0;line-height:1.5'>" +
-        esc(item.explain) +
-        "</p></div>";
-    }
+
+    ex.items.forEach(function (item, i) {
+      const answer = state.answers[i];
+      inner += '<section data-item="' + i + '" style="margin-top:1.4rem;padding-top:1.1rem;border-top:1px solid rgb(128 128 128 / .25)">';
+      if (ex.items.length > 1)
+        inner += '<p style="margin:0 0 .6rem;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;opacity:.65">Ερώτημα ' + (i + 1) + "</p>";
+      inner += itemView(item, answer, state.checked, i);
+      if (item.hint) {
+        inner += '<p><button class="btn btn-chalk" style="margin-top:.8rem" data-act="hint">' +
+          (state.hints[i] ? "Απόκρυψη υπόδειξης" : "Υπόδειξη") + "</button></p>";
+        if (state.hints[i])
+          inner += '<div class="hintbox" style="margin-top:.5rem">' + esc(item.hint) +
+            (item.formula ? '<span class="f">' + renderMathText(item.formula) + "</span>" : "") + "</div>";
+      }
+      if (state.checked) {
+        const ok = state.results[i];
+        inner += '<div class="feedback ' + (ok ? "ok" : "bad") + '"><b>' + (ok ? "Σωστά" : "Όχι ακριβώς") +
+          "</b><p style='margin:.35rem 0 0;line-height:1.5'>" + renderMathText(item.explain || "") + "</p></div>";
+      }
+      inner += "</section>";
+    });
+
     inner += '<div class="btn-row">';
     if (!state.checked) {
-      inner +=
-        '<button class="btn btn-chalk-solid" data-act="check"' +
-        (ready ? "" : " disabled") +
-        ">Έλεγχος</button>";
+      inner += '<button class="btn btn-chalk-solid" data-act="check"' + (allReady ? "" : " disabled") + ">Έλεγχος όλων</button>";
     } else {
-      if (!ok) inner += '<button class="btn btn-chalk" data-act="retry">Διόρθωση</button>';
-      if (!last)
-        inner += '<button class="btn btn-chalk-solid" data-act="next">Επόμενο →</button>';
-      else
-        inner +=
-          '<span style="align-self:center;opacity:.8">Βαθμός: <b>' +
-          state.results.filter(Boolean).length +
-          "/" +
-          ex.items.length +
-          "</b></span>";
+      inner += '<button class="btn btn-chalk" data-act="retry">Διόρθωση</button>';
+      inner += '<span style="align-self:center;opacity:.8">Βαθμός: <b>' + score + "/" + ex.items.length + "</b></span>";
     }
     inner += '<button class="btn btn-chalk" data-act="restart" style="margin-left:auto">Από την αρχή</button>';
     inner += "</div></div>";
     inner += '<div class="btn-row">';
     if (adj.prev)
-      inner +=
-        '<button class="btn btn-chalk" data-act="go" data-to="' +
-        ctx.base +
-        "/board/" +
-        adj.prev.id +
-        '">← ' +
-        esc(adj.prev.title) +
-        "</button>";
+      inner += '<button class="btn btn-chalk" data-act="go" data-to="' + ctx.base + "/board/" +
+        adj.prev.id + '">← ' + fmtOrd(adj.prev.title) + "</button>";
     if (adj.next)
-      inner +=
-        '<button class="btn btn-chalk" data-act="go" data-to="' +
-        ctx.base +
-        "/board/" +
-        adj.next.id +
-        '">' +
-        esc(adj.next.title) +
-        " →</button>";
+      inner += '<button class="btn btn-chalk" data-act="go" data-to="' + ctx.base + "/board/" +
+        adj.next.id + '">' + fmtOrd(adj.next.title) + " →</button>";
     inner += "</div>";
     return shell(inner, true, { name: "exercise", id: ex.id });
   }
@@ -1621,7 +1637,7 @@ window.KIND_LABEL = {
     if (r.subject) setCtx(r.subject);
     const root = document.getElementById("app");
     if (r.name === "site-home") root.innerHTML = siteHome();
-    else if (r.name === "grade") root.innerHTML = gradePage(r.id);
+    else if (r.name === "grade") root.innerHTML = gradePage(r.id, r.specializationId);
     else if (r.name === "links") root.innerHTML = linksPage();
     else if (r.name === "math") root.innerHTML = mathPage();
     else if (r.name === "math-category") root.innerHTML = mathCategoryPage(r.id);
@@ -2068,6 +2084,15 @@ window.KIND_LABEL = {
       return;
     }
     const ex = currentEx();
+    const itemEl = el.closest("[data-item]");
+    if (ex && itemEl) {
+      const i = Number(itemEl.getAttribute("data-item"));
+      if (i !== state.step) {
+        state.step = i;
+        state.matchPicked = null;
+        state.blankPicked = null;
+      }
+    }
     const item = ex ? ex.items[state.step] : null;
     const ans = ex ? state.answers[state.step] : null;
     if (act === "mc" && item && !state.checked) {
@@ -2133,38 +2158,27 @@ window.KIND_LABEL = {
       return;
     }
     if (act === "hint") {
-      state.hint = !state.hint;
+      state.hints[state.step] = !state.hints[state.step];
       stay();
       return;
     }
-    if (act === "check" && item) {
-      const correct = isCorrect(item, ans);
-      state.results[state.step] = correct;
+    if (act === "check" && ex) {
+      state.results = ex.items.map(function (it, i) { return isCorrect(it, state.answers[i]); });
       state.checked = true;
-      if (state.step === ex.items.length - 1) {
-        const score = state.results.filter(Boolean).length;
-        saveEx(ex.id, {
-          status: score === ex.items.length ? "done" : "miss",
-          score: score,
-          max: ex.items.length,
-        });
-      }
+      const score = state.results.filter(Boolean).length;
+      saveEx(ex.id, {
+        status: score === ex.items.length ? "done" : "miss",
+        score: score,
+        max: ex.items.length,
+      });
       stay();
       return;
     }
     if (act === "retry") {
       state.checked = false;
-      state.hint = false;
-      stay();
-      return;
-    }
-    if (act === "next") {
-      state.checked = false;
-      state.hint = false;
       state.matchPicked = null;
       state.blankPicked = null;
-      state.step = Math.min(state.step + 1, ex.items.length - 1);
-      render();
+      stay();
       return;
     }
     if (act === "restart" && ex) {
@@ -2174,11 +2188,14 @@ window.KIND_LABEL = {
   });
 
   document.addEventListener("input", function (e) {
-    if (e.target.getAttribute("data-act") !== "calc") return;
-    if (state.checked) return;
+    if (e.target.getAttribute("data-act") !== "calc" || state.checked) return;
+    const itemEl = e.target.closest("[data-item]");
+    if (itemEl) state.step = Number(itemEl.getAttribute("data-item"));
     patchAnswer({ calc: e.target.value });
+    const ex = currentEx();
     const btn = document.querySelector('[data-act="check"]');
-    if (btn) btn.disabled = parseNumber(e.target.value) === null;
+    if (btn && ex)
+      btn.disabled = !ex.items.every(function (it, i) { return isFilled(it, state.answers[i]); });
   });
 
   document.addEventListener("keydown", function (e) {

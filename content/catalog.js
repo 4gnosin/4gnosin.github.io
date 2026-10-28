@@ -34,10 +34,68 @@ window.CATALOG = [
     "label": "Γ' Τάξη",
     "subjects": [
       {
-        "id": "psixi",
-        "title": "Στοιχεία Ψύξης",
-        "desc": "Έρχεται σύντομα.",
+        "id": "stoixeia-michanon",
+        "title": "Στοιχεία Μηχανών",
+        "desc": "Θεωρία και ασκήσεις.",
         "status": "soon"
+      },
+      {
+        "id": "stoixeia-psyxis-klimatismou",
+        "title": "Στοιχεία Ψύξης – Κλιματισμού Θεωρία",
+        "desc": "Θεωρία και ασκήσεις.",
+        "status": "soon"
+      },
+      {
+        "id": "egkatastaseis-klimatismou",
+        "title": "Εγκαταστάσεις Κλιματισμού Θεωρία",
+        "desc": "Θεωρία και ασκήσεις.",
+        "status": "soon"
+      },
+      {
+        "id": "systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou",
+        "title": "Συστήματα Ελέγχου, Ρύθμισης και Αυτοματισμού Εγκαταστάσεων Ψύξης και Κλιματισμού Θεωρία",
+        "desc": "Θεωρία και ασκήσεις.",
+        "status": "soon"
+      },
+      {
+        "id": "michanes-esoterikis-kafsis-2",
+        "title": "Μηχανές Εσωτερικής Καύσης ΙΙ Θεωρία",
+        "desc": "Θεωρία και ασκήσεις.",
+        "status": "soon"
+      },
+      {
+        "id": "systimata-aftokinitou",
+        "title": "Συστήματα Αυτοκινήτου Θεωρία",
+        "desc": "Θεωρία και ασκήσεις.",
+        "status": "soon"
+      },
+      {
+        "id": "texnologia-elegxou-diagnoseon",
+        "title": "Τεχνολογία Ελέγχου και Διαγνώσεων Θεωρία",
+        "desc": "Θεωρία και ασκήσεις.",
+        "status": "soon"
+      }
+    ],
+    "specializations": [
+      {
+        "id": "psyxi-aerismos-klimatismos",
+        "title": "Τεχνικός Εγκαταστάσεων Ψύξης Αερισμού και Κλιματισμού",
+        "subjectIds": [
+          "stoixeia-michanon",
+          "stoixeia-psyxis-klimatismou",
+          "egkatastaseis-klimatismou",
+          "systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou"
+        ]
+      },
+      {
+        "id": "oximata",
+        "title": "Τεχνικός Οχημάτων",
+        "subjectIds": [
+          "stoixeia-michanon",
+          "michanes-esoterikis-kafsis-2",
+          "systimata-aftokinitou",
+          "texnologia-elegxou-diagnoseon"
+        ]
       }
     ]
   }

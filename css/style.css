@@ -224,7 +224,9 @@ table.units th { font-size: 0.75rem; letter-spacing: 0.04em; color: var(--muted)
   width: 2.5rem; height: 2.5rem; border-radius: 999px; display: grid; place-items: center;
   font-family: var(--font-serif); font-size: 1.15rem; background: rgb(230 224 208 / 0.12); flex-shrink: 0;
 }
-.choice.sel { border-color: rgb(230 224 208 / 0.45); background: rgb(230 224 208 / 0.12); }
+.choice.sel, .tf-btn.sel {
+  border-color: var(--copper); background: var(--copper); color: var(--cream);
+}
 .choice.ok, .pair.ok, .slot.ok { border-color: rgb(143 219 154 / 0.55); background: rgb(143 219 154 / 0.14); }
 .choice.bad, .pair.bad, .slot.bad { border-color: rgb(224 122 95 / 0.55); background: rgb(224 122 95 / 0.14); }
 .tf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 1.1rem; }
@@ -376,4 +378,17 @@ color: var(--copper);
 }
 .katex .underline .underline-line {
   border-bottom-width: 0.12em !important;
+}
+
+/* Ελληνικός τακτικός δείκτης: «Θέμα 4ο» με το ο κολλητά στον αριθμό */
+.ord {
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.ord-o {
+  font-size: 0.72em;
+  vertical-align: super;
+  line-height: 0;
+  letter-spacing: 0;
+  margin-left: -0.02em;
 }

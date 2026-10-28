@@ -1,34 +1,23 @@
-window.SUBJECT_DATA = window.SUBJECT_DATA || {};
-window.SUBJECT_DATA.thermo = window.SUBJECT_DATA.thermo || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA.thermo.groups.push(
+window.GROUPS = window.GROUPS || [];
+window.GROUPS.push(...
+[
   {
-    "id": "diagrams-metavoles",
+    "id": "ch03-thermodynamic-processes",
     "chapter": "3",
-    "title": "Καταστατικό διάγραμμα & μεταβολές",
-    "blurb": "Το διάγραμμα (P-v) και τα είδη των θερμοδυναμικών μεταβολών."
+    "title": "3.6 Χαρακτηριστικές Θερμοδυναμικές Μεταβολές",
+    "blurb": "Θερμοδυναμικές μεταβολές, νόμοι και βασικές έννοιες της τεχνικής θερμοδυναμικής."
   },
   {
-    "id": "thermotita-thermokrasia",
+    "id": "ch03-heat-temperature",
     "chapter": "3",
-    "title": "Θερμότητα & θερμοκρασία",
-    "blurb": "Ορισμός, φορά ροής, πρόσημο και βασικές έννοιες."
+    "title": "3.7 Η θερμότητα και η θερμοκρασία",
+    "blurb": "Θερμοκρασιακές κλίμακες, μετατροπές, θερμικός κύκλος Carnot και ροή θερμότητας."
   },
   {
-    "id": "ypologistika-3",
+    "id": "ch03-uses-production",
     "chapter": "3",
-    "title": "Υπολογιστικά",
-    "blurb": "Μετατροπές κλιμάκων θερμοκρασίας και μονάδων θερμότητας."
-  },
-  {
-    "id": "esoteriki-enthalpia",
-    "chapter": "3",
-    "title": "Εσωτερική ενέργεια & Ενθαλπία",
-    "blurb": "Τι είναι, πώς συμβολίζονται, πού χρησιμοποιούνται."
-  },
-  {
-    "id": "kyklos-group",
-    "chapter": "3",
-    "title": "Κυκλική μεταβολή",
-    "blurb": "Πότε μια μεταβολή λέγεται κυκλική και τι είναι θερμοδυναμικός κύκλος."
+    "title": "3.8 Οι χρήσεις και η παραγωγή της θερμικής ενέργειας",
+    "blurb": "Βασικές έννοιες ύλης, εσωτερικής ενέργειας, ενθαλπίας και παραγωγής θερμικής ενέργειας."
   }
+]
 );
