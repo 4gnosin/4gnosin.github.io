@@ -3,7 +3,7 @@ window.SUBJECT_DATA.antoxi = window.SUBJECT_DATA.antoxi || { sections: [], group
 window.SUBJECT_DATA.antoxi.exercises.push(
 {
     "id": "mc-force-def",
-    "group": "dynameis",
+    "group": "ch1-force",
     "kind": "mc",
     "code": "Θέμα 2ο · 1.1",
     "title": "Ορισμός & χαρακτηριστικά δύναμης",
@@ -53,7 +53,7 @@ window.SUBJECT_DATA.antoxi.exercises.push(
   },
 {
     "id": "tf-force-types",
-    "group": "dynameis",
+    "group": "ch1-force",
     "kind": "tf",
     "code": "Θέμα 2ο · 1.1",
     "title": "Είδη δυνάμεων",
@@ -85,7 +85,7 @@ window.SUBJECT_DATA.antoxi.exercises.push(
   },
 {
     "id": "match-characteristics",
-    "group": "dynameis",
+    "group": "ch1-force",
     "kind": "match",
     "code": "Θέμα 2ο · 1.1",
     "title": "Χαρακτηριστικά δύναμης",

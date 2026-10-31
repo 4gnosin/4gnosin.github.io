@@ -3,7 +3,7 @@ window.SUBJECT_DATA.antoxi = window.SUBJECT_DATA.antoxi || { sections: [], group
 window.SUBJECT_DATA.antoxi.exercises.push(
 {
     "id": "calc-resultant-1",
-    "group": "ypologistika",
+    "group": "ch1-force",
     "kind": "calc",
     "code": "Θέμα 4ο · 1.2",
     "title": "Συνισταμένη με ορθή γωνία",
@@ -25,7 +25,7 @@ window.SUBJECT_DATA.antoxi.exercises.push(
   },
 {
     "id": "calc-resultant-2",
-    "group": "ypologistika",
+    "group": "ch1-force",
     "kind": "calc",
     "code": "Θέμα 4ο · 1.2",
     "title": "Συνισταμένη ίσων δυνάμεων",
@@ -47,7 +47,7 @@ window.SUBJECT_DATA.antoxi.exercises.push(
   },
 {
     "id": "calc-resultant-3",
-    "group": "ypologistika",
+    "group": "ch1-force",
     "kind": "calc",
     "code": "Θέμα 4ο · 1.2",
     "title": "Συνισταμένη — μέτρο και διεύθυνση",

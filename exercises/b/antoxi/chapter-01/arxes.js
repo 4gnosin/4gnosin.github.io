@@ -3,7 +3,7 @@ window.SUBJECT_DATA.antoxi = window.SUBJECT_DATA.antoxi || { sections: [], group
 window.SUBJECT_DATA.antoxi.exercises.push(
 {
     "id": "tf-arxes",
-    "group": "arxes",
+    "group": "ch1-statix",
     "kind": "tf",
     "code": "Θέμα 2ο · 1.2-1.5",
     "title": "Οι 4 αρχές της στατικής",
@@ -42,7 +42,7 @@ window.SUBJECT_DATA.antoxi.exercises.push(
   },
 {
     "id": "mc-isorropia",
-    "group": "arxes",
+    "group": "ch1-statix",
     "kind": "mc",
     "code": "Θέμα 2ο · 1.3",
     "title": "Ισορροπία & δράση-αντίδραση",
@@ -79,7 +79,7 @@ window.SUBJECT_DATA.antoxi.exercises.push(
   },
 {
     "id": "fill-arxes",
-    "group": "arxes",
+    "group": "ch1-statix",
     "kind": "blank",
     "code": "Θέμα 2ο · 1.3-1.5",
     "title": "Συμπλήρωση: οι αρχές της στατικής",

@@ -49,7 +49,8 @@ window.CATALOG = [
         "id": "egkatastaseis-klimatismou",
         "title": "Εγκαταστάσεις Κλιματισμού Θεωρία",
         "desc": "Θεωρία και ασκήσεις.",
-        "status": "soon"
+        "status": "ready",
+        "href": "#/egkatastaseis-klimatismou"
       },
       {
         "id": "systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou",
