@@ -43,7 +43,8 @@ window.CATALOG = [
         "id": "stoixeia-psyxis-klimatismou",
         "title": "Στοιχεία Ψύξης – Κλιματισμού Θεωρία",
         "desc": "Θεωρία και ασκήσεις.",
-        "status": "soon"
+        "status": "ready",
+        "href": "#/stoixeia-psyxis-klimatismou"
       },
       {
         "id": "egkatastaseis-klimatismou",

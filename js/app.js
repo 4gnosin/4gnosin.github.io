@@ -1030,8 +1030,19 @@ function esc(s) {
     if (!str) return "";
     if (typeof katex === "undefined") return esc(str);
 
+    var s = String(str);
+    // Αν δεν υπάρχουν $ delimiters αλλά το κείμενο περιέχει LaTeX εντολές/συμβολισμούς
+    if (!/[$]/.test(s) && (/\\(?:text|circ|frac|sqrt|cdot|times|pm|Delta|sigma|tau|mu|alpha|beta|gamma|lambda|phi|psi|omega)\b|^\^|(?:\^|_)\{/).test(s)) {
+      try {
+        var cleanTex = s.startsWith("^") ? "{}" + s : s;
+        return katex.renderToString(cleanTex, { throwOnError: false, displayMode: false });
+      } catch (e) {
+        // Fallback στον διαχωρισμό
+      }
+    }
+
     var mathRegex = /(\$\$[\s\S]*?\$\$|\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)|\$(?:\\\$|[^$\n])+\$)/g;
-    var parts = String(str).split(mathRegex);
+    var parts = s.split(mathRegex);
 
     return parts.map(function (part) {
       if (!part) return "";
@@ -1694,7 +1705,7 @@ function esc(s) {
           ? '<p style="margin-top:.5rem;opacity:.8;font-size:.9rem">Σωστό: <b>' +
             item.answer.toLocaleString("el-GR") +
             " " +
-            esc(item.unit) +
+            renderMathText(item.unit) +
             "</b></p>"
           : "")
       );
