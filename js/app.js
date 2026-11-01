@@ -33,6 +33,13 @@ window.KIND_LABEL = {
       progressKey: "antoxi-html-progress-v1",
       mark: "forces",
     },
+    "texnologia-michanologikon-kataskevon": {
+      title: "Τεχνολογία Μηχανολογικών Κατασκευών",
+      kicker: "Β΄ ΕΠΑ.Λ. Μηχανολογία",
+      lead: "Σημειώσεις και διαδραστικός πίνακας ασκήσεων από την τράπεζα θεμάτων.",
+      progressKey: "tmk-html-progress-v1",
+      mark: "forces",
+    },
     "stoixeia-michanon": {
       title: "Στοιχεία Μηχανών",
       kicker: "Γ΄ ΕΠΑ.Λ. Μηχανολογία",

@@ -26,6 +26,13 @@ window.CATALOG = [
         "desc": "Σημειώσεις και διαδραστικός πίνακας ασκήσεων.",
         "status": "ready",
         "href": "#/antoxi"
+      },
+      {
+        "id": "texnologia-michanologikon-kataskevon",
+        "title": "Τεχνολογία Μηχανολογικών Κατασκευών Θεωρία",
+        "desc": "Σημειώσεις και διαδραστικός πίνακας ασκήσεων.",
+        "status": "ready",
+        "href": "#/texnologia-michanologikon-kataskevon"
       }
     ]
   },
