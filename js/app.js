@@ -1768,12 +1768,15 @@ function esc(s) {
         });
       }
       if (figs.length) {
-        inner += '<div class="ex-figures" style="margin-top:1rem;display:flex;flex-direction:column;gap:.75rem">';
-        figs.forEach(function (src) {
+        const isGrid = ex.imageLayout === "grid" || (figs.length === 4 && ex.imageLayout !== "column");
+        const gridClass = isGrid ? " ex-figures-grid" : "";
+        inner += '<div class="ex-figures' + gridClass + '">';
+        figs.forEach(function (src, idx) {
+          const label = (ex.imageLabels && ex.imageLabels[idx]) || "";
           inner +=
-            '<figure class="ex-figure" style="margin:0"><img src="' +
-            imgUrl(src) +
-            '" alt="Σχήμα θέματος" style="max-width:100%;height:auto;border-radius:8px;background:#fff" loading="lazy"/></figure>';
+            '<figure class="ex-figure">' +
+            (label ? '<div class="ex-figure-img-wrap"><img src="' + imgUrl(src) + '" alt="' + esc(label) + '" loading="lazy"/></div><figcaption class="ex-figure-caption">' + esc(label) + '</figcaption>' : '<img src="' + imgUrl(src) + '" alt="Σχήμα θέματος" loading="lazy"/>') +
+            '</figure>';
         });
         inner += "</div>";
       }
@@ -1824,12 +1827,15 @@ function esc(s) {
           });
         }
         if (itemFigs.length) {
-          inner += '<div class="item-figures" style="margin:0.5rem 0 1rem;display:flex;flex-direction:column;gap:.75rem">';
-          itemFigs.forEach(function (src) {
+          const isGrid = item.imageLayout === "grid" || (itemFigs.length === 4 && item.imageLayout !== "column");
+          const gridClass = isGrid ? " item-figures-grid" : "";
+          inner += '<div class="item-figures' + gridClass + '">';
+          itemFigs.forEach(function (src, idx) {
+            const label = (item.imageLabels && item.imageLabels[idx]) || "";
             inner +=
-              '<figure class="ex-figure" style="margin:0"><img src="' +
-              imgUrl(src) +
-              '" alt="Σχήμα ερωτήματος" style="max-width:100%;height:auto;border-radius:8px;background:#fff" loading="lazy"/></figure>';
+              '<figure class="ex-figure">' +
+              (label ? '<div class="ex-figure-img-wrap"><img src="' + imgUrl(src) + '" alt="' + esc(label) + '" loading="lazy"/></div><figcaption class="ex-figure-caption">' + esc(label) + '</figcaption>' : '<img src="' + imgUrl(src) + '" alt="Σχήμα ερωτήματος" loading="lazy"/>') +
+              '</figure>';
           });
           inner += '</div>';
         }

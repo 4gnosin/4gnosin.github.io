@@ -71,7 +71,8 @@ window.CATALOG = [
         "id": "michanes-esoterikis-kafsis-2",
         "title": "Μηχανές Εσωτερικής Καύσης ΙΙ Θεωρία",
         "desc": "Θεωρία και ασκήσεις.",
-        "status": "soon"
+        "status": "ready",
+        "href": "#/michanes-esoterikis-kafsis-2"
       },
       {
         "id": "systimata-aftokinitou",
