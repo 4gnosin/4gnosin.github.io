@@ -64,7 +64,8 @@ window.CATALOG = [
         "id": "systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou",
         "title": "Συστήματα Ελέγχου, Ρύθμισης και Αυτοματισμού Εγκαταστάσεων Ψύξης και Κλιματισμού Θεωρία",
         "desc": "Θεωρία και ασκήσεις.",
-        "status": "soon"
+        "status": "ready",
+        "href": "#/systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou"
       },
       {
         "id": "michanes-esoterikis-kafsis-2",
