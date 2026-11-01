@@ -333,6 +333,8 @@ function esc(s) {
     };
   }
   function go(hash) {
+    homeTreeState.activeGrade = null;
+    homeTreeState.isLocked = false;
     state.menu = false;
     state.navSection = undefined;
     state.navChapter = undefined;
@@ -848,40 +850,171 @@ function esc(s) {
     );
   }
 
+  const homeTreeState = {
+    activeGrade: null,
+    isLocked: false,
+  };
+
+  function updateHomeTreeUI() {
+    const container = document.getElementById("home-nav-container");
+    if (!container) return;
+    if (homeTreeState.activeGrade) {
+      container.classList.add("has-active-tree");
+    } else {
+      container.classList.remove("has-active-tree");
+    }
+    ["b", "c"].forEach(function (gradeId) {
+      const card = document.getElementById("tree-grade-" + gradeId);
+      if (!card) return;
+      const isActive = homeTreeState.activeGrade === gradeId;
+      const isLocked = isActive && homeTreeState.isLocked;
+      if (isActive) {
+        card.classList.add("is-active");
+      } else {
+        card.classList.remove("is-active");
+      }
+      if (isLocked) {
+        card.classList.add("is-locked");
+      } else {
+        card.classList.remove("is-locked");
+      }
+    });
+  }
+
+  function renderGradeBTree(g) {
+    let html = '<div class="tree-nodes-list" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:0.55rem">';
+    (g.subjects || []).forEach(function (s) {
+      if (s.status === "ready") {
+        html +=
+          '<a class="tree-node-item" data-act="go" data-to="' + esc(s.href) + '">' +
+          '<div style="flex:1;min-width:0">' +
+          '<div class="tree-node-title">' + esc(s.title) + '</div>' +
+          (s.desc ? '<div class="tree-node-desc">' + esc(s.desc) + '</div>' : '') +
+          '</div>' +
+          '<span class="tree-node-arrow" aria-hidden="true">→</span>' +
+          '</a>';
+      } else {
+        html +=
+          '<div class="tree-node-item tree-node-disabled">' +
+          '<div style="flex:1;min-width:0">' +
+          '<div style="display:flex;align-items:center;gap:0.4rem">' +
+          '<span class="tree-node-title">' + esc(s.title) + '</span>' +
+          '<span class="chip" style="font-size:.68rem;padding:0.1rem 0.4rem">Σύντομα</span>' +
+          '</div>' +
+          (s.desc ? '<div class="tree-node-desc">' + esc(s.desc) + '</div>' : '') +
+          '</div>' +
+          '</div>';
+      }
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function renderGradeCTree(g) {
+    let html = '<div class="tree-specializations-row">';
+    (g.specializations || []).forEach(function (sp) {
+      const spSubjects = (sp.subjectIds || []).map(function (id) {
+        return (g.subjects || []).find(function (s) { return s.id === id; });
+      }).filter(Boolean);
+      const readyCount = spSubjects.filter(function (s) { return s.status === "ready"; }).length;
+
+      html += '<div class="tree-specialization-col" id="tree-branch-' + esc(sp.id) + '">';
+      html +=
+        '<div class="tree-specialization-header">' +
+        '<span class="kicker">Ειδικότητα</span>' +
+        '<h3>' + esc(sp.title) + '</h3>' +
+        '<span class="tree-specialization-meta">' + readyCount + ' διαθέσιμα μαθήματα</span>' +
+        '</div>';
+
+      html += '<div class="tree-nodes-list" style="display:flex;flex-direction:column;gap:0.45rem;padding:0.4rem 0 0;flex:1">';
+      spSubjects.forEach(function (s) {
+        if (s.status === "ready") {
+          html +=
+            '<a class="tree-node-item" data-act="go" data-to="' + esc(s.href) + '">' +
+            '<div style="flex:1;min-width:0">' +
+            '<div class="tree-node-title">' + esc(s.title) + '</div>' +
+            (s.desc ? '<div class="tree-node-desc">' + esc(s.desc) + '</div>' : '') +
+            '</div>' +
+            '<span class="tree-node-arrow" aria-hidden="true">→</span>' +
+            '</a>';
+        } else {
+          html +=
+            '<div class="tree-node-item tree-node-disabled">' +
+            '<div style="flex:1;min-width:0">' +
+            '<div style="display:flex;align-items:center;gap:0.4rem">' +
+            '<span class="tree-node-title">' + esc(s.title) + '</span>' +
+            '<span class="chip" style="font-size:.68rem;padding:0.1rem 0.4rem">Σύντομα</span>' +
+            '</div>' +
+            (s.desc ? '<div class="tree-node-desc">' + esc(s.desc) + '</div>' : '') +
+            '</div>' +
+            '</div>';
+        }
+      });
+      html += '</div></div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
   function siteHome() {
-    let inner = '<p class="kicker">Μηχανολογία ΕΠΑΛ</p>';
+    let inner = '<div id="home-nav-container" class="home-nav-container">';
+    inner += '<div class="home-header">';
+    inner += '<p class="kicker">Μηχανολογία ΕΠΑΛ</p>';
     inner += '<h1 style="font-size:clamp(2rem,5vw,3rem);margin-top:.3rem">Διάλεξε τάξη</h1>';
-    inner +=
-      '<p class="lead" style="margin-top:.6rem">Σημειώσεις και διαδραστικές ασκήσεις, ανά τάξη και μάθημα.</p>';
-    inner += '<div class="grid-2" style="margin-top:1.6rem">';
+    inner += '<p class="lead" style="margin-top:.6rem">Σημειώσεις και διαδραστικές ασκήσεις, ανά τάξη και μάθημα.</p>';
+    inner += '</div>';
+
+    inner += '<div class="grid-2 tree-category-grid" style="margin-top:1.6rem;align-items:start">';
     CATALOG.forEach(function (g) {
       const readyCount = g.subjects.filter(function (s) {
         return s.status === "ready";
       }).length;
+      const subtitle = g.specializations ? g.specializations.length + " ειδικότητες" : g.subjects.length + " μαθήματα";
       inner +=
-	'<button class="card card-light" data-act="go" data-to="#/grade/' +
-        g.id +
-        '" style="text-align:left;background:var(--ink);color:var(--cream)">' +
-        '<p class="kicker">' +
-        (g.specializations ? g.specializations.length + " ειδικότητες" : g.subjects.length + " μαθήματα") +
-        "</p>" +
+        '<div class="card card-light tree-category-card" data-tree-grade="' +
+        esc(g.id) +
+        '" id="tree-grade-' +
+        esc(g.id) +
+        '" style="text-align:left;background:var(--ink);color:var(--cream);position:relative;">' +
+        '<div class="tree-card-header" data-act="tree-toggle" data-grade="' +
+        esc(g.id) +
+        '" role="button" tabindex="0" style="cursor:pointer;outline:none;">' +
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start">' +
+        '<p class="kicker" style="margin:0">' +
+        esc(subtitle) +
+        '</p>' +
+        '<div style="display:flex;align-items:center;gap:.35rem">' +
+        '<span class="tree-lock-badge" title="Κλειδωμένο μενού">🔒</span>' +
+        '<span class="tree-chevron" aria-hidden="true">▾</span>' +
+        '</div></div>' +
         '<h2 style="font-size:1.6rem;margin-top:.2rem">' +
         esc(g.label) +
-        "</h2>" +
+        '</h2>' +
         '<p style="opacity:.75;margin:.4rem 0 0">' +
         readyCount +
-        " διαθέσιμα τώρα</p></button>";
+        ' διαθέσιμα τώρα</p></div>' +
+        '<div class="tree-panel" id="tree-panel-' +
+        esc(g.id) +
+        '"><div class="tree-panel-inner">' +
+        (g.specializations ? renderGradeCTree(g) : renderGradeBTree(g)) +
+        '</div></div>' +
+        '</div>';
     });
-    inner += "</div>";
+    inner += '</div>';
+
     inner +=
-      '<button class="card" data-act="go" data-to="#/simulations" style="text-align:left;display:block;width:100%;margin-top:1.6rem"><h2 style="font-size:1.6rem">Διαδραστικές Προσομοιώσεις</h2></button>';
+      '<div class="home-section-simulations" style="margin-top:1.6rem">' +
+      '<button class="card" data-act="go" data-to="#/simulations" style="text-align:left;display:block;width:100%"><h2 style="font-size:1.6rem">Διαδραστικές Προσομοιώσεις</h2></button>' +
+      '</div>';
+
     inner +=
-      '<div class="grid-2" style="margin-top:1.6rem">' +
+      '<div class="grid-2 home-section-utilities" style="margin-top:1.6rem">' +
       '<button class="card" data-act="go" data-to="#/links" style="text-align:left;display:block;width:100%"><p class="kicker">Χρήσιμα</p><h2 style="font-size:1.3rem;margin-top:.2rem">Χρήσιμα Links</h2><p style="color:var(--muted);margin:.35rem 0 0">Σύνδεσμοι για μαθήματα και το σχολείο.</p></button>' +
       '<button class="card" data-act="go" data-to="#/math" style="text-align:left;display:block;width:100%"><p class="kicker">Γρήγορη αναφορά</p><h2 style="font-size:1.3rem;margin-top:.2rem">Βασικά Μαθηματικά</h2><p style="color:var(--muted);margin:.35rem 0 0">Προαπαιτούμενες γνώσεις, ταυτότητες και μαθηματικά για όλους.</p></button>' +
-      "</div>";
+      '</div>';
+
     inner +=
-      '<div style="margin-top:2rem;font-size:.85rem;color:var(--muted);line-height:1.6">' +
+      '<div class="home-section-footer" style="margin-top:2rem;font-size:.85rem;color:var(--muted);line-height:1.6">' +
       '<p><b>Πηγές εκπαιδευτικού υλικού</b></p>' +
       '<p><b>Πηγή ασκήσεων:</b><br>Τα θέματα που περιλαμβάνονται στην παρούσα ιστοσελίδα προέρχονται και αντλήθηκαν από την πλατφόρμα της Τράπεζας Θεμάτων Διαβαθμισμένης Δυσκολίας, η οποία αναπτύχθηκε στο πλαίσιο του έργου MIS5070818 – «Τράπεζα θεμάτων Διαβαθμισμένης Δυσκολίας για τη Δευτεροβάθμια Εκπαίδευση, Γενικό Λύκειο-ΕΠΑΛ» και είναι διαθέσιμη διαδικτυακά στον δικτυακό τόπο του Ινστιτούτου Εκπαιδευτικής Πολιτικής (Ι.Ε.Π.): <a href="https://trapeza.iep.edu.gr/" target="_blank" rel="noopener">https://trapeza.iep.edu.gr/</a></p>' +
       '<p>Οι διαδραστικές δραστηριότητες, οι λύσεις, οι επεξηγήσεις και η εκπαιδευτική επεξεργασία των θεμάτων αποτελούν υλικό της παρούσας ιστοσελίδας.</p>' +
@@ -889,6 +1022,8 @@ function esc(s) {
       '<p>Σημείωση: Η παρούσα ιστοσελίδα αποτελεί ανεξάρτητη εκπαιδευτική προσπάθεια και δεν αποτελεί επίσημη ιστοσελίδα ούτε συνδέεται με το Ινστιτούτο Εκπαιδευτικής Πολιτικής, το Υπουργείο Παιδείας ή το ΙΤΥΕ «ΔΙΟΦΑΝΤΟΣ».</p>' +
       '<p><b>Άδεια του πρωτότυπου υλικού της παρούσας ιστοσελίδας:</b><br>Το πρωτότυπο διαδραστικό εκπαιδευτικό υλικό που δημιουργήθηκε για την παρούσα ιστοσελίδα διανέμεται με άδεια Creative Commons Αναφορά Δημιουργού – Μη Εμπορική Χρήση – Παρόμοια Διανομή 4.0 Διεθνές (CC BY-NC-SA 4.0). Η άδεια αυτή αφορά το πρωτότυπο υλικό της παρούσας ιστοσελίδας και δεν επεκτείνεται σε υλικό τρίτων που αναφέρεται ή ενσωματώνεται στην ιστοσελίδα. <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> — Αναφορά Δημιουργού · Μη Εμπορική Χρήση · Παρόμοια Διανομή.<br>Κωνσταντίνος Μηναΐδης 2026 · <a href="https://github.com/4gnosin" target="_blank" rel="noopener">github.com/4gnosin</a></p>' +
       '</div>';
+
+    inner += '</div>';
     return siteShell(inner);
   }
 
@@ -1934,7 +2069,10 @@ function esc(s) {
     const r = route();
     if (r.subject) setCtx(r.subject);
     const root = document.getElementById("app");
-    if (r.name === "site-home") root.innerHTML = siteHome();
+    if (r.name === "site-home") {
+      root.innerHTML = siteHome();
+      updateHomeTreeUI();
+    }
     else if (r.name === "grade") root.innerHTML = gradePage(r.id, r.specializationId);
     else if (r.name === "links") root.innerHTML = linksPage();
     else if (r.name === "math") root.innerHTML = mathPage();
@@ -2331,9 +2469,37 @@ function esc(s) {
   }
 
   document.addEventListener("click", function (e) {
+    // Dismissal: clicking outside the active tree collapses it
+    if (homeTreeState.activeGrade && !e.target.closest(".tree-category-card")) {
+      homeTreeState.activeGrade = null;
+      homeTreeState.isLocked = false;
+      updateHomeTreeUI();
+    }
+
     const el = e.target.closest("[data-act]");
     if (!el) return;
     const act = el.getAttribute("data-act");
+
+    if (act === "tree-toggle") {
+      const grade = el.getAttribute("data-grade");
+      if (homeTreeState.activeGrade === grade) {
+        homeTreeState.activeGrade = null;
+        homeTreeState.isLocked = false;
+      } else {
+        homeTreeState.activeGrade = grade;
+        homeTreeState.isLocked = true;
+      }
+      updateHomeTreeUI();
+      return;
+    }
+
+    if (act === "tree-branch-toggle") {
+      const branch = el.closest(".tree-branch");
+      if (branch) {
+        branch.classList.toggle("is-collapsed");
+      }
+      return;
+    }
     if (act === "math-check-item") {
       const idx = Number(el.getAttribute("data-idx"));
       checkMathItem(idx);
@@ -2515,7 +2681,12 @@ function esc(s) {
   });
 
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Enter" && e.target && e.target.classList.contains("math-practice-input")) {
+    if (e.key === "Escape" && homeTreeState.activeGrade) {
+      homeTreeState.activeGrade = null;
+      homeTreeState.isLocked = false;
+      updateHomeTreeUI();
+    }
+    if (e.key === "Enter"  && e.target && e.target.classList.contains("math-practice-input")) {
       e.preventDefault();
       const idx = Number(e.target.getAttribute("data-idx"));
       if (!isNaN(idx)) checkMathItem(idx);
@@ -2526,7 +2697,11 @@ function esc(s) {
     }
   });
 
+
+  // Smooth card hover feedback handled in CSS. Selection is triggered on click.
   window.addEventListener("hashchange", function () {
+    homeTreeState.activeGrade = null;
+    homeTreeState.isLocked = false;
     const r = route();
     if (r.name !== "exercise") {
       state.exId = null;
