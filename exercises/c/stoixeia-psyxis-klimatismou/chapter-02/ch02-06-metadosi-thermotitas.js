@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"] = window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"].exercises.push(...
+window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"].exercises.push(
 [
   {
     "id": "ch02-23654",
@@ -162,9 +162,9 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"].exercises.push(...
           }
         ],
         "pairs": {
-          "A": "b",
-          "B": "a",
-          "C": "c"
+          "a": "b",
+          "b": "a",
+          "c": "c"
         },
         "images": [
           "images/c/stoixeia-psyxis-klimatismou/chapter-02/c_stoixeia-psyxis-klimatismou_ch02_#33869_fig01.png"

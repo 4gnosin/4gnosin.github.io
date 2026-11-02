@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["systimata-aftokinitou"] = window.SUBJECT_DATA["systimata-aftokinitou"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(...
+window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(
 [
   {
     "id": "ch03-32639",
@@ -63,10 +63,10 @@ window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "β",
-          "2": "α",
-          "3": "ε",
-          "4": "δ"
+          "1": "b",
+          "2": "a",
+          "3": "e",
+          "4": "d"
         },
         "explain": "Η αντιστοίχιση βασίζεται στα γεωμετρικά στοιχεία του τροχού με σφαιρικούς συνδέσμους. Το γράμμα γ (Κάστερ) περισσεύει.",
         "image": "images/c/systimata-aftokinitou/chapter-03/c_systimata-aftokinitou_ch03_#32639_fig01.png"

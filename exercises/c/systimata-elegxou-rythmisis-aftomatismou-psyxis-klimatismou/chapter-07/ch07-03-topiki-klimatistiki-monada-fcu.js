@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou"] = window.SUBJECT_DATA["systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou"].exercises.push(...
+window.SUBJECT_DATA["systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou"].exercises.push(
 [
   {
     "id": "ch07-23779",
@@ -49,9 +49,9 @@ window.SUBJECT_DATA["systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou
           }
         ],
         "pairs": {
-          "1": "γ",
-          "2": "α",
-          "3": "β"
+          "1": "c",
+          "2": "a",
+          "3": "b"
         },
         "explain": "Η σωστή αντιστοίχιση είναι: 1 (3-SS) $\\rightarrow$ γ (Διακόπτης 3 ταχυτήτων ανεμιστήρα), 2 (A) $\\rightarrow$ α (Διακόπτης θέρους-χειμώνα), 3 (BT) $\\rightarrow$ β (Επαφή θερμοστάτη).",
         "images": [
@@ -181,11 +181,11 @@ window.SUBJECT_DATA["systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou
           }
         ],
         "pairs": {
-          "1": "β",
-          "2": "δ",
+          "1": "b",
+          "2": "d",
           "3": "η",
-          "4": "α",
-          "5": "γ"
+          "4": "a",
+          "5": "c"
         },
         "explain": "Σύμφωνα με το υπόμνημα της μονάδας FCU, η αντιστοίχιση είναι: 1 $\\rightarrow$ β, 2 $\\rightarrow$ δ, 3 $\\rightarrow$ η, 4 $\\rightarrow$ α, 5 $\\rightarrow$ γ.",
         "images": [

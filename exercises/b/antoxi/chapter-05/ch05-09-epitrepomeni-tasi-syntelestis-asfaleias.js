@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["antoxi"] = window.SUBJECT_DATA["antoxi"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["antoxi"].exercises.push(...
+window.SUBJECT_DATA["antoxi"].exercises.push(
 [
   {
     "id": "ch05-18582",
@@ -171,10 +171,10 @@ window.SUBJECT_DATA["antoxi"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "γ",
-          "2": "β",
-          "3": "α",
-          "4": "ε"
+          "1": "c",
+          "2": "b",
+          "3": "a",
+          "4": "e"
         },
         "explain": "Η μεταβολή μήκους μετριέται σε cm, η ειδική μεταβολή είναι αδιάστατη, το μέτρο ελαστικότητας σε N/cm² και η διατομή σε cm²."
       },

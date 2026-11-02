@@ -20,7 +20,8 @@ window.SUBJECT_DATA["systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou
         "subqPrompt": "4.1. Να σχεδιάσετε την τυπική ηλεκτρική συνδεσμολογία ενός οικιακού ψυγείου.",
         "prompt": "4.1. Να σχεδιάσετε την τυπική ηλεκτρική συνδεσμολογία ενός οικιακού ψυγείου.",
         "explain": "Βλέπε τυπικό ηλεκτρικό διάγραμμα και συνδεσμολογία οικιακού ψυγείου.",
-        "image": "images/c/systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou/chapter-08/c_systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou_ch08_#25318_sol01.png"
+        "hintImage": "images/c/systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou/chapter-08/c_systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou_ch08_#25318_sol01.png",
+        "hint": "Δείτε το ενδεικτικό διάγραμμα λύσης στην υπόδειξη."
       },
       {
         "kind": "mc",

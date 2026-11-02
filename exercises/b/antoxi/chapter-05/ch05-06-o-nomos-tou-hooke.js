@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["antoxi"] = window.SUBJECT_DATA["antoxi"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["antoxi"].exercises.push(...
+window.SUBJECT_DATA["antoxi"].exercises.push(
 [
   {
     "id": "ch05-17859",
@@ -77,10 +77,10 @@ window.SUBJECT_DATA["antoxi"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "δ",
-          "2": "γ",
-          "3": "α",
-          "4": "β"
+          "1": "d",
+          "2": "c",
+          "3": "a",
+          "4": "b"
         },
         "explain": "Η κάμψη προκαλεί ροπές σε επίπεδο κάθετο στη διατομή, ο εφελκυσμός επιμηκύνει κατά μήκος του άξονα, η διάτμιση δρα με γειτονικές κάθετες δυνάμεις, και η στρέψη δημιουργεί ζεύγος ροπών περιστροφής."
       }

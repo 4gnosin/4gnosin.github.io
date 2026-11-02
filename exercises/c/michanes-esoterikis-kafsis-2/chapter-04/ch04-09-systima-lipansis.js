@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"] = window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
+window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(
 [
   {
     "id": "ch04-34762",
@@ -60,10 +60,10 @@ window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "γ",
-          "2": "α",
-          "3": "β",
-          "4": "δ"
+          "1": "c",
+          "2": "a",
+          "3": "b",
+          "4": "d"
         },
         "image": "images/c/michanes-esoterikis-kafsis-2/chapter-04/c_michanes-esoterikis-kafsis-2_ch04_#34762_fig01.png",
         "explain": "Η σωστή αντιστοίχιση είναι: 1→γ, 2→α, 3→β, 4→δ (Περισσεύει το ε).",

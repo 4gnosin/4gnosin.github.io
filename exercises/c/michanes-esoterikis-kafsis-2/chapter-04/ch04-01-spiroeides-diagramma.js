@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"] = window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
+window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(
 [
   {
     "id": "ch04-30596",
@@ -68,11 +68,11 @@ window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "δ",
-          "2": "α",
-          "3": "ε",
+          "1": "d",
+          "2": "a",
+          "3": "e",
           "4": "στ",
-          "5": "β"
+          "5": "b"
         },
         "explain": "Η σωστή αντιστοίχιση από το σπειροειδές διάγραμμα είναι: 1→δ (Εισαγωγή), 2→α (Επικάλυψη), 3→ε (Συμπίεση), 4→στ (Καύση), 5→β (Εξαγωγή).",
         "image": "images/c/michanes-esoterikis-kafsis-2/chapter-04/c_michanes-esoterikis-kafsis-2_ch04_#30596_fig01.png"

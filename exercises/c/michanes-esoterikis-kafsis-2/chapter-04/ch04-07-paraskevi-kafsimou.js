@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"] = window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
+window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(
 [
   {
     "id": "ch04-24352",
@@ -68,10 +68,10 @@ window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "δ",
-          "2": "γ",
-          "3": "β",
-          "4": "ε",
+          "1": "d",
+          "2": "c",
+          "3": "b",
+          "4": "e",
           "5": "στ"
         },
         "image": "images/c/michanes-esoterikis-kafsis-2/chapter-04/c_michanes-esoterikis-kafsis-2_ch04_#24352_fig01.png",
@@ -184,11 +184,11 @@ window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "β",
-          "2": "γ",
+          "1": "b",
+          "2": "c",
           "3": "στ",
-          "4": "δ",
-          "5": "ε"
+          "4": "d",
+          "5": "e"
         },
         "explain": "Η σωστή αντιστοίχιση είναι: 1→β, 2→γ, 3→στ, 4→δ, 5→ε (Περισσεύει το α).",
         "image": "images/c/michanes-esoterikis-kafsis-2/chapter-04/c_michanes-esoterikis-kafsis-2_ch04_#30601_fig01.png"

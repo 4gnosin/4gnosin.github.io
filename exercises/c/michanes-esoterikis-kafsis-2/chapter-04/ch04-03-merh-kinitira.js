@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"] = window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
+window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(
 [
   {
     "id": "ch04-24351",
@@ -64,11 +64,11 @@ window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "δ",
-          "2": "α",
-          "3": "ε",
-          "4": "γ",
-          "5": "β"
+          "1": "d",
+          "2": "a",
+          "3": "e",
+          "4": "c",
+          "5": "b"
         },
         "image": "images/c/michanes-esoterikis-kafsis-2/chapter-04/c_michanes-esoterikis-kafsis-2_ch04_#24351_fig01.png",
         "explain": "Η αντιστοίχιση των σημαδιών και χαρακτηριστικών του εμβόλου είναι: 1→δ, 2→α, 3→ε, 4→γ, 5→β.",
@@ -172,10 +172,10 @@ window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "γ",
-          "2": "α",
-          "3": "δ",
-          "4": "ε"
+          "1": "c",
+          "2": "a",
+          "3": "d",
+          "4": "e"
         },
         "image": "images/c/michanes-esoterikis-kafsis-2/chapter-04/c_michanes-esoterikis-kafsis-2_ch04_#24365_fig01.png",
         "explain": "Η σωστή αντιστοίχιση είναι: 1→γ, 2→α, 3→δ, 4→ε.",
@@ -268,10 +268,10 @@ window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "γ",
-          "2": "δ",
-          "3": "β",
-          "4": "ε"
+          "1": "c",
+          "2": "d",
+          "3": "b",
+          "4": "e"
         },
         "image": "images/c/michanes-esoterikis-kafsis-2/chapter-04/c_michanes-esoterikis-kafsis-2_ch04_#24368_fig01.png",
         "explain": "Η σωστή αντιστοίχιση είναι: 1→γ, 2→δ, 3→β, 4→ε.",
@@ -369,11 +369,11 @@ window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "γ",
-          "2": "δ",
-          "3": "α",
-          "4": "ε",
-          "5": "β"
+          "1": "c",
+          "2": "d",
+          "3": "a",
+          "4": "e",
+          "5": "b"
         },
         "image": "images/c/michanes-esoterikis-kafsis-2/chapter-04/c_michanes-esoterikis-kafsis-2_ch04_#30559_fig01.png",
         "explain": "Η σωστή αντιστοίχιση είναι: 1→γ, 2→δ, 3→α, 4→ε, 5→β.",
@@ -483,10 +483,10 @@ window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
         ],
         "pairs": {
           "1": "στ",
-          "2": "γ",
-          "3": "δ",
+          "2": "c",
+          "3": "d",
           "4": "b",
-          "5": "ε"
+          "5": "e"
         },
         "explain": "Η αντιστοίχιση των μερών του διωστήρα είναι: 1→στ (πόδι), 2→γ (τριβέας πείρου), 3→δ (κορμός), 4→β (καβαλέτο), 5→ε (τριβέας στροφαλοφόρου).",
         "image": "images/c/michanes-esoterikis-kafsis-2/chapter-04/c_michanes-esoterikis-kafsis-2_ch04_#30597_fig01.png"
@@ -585,10 +585,10 @@ window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "γ",
-          "2": "β",
-          "3": "δ",
-          "4": "α",
+          "1": "c",
+          "2": "b",
+          "3": "d",
+          "4": "a",
           "5": "στ"
         },
         "image": "images/c/michanes-esoterikis-kafsis-2/chapter-04/c_michanes-esoterikis-kafsis-2_ch04_#30599_fig01.png",
@@ -683,10 +683,10 @@ window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "β",
-          "2": "δ",
-          "3": "γ",
-          "4": "α"
+          "1": "b",
+          "2": "d",
+          "3": "c",
+          "4": "a"
         },
         "images": [
           "images/c/michanes-esoterikis-kafsis-2/chapter-04/c_michanes-esoterikis-kafsis-2_ch04_#30611_fig01.png",

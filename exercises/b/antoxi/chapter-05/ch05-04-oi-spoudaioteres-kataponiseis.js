@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["antoxi"] = window.SUBJECT_DATA["antoxi"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["antoxi"].exercises.push(...
+window.SUBJECT_DATA["antoxi"].exercises.push(
 [
   {
     "id": "ch05-16447",
@@ -59,10 +59,10 @@ window.SUBJECT_DATA["antoxi"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "γ",
-          "2": "ε",
-          "3": "β",
-          "4": "α"
+          "1": "c",
+          "2": "e",
+          "3": "b",
+          "4": "a"
         },
         "explain": "Με βάση τα σχήματα των καταπονήσεων: 1 αντιστοιχεί σε εφελκυσμό, 2 σε κάμψη, 3 σε στρέψη και 4 σε θλίψη."
       },

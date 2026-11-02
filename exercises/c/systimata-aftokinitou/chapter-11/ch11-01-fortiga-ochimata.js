@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["systimata-aftokinitou"] = window.SUBJECT_DATA["systimata-aftokinitou"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(...
+window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(
 [
   {
     "id": "ch11-34984",
@@ -56,10 +56,10 @@ window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "β",
-          "2": "α",
-          "3": "δ",
-          "4": "γ"
+          "1": "b",
+          "2": "a",
+          "3": "d",
+          "4": "c"
         },
         "images": [
           "images/c/systimata-aftokinitou/chapter-11/c_systimata-aftokinitou_ch11_#34984_fig01.png",

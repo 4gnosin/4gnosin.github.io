@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["systimata-aftokinitou"] = window.SUBJECT_DATA["systimata-aftokinitou"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(...
+window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(
 [
   {
     "id": "ch01-27703",
@@ -53,7 +53,7 @@ window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(...
         ],
         "pairs": {
           "1": "b",
-          "2": "γ",
+          "2": "c",
           "3": "a"
         },
         "explain": "Ο αισθητήρας θέσης πεντάλ γκαζιού είναι ποτενσιόμετρο (1-β), των στροφών κινητήρα είναι επαγωγικού τύπου (2-γ), και ταχύτητας είναι τύπου Hall (3-α). Περισσεύει ο τύπος δ."

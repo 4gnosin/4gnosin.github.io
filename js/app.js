@@ -89,6 +89,27 @@ window.KIND_LABEL = {
       progressKey: "diagnoseis-html-progress-v1",
       mark: "forces",
     },
+    "stoixeia-kentrikon-thermanseon": {
+      title: "Στοιχεία Σχεδιασμού Κεντρικών Θερμάνσεων",
+      kicker: "Γ΄ ΕΠΑ.Λ. Μηχανολογία",
+      lead: "Στοιχεία σχεδιασμού κεντρικών θερμάνσεων: θεωρία και ασκήσεις.",
+      progressKey: "thermanseis-html-progress-v1",
+      mark: "forces",
+    },
+    "michanourgiki-texnologia": {
+      title: "Μηχανουργική Τεχνολογία – Εργαλειομηχανές",
+      kicker: "Γ΄ ΕΠΑ.Λ. Μηχανολογία",
+      lead: "Μηχανουργική τεχνολογία και εργαλειομηχανές: θεωρία και ασκήσεις.",
+      progressKey: "michanourgiki-html-progress-v1",
+      mark: "forces",
+    },
+    "stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon": {
+      title: "Στοιχεία Ψύξης – Κλιματισμού",
+      kicker: "Γ΄ ΕΠΑ.Λ. Μηχανολογία",
+      lead: "Στοιχεία ψύξης και κλιματισμού μηχανολογικών εγκαταστάσεων: θεωρία και ασκήσεις.",
+      progressKey: "psyxis-mich-egkatastaseon-progress-v1",
+      mark: "shuttle",
+    },
   };
   const SIMULATIONS = [
     {
@@ -1907,10 +1928,12 @@ function esc(s) {
         const gridClass = isGrid ? " ex-figures-grid" : "";
         inner += '<div class="ex-figures' + gridClass + '">';
         figs.forEach(function (src, idx) {
-          const label = (ex.imageLabels && ex.imageLabels[idx]) || "";
+          const customLabel = (ex.imageLabels && ex.imageLabels[idx]) || "";
+          const label = customLabel || (isGrid || figs.length > 1 ? ("Σχήμα " + (idx + 1)) : "");
           inner +=
             '<figure class="ex-figure">' +
-            (label ? '<div class="ex-figure-img-wrap"><img src="' + imgUrl(src) + '" alt="' + esc(label) + '" loading="lazy"/></div><figcaption class="ex-figure-caption">' + esc(label) + '</figcaption>' : '<img src="' + imgUrl(src) + '" alt="Σχήμα θέματος" loading="lazy"/>') +
+            '<div class="ex-figure-img-wrap"><img src="' + imgUrl(src) + '" alt="' + esc(label || "Σχήμα θέματος") + '" loading="lazy"/></div>' +
+            (label ? '<figcaption class="ex-figure-caption">' + esc(label) + '</figcaption>' : '') +
             '</figure>';
         });
         inner += "</div>";
@@ -1966,22 +1989,30 @@ function esc(s) {
           const gridClass = isGrid ? " item-figures-grid" : "";
           inner += '<div class="item-figures' + gridClass + '">';
           itemFigs.forEach(function (src, idx) {
-            const label = (item.imageLabels && item.imageLabels[idx]) || "";
+            const customLabel = (item.imageLabels && item.imageLabels[idx]) || "";
+            const label = customLabel || (isGrid || itemFigs.length > 1 ? ("Σχήμα " + (idx + 1)) : "");
             inner +=
               '<figure class="ex-figure">' +
-              (label ? '<div class="ex-figure-img-wrap"><img src="' + imgUrl(src) + '" alt="' + esc(label) + '" loading="lazy"/></div><figcaption class="ex-figure-caption">' + esc(label) + '</figcaption>' : '<img src="' + imgUrl(src) + '" alt="Σχήμα ερωτήματος" loading="lazy"/>') +
+              '<div class="ex-figure-img-wrap"><img src="' + imgUrl(src) + '" alt="' + esc(label || "Σχήμα ερωτήματος") + '" loading="lazy"/></div>' +
+              (label ? '<figcaption class="ex-figure-caption">' + esc(label) + '</figcaption>' : '') +
               '</figure>';
           });
           inner += '</div>';
         }
       }
       inner += itemView(item, answer, state.checked, i);
-      if (item.hint) {
+      if (item.hint || item.hintImage) {
         inner += '<p><button class="btn btn-chalk" style="margin-top:.8rem" data-act="hint">' +
           (state.hints[i] ? "Απόκρυψη υπόδειξης" : "Υπόδειξη") + "</button></p>";
-        if (state.hints[i])
-          inner += '<div class="hintbox" style="margin-top:.5rem">' + renderMathText(item.hint) +
-            (item.formula ? '<span class="f">' + renderMathText(item.formula) + "</span>" : "") + "</div>";
+        if (state.hints[i]) {
+          inner += '<div class="hintbox" style="margin-top:.5rem">';
+          if (item.hint) inner += renderMathText(item.hint);
+          if (item.formula) inner += '<span class="f">' + renderMathText(item.formula) + "</span>";
+          if (item.hintImage) {
+            inner += '<figure class="ex-figure" style="margin:.6rem 0 0"><div class="ex-figure-img-wrap"><img src="' + imgUrl(item.hintImage) + '" alt="Σχήμα υπόδειξης" style="max-width:100%;height:auto;border-radius:6px;background:#fff" loading="lazy"/></div></figure>';
+          }
+          inner += "</div>";
+        }
       }
       if (state.checked) {
         const ok = state.results[i];

@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["egkatastaseis-klimatismou"] = window.SUBJECT_DATA["egkatastaseis-klimatismou"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["egkatastaseis-klimatismou"].exercises.push(...
+window.SUBJECT_DATA["egkatastaseis-klimatismou"].exercises.push(
 [
   {
     "id": "ch03-25273",
@@ -99,10 +99,10 @@ window.SUBJECT_DATA["egkatastaseis-klimatismou"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "δ",
-          "2": "α",
-          "3": "γ",
-          "4": "β"
+          "1": "d",
+          "2": "a",
+          "3": "c",
+          "4": "b"
         },
         "explain": "Συνήθεις κατοικίες: 250W κουζίνα & 250W δωμάτια. Νυχτερινή λειτουργία: αγνοείται για ψύξη ημέρας. Συνεχής: πλήρης ισχύς. Περιστασιακή ημέρας: τμήμα ισχύος."
       }

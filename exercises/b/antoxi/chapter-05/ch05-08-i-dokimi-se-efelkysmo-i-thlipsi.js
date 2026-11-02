@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["antoxi"] = window.SUBJECT_DATA["antoxi"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["antoxi"].exercises.push(...
+window.SUBJECT_DATA["antoxi"].exercises.push(
 [
   {
     "id": "ch05-18135",
@@ -59,10 +59,10 @@ window.SUBJECT_DATA["antoxi"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "γ",
-          "2": "ε",
-          "3": "α",
-          "4": "β"
+          "1": "c",
+          "2": "e",
+          "3": "a",
+          "4": "b"
         },
         "explain": "Η περιοχή ΟΑ είναι η αναλογική, η ΟΕ η ελαστική, η ΕΔ η περιοχή πλαστικών παραμορφώσεων και η ΔΘ οδηγεί στη θραύση.",
         "image": "images/b/antoxi/chapter-05/b_antoxi_ch05_#18135_fig01.png"
@@ -245,11 +245,11 @@ window.SUBJECT_DATA["antoxi"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "β",
-          "2": "δ",
+          "1": "b",
+          "2": "d",
           "3": "στ",
-          "4": "γ",
-          "5": "ε"
+          "4": "c",
+          "5": "e"
         },
         "explain": "Αντιστοίχιση περιοχών του διαγράμματος φορτίων-επιμηκύνσεων.",
         "image": "images/b/antoxi/chapter-05/b_antoxi_ch05_#18354_fig01.png"
@@ -434,10 +434,10 @@ window.SUBJECT_DATA["antoxi"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "ε",
-          "2": "α",
-          "3": "β",
-          "4": "δ"
+          "1": "e",
+          "2": "a",
+          "3": "b",
+          "4": "d"
         },
         "explain": "Αντιστοίχιση σημείων/φορτίων στο διάγραμμα εφελκυσμού.",
         "image": "images/b/antoxi/chapter-05/b_antoxi_ch05_#19458_fig01.png"

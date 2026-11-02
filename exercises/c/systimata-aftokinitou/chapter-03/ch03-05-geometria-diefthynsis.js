@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["systimata-aftokinitou"] = window.SUBJECT_DATA["systimata-aftokinitou"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(...
+window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(
 [
   {
     "id": "ch03-32633",
@@ -53,7 +53,7 @@ window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "γ",
+          "1": "c",
           "2": "b",
           "3": "a"
         },

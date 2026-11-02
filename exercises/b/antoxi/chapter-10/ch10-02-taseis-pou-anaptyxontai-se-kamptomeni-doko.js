@@ -40,26 +40,26 @@ window.SUBJECT_DATA["antoxi"].exercises.push(...
         "right": [
           {
             "id": "a",
-            "text": "α"
+            "text": "a"
           },
           {
             "id": "b",
-            "text": "β"
+            "text": "b"
           },
           {
             "id": "c",
-            "text": "γ"
+            "text": "c"
           },
           {
             "id": "d",
-            "text": "δ"
+            "text": "d"
           }
         ],
         "pairs": {
-          "1": "γ",
-          "2": "β",
-          "3": "α",
-          "4": "δ"
+          "1": "c",
+          "2": "b",
+          "3": "a",
+          "4": "d"
         },
         "images": [
           "images/b/antoxi/chapter-10/b_antoxi_ch10_#17984_fig01.png",

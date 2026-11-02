@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["systimata-aftokinitou"] = window.SUBJECT_DATA["systimata-aftokinitou"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(...
+window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(
 [
   {
     "id": "ch02-24141",
@@ -85,7 +85,7 @@ window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "ε",
+          "1": "e",
           "2": "b",
           "3": "a",
           "4": "d"
@@ -150,9 +150,9 @@ window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "β",
-          "2": "γ",
-          "3": "α"
+          "1": "b",
+          "2": "c",
+          "3": "a"
         },
         "explain": "Σύμφωνα με την ενδεικτική λύση: 1-β, 2-γ, 3-α. Περισσεύει το δ.",
         "image": "images/c/systimata-aftokinitou/chapter-02/c_systimata-aftokinitou_ch02_#24142_fig01.png"

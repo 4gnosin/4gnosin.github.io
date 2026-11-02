@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["systimata-aftokinitou"] = window.SUBJECT_DATA["systimata-aftokinitou"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(...
+window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(
 [
   {
     "id": "ch03-32636",
@@ -88,10 +88,10 @@ window.SUBJECT_DATA["systimata-aftokinitou"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "β",
-          "2": "α",
-          "3": "δ",
-          "4": "γ"
+          "1": "b",
+          "2": "a",
+          "3": "d",
+          "4": "c"
         },
         "explain": "Η αντιστοίχιση βασίζεται στους τυποποιημένους τύπους πυξίδων διεύθυνσης με ατέρμονα κοχλία.",
         "image": "images/c/systimata-aftokinitou/chapter-03/c_systimata-aftokinitou_ch03_#32636_fig01.png"

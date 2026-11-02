@@ -197,7 +197,8 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"].exercises.push(...
         "subqPrompt": "Απαντήστε στα ερωτήματα:",
         "prompt": "4.1 Να απεικονίσετε σχηματικά την κυκλική αυτή μεταβολή σε διάγραμμα $P-V$.",
         "explain": "Η μεταβολή 1-2 είναι ισόθερμη καμπύλη, η 2-3 κατακόρυφη ευθύγραμμη ισόογκη και η 3-1 οριζόντια ισόθλιπτη.",
-        "image": "images/c/stoixeia-psyxis-klimatismou/chapter-03/c_stoixeia-psyxis-klimatismou_ch03_#33902_sol01.png"
+        "hintImage": "images/c/stoixeia-psyxis-klimatismou/chapter-03/c_stoixeia-psyxis-klimatismou_ch03_#33902_sol01.png",
+        "hint": "Δείτε το ενδεικτικό διάγραμμα λύσης στην υπόδειξη."
       },
       {
         "kind": "calc",

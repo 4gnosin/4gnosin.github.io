@@ -1,6 +1,6 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
 window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"] = window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"] || { sections: [], groups: [], exercises: [] };
-window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
+window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(
 [
   {
     "id": "ch04-24364",
@@ -60,10 +60,10 @@ window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
           }
         ],
         "pairs": {
-          "1": "δ",
-          "2": "β",
-          "3": "ε",
-          "4": "γ"
+          "1": "d",
+          "2": "b",
+          "3": "e",
+          "4": "c"
         },
         "image": "images/c/michanes-esoterikis-kafsis-2/chapter-04/c_michanes-esoterikis-kafsis-2_ch04_#24364_fig01.png",
         "explain": "Σύμφωνα με τη σχηματική παράσταση της κυλινδροκεφαλής: 1→δ, 2→β, 3→ε, 4→γ.",

@@ -490,8 +490,8 @@ color: var(--copper);
 
 .ex-figure-caption {
   margin-top: 0.5rem;
-  font-weight: 700;
-  font-size: 1.25rem;
+  font-weight: 600;
+  font-size: 1.1rem;
   color: #1a1714;
   text-align: center;
 }
@@ -503,6 +503,11 @@ color: var(--copper);
 .home-nav-container {
   position: relative;
   width: 100%;
+  transition: max-width 0.35s ease;
+}
+
+.home-nav-container.has-active-tree {
+  max-width: 72rem;
 }
 
 .tree-category-grid {
@@ -554,12 +559,15 @@ color: var(--copper);
     right: 0 !important;
     margin: 0 auto !important;
     width: 100% !important;
-    max-width: 52rem !important;
+    max-width: 72rem !important;
     z-index: 50 !important;
     opacity: 1 !important;
     filter: none !important;
     transform: scale(1.02) !important;
     box-shadow: 0 20px 48px -8px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.15) !important;
+  }
+  #tree-grade-b.is-active {
+    max-width: 52rem !important;
   }
 }
 
@@ -715,9 +723,15 @@ color: var(--copper);
 /* Specializations in Grade C: all in a wide row side-by-side */
 .tree-specializations-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
   align-items: stretch;
+}
+
+@media (min-width: 860px) {
+  .tree-specializations-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .tree-specialization-col {
