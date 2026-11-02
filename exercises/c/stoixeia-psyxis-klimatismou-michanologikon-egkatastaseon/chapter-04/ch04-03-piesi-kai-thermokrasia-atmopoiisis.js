@@ -66,7 +66,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
         "kind": "match",
         "subq": "2.1",
         "subqPrompt": "Να γράψετε τους αριθμούς 1, 2, 3, 4 από τη Στήλη Α και δίπλα ένα από τα γράμματα α, β, γ, δ της Στήλης Β που δίνει τη σωστή αντιστοίχιση. Σημειώνεται ότι ένα γράμμα από τη στήλη Β θα περισσέψει.",
-        "prompt": "Αντιστοιχίστε τα σχήματα 1, 2, 3, 4 με τις καταστάσεις υγρού-ατμού (Μετατροπές φάσης του νερού υπό πίεση $1\\text{ atm}$):",
+        "prompt": "Αντιστοιχίστε τα σχήματα 1, 2, 3, 4 με τις καταστάσεις υγρού-ατμού (Μετατροπές φάσης του νερού υπό πίεση $1 atm$):",
         "images": [
           "images/c/stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon/chapter-04/c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch04_#23655_fig01.png",
           "images/c/stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon/chapter-04/c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch04_#23655_fig02.png",
@@ -121,9 +121,9 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
           }
         ],
         "pairs": {
-          "1": "b",
-          "2": "d",
-          "3": "a",
+          "1": "a",
+          "2": "e",
+          "3": "b",
           "4": "c"
         },
         "explain": "1 (Σχήμα 1): β. Κορεσμένος ατμός\n2 (Σχήμα 2): δ. Κορεσμένο υγρό\n3 (Σχήμα 3): α. Υπέρθερμος ατμός\n4 (Σχήμα 4): γ. Ξηρός κορεσμένος ατμός\n(Η επιλογή «ε. Υπόψυκτο υγρό» περισσεύει)."
@@ -135,8 +135,8 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
         "prompt": "Συμπληρώστε τα κενά στις προτάσεις:",
         "textBefore": [
           "1. Όταν κατά την μετατροπή ενός υγρού σε αέριο δεν έχουμε παρουσία άλλων αερίων παρά μόνο από την ίδια ουσία, τότε μιλάμε για ",
-          ".<br>2. Η μετατροπή σε ατμό που γίνεται με δημιουργία φυσαλίδων (παραγωγή υδρατμού) μόνο στην ελεύθερη επιφάνεια του νερού, ονομάζεται ",
-          ".<br>3. Ονομάζεται ",
+          ".\n\n2. Η μετατροπή σε ατμό που γίνεται με δημιουργία φυσαλίδων (παραγωγή υδρατμού) μόνο στην ελεύθερη επιφάνεια του νερού, ονομάζεται ",
+          ".\n\n3. Ονομάζεται ",
           ", η μετατροπή του νερού σε ατμό με δημιουργία φυσαλίδων μέσα στη μάζα του νερού, οι οποίες κινούνται προς τα πάνω και σπάζουν στην ελεύθερη επιφάνεια."
         ],
         "answers": [

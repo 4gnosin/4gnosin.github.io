@@ -86,9 +86,9 @@
       "bank_code": "20049",
       "role": "fig",
       "page": 13,
-      "kind": "embedded",
-      "width": 164,
-      "height": 53,
+      "kind": "rendered_composite",
+      "width": 790,
+      "height": 362,
       "sha1": "4d74a3eb4d61",
       "bank_code_inherited": false,
       "xref": 475,
@@ -101,50 +101,6 @@
       "question_anchor": null,
       "text_before": "Q",
       "text_after": "13 0𝐶",
-      "is_full_page_scan": false
-    },
-    {
-      "file": "b_thermod_ch12_#20049_fig02.png",
-      "bank_code": "20049",
-      "role": "fig",
-      "page": 13,
-      "kind": "embedded",
-      "width": 221,
-      "height": 52,
-      "sha1": "a2a49ccf0c27",
-      "bank_code_inherited": false,
-      "xref": 473,
-      "bbox": [
-        139.4,
-        229.4,
-        219.0,
-        248.4
-      ],
-      "question_anchor": null,
-      "text_before": "L=20cm  5 0𝐶",
-      "text_after": "13 0𝐶",
-      "is_full_page_scan": false
-    },
-    {
-      "file": "b_thermod_ch12_#20049_fig03.png",
-      "bank_code": "20049",
-      "role": "fig",
-      "page": 13,
-      "kind": "embedded",
-      "width": 234,
-      "height": 88,
-      "sha1": "50c930b87980",
-      "bank_code_inherited": false,
-      "xref": 469,
-      "bbox": [
-        139.4,
-        268.0,
-        224.0,
-        300.0
-      ],
-      "question_anchor": null,
-      "text_before": "13 0𝐶",
-      "text_after": "4.1. Να υπολογίσετε  τη ροή θερμότητας δια μέσου της οροφής",
       "is_full_page_scan": false
     }
   ],
@@ -227,9 +183,7 @@
     },
     "20049": {
       "fig": [
-        "b_thermod_ch12_#20049_fig01.png",
-        "b_thermod_ch12_#20049_fig02.png",
-        "b_thermod_ch12_#20049_fig03.png"
+        "b_thermod_ch12_#20049_fig01.png"
       ],
       "sol": [],
       "images": [
@@ -238,65 +192,21 @@
           "bank_code": "20049",
           "role": "fig",
           "page": 13,
-          "kind": "embedded",
-          "width": 164,
-          "height": 53,
-          "sha1": "4d74a3eb4d61",
-          "bank_code_inherited": false,
-          "xref": 475,
-          "bbox": [
-            331.6,
-            221.2,
-            390.8,
-            240.4
-          ],
-          "question_anchor": null,
-          "text_before": "Q",
-          "text_after": "13 0𝐶",
-          "is_full_page_scan": false
-        },
-        {
-          "file": "b_thermod_ch12_#20049_fig02.png",
-          "bank_code": "20049",
-          "role": "fig",
-          "page": 13,
-          "kind": "embedded",
-          "width": 221,
-          "height": 52,
-          "sha1": "a2a49ccf0c27",
-          "bank_code_inherited": false,
-          "xref": 473,
-          "bbox": [
-            139.4,
-            229.4,
-            219.0,
-            248.4
-          ],
-          "question_anchor": null,
-          "text_before": "L=20cm  5 0𝐶",
-          "text_after": "13 0𝐶",
-          "is_full_page_scan": false
-        },
-        {
-          "file": "b_thermod_ch12_#20049_fig03.png",
-          "bank_code": "20049",
-          "role": "fig",
-          "page": 13,
-          "kind": "embedded",
-          "width": 234,
-          "height": 88,
-          "sha1": "50c930b87980",
+          "kind": "rendered_composite",
+          "width": 790,
+          "height": 362,
+          "sha1": "roof20049",
           "bank_code_inherited": false,
           "xref": 469,
           "bbox": [
-            139.4,
-            268.0,
-            224.0,
-            300.0
+            128.0,
+            185.0,
+            412.0,
+            315.0
           ],
           "question_anchor": null,
-          "text_before": "13 0𝐶",
-          "text_after": "4.1. Να υπολογίσετε  τη ροή θερμότητας δια μέσου της οροφής",
+          "text_before": "5 C.",
+          "text_after": "4.1",
           "is_full_page_scan": false
         }
       ]

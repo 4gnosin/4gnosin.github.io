@@ -1194,14 +1194,29 @@ function esc(s) {
     if (typeof katex === "undefined") return esc(str);
 
     var s = String(str);
-    // Αν δεν υπάρχουν $ delimiters αλλά το κείμενο περιέχει LaTeX εντολές/συμβολισμούς
-    if (!/[$]/.test(s) && (/\\(?:text|circ|frac|sqrt|cdot|times|pm|Delta|sigma|tau|mu|alpha|beta|gamma|lambda|phi|psi|omega)\b|^\^|(?:\^|_)\{/).test(s)) {
+
+    // Αν περιέχει ελληνικό πεζό κείμενο ή %, ΔΕΝ είναι αυτόνομος μαθηματικός τύπος
+    // και δεν πρέπει να σταλεί ολόκληρο στο katex.renderToString (διότι θα χαθούν τα κενά
+    // μεταξύ λέξεων και το % λειτουργεί ως LaTeX comment περικόπτοντας το υπόλοιπο κείμενο).
+    var isProse = /[α-ωΑ-Ω]{2,}/i.test(s) || s.indexOf("%") !== -1 || (s.indexOf(" ") !== -1 && s.length > 35);
+
+    // ΜΟΝΟ αν είναι σύντομος, αποκλειστικά μαθηματικός τύπος χωρίς $ delimiters
+    if (!isProse && !/[$]/.test(s) && (/\\(?:frac|sqrt|cdot|times|pm|Delta|sigma|tau|mu|alpha|beta|gamma|lambda|phi|psi|omega)\b|^\^|(?:\^|_)\{/).test(s)) {
       try {
         var cleanTex = s.startsWith("^") ? "{}" + s : s;
         return katex.renderToString(cleanTex, { throwOnError: false, displayMode: false });
       } catch (e) {
         // Fallback στον διαχωρισμό
       }
+    }
+
+    // Καθαρισμός συνηθισμένων γυμνών LaTeX εκφράσεων που παρεισφρέουν σε πεζό κείμενο
+    if (isProse && s.indexOf("\\") !== -1) {
+      s = s
+        .replace(/\\text\{\s*\}\s*\^?\\circ\s*\\text\{C\}/g, "°C")
+        .replace(/\^?\\circ\s*\\text\{C\}/g, "°C")
+        .replace(/\\text\{\s*\^?\\circ\s*C\s*\}/g, "°C")
+        .replace(/\\text\{\s*([a-zA-Z0-9/³²°%_ -]+)\s*\}/g, "$1");
     }
 
     var mathRegex = /(\$\$[\s\S]*?\$\$|\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)|\$(?:\\\$|[^$\n])+\$)/g;
@@ -1813,7 +1828,10 @@ function esc(s) {
       });
       let h = '<p style="opacity:.75;font-size:.9rem">' + renderMathText(item.prompt) + '</p><p class="para">';
       item.textBefore.forEach(function (chunk, i) {
-        h += esc(chunk);
+        var formattedChunk = esc(chunk)
+          .replace(/&lt;br\s*\/?&gt;/gi, '<br/><span style="display:block;margin-top:.6rem"></span>')
+          .replace(/\n/g, '<br/><span style="display:block;margin-top:.6rem"></span>');
+        h += formattedChunk;
         if (i < item.answers.length) {
           const filled = value[i];
           const cls = !filled
