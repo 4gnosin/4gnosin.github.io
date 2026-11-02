@@ -1978,10 +1978,10 @@ function esc(s) {
       }
       if (item.image || (item.images && item.images.length)) {
         const itemFigs = [];
-        if (item.image) itemFigs.push(item.image);
+        if (item.image && item.image !== ex.image) itemFigs.push(item.image);
         if (item.images) {
           item.images.forEach(function (src) {
-            if (itemFigs.indexOf(src) < 0) itemFigs.push(src);
+            if (src !== ex.image && itemFigs.indexOf(src) < 0) itemFigs.push(src);
           });
         }
         if (itemFigs.length) {
@@ -2001,12 +2001,24 @@ function esc(s) {
         }
       }
       inner += itemView(item, answer, state.checked, i);
-      if (item.hint) {
+      const hasHint = item.hint || item.hintImage;
+      if (hasHint) {
         inner += '<p><button class="btn btn-chalk" style="margin-top:.8rem" data-act="hint">' +
           (state.hints[i] ? "Απόκρυψη υπόδειξης" : "Υπόδειξη") + "</button></p>";
-        if (state.hints[i])
-          inner += '<div class="hintbox" style="margin-top:.5rem">' + renderMathText(item.hint) +
-            (item.formula ? '<span class="f">' + renderMathText(item.formula) + "</span>" : "") + "</div>";
+        if (state.hints[i]) {
+          inner += '<div class="hintbox" style="margin-top:.5rem">';
+          if (item.hint) {
+            inner += '<p style="margin:0 0 .4rem">' + renderMathText(item.hint) + '</p>';
+          }
+          if (item.formula) {
+            inner += '<span class="f">' + renderMathText(item.formula) + '</span>';
+          }
+          if (item.hintImage) {
+            inner += '<figure class="ex-figure" style="margin:.6rem 0 0"><div class="ex-figure-img-wrap"><img src="' +
+              imgUrl(item.hintImage) + '" alt="Σχήμα υπόδειξης" style="max-width:100%;height:auto;border-radius:8px;background:#fff" loading="lazy"/></div></figure>';
+          }
+          inner += "</div>";
+        }
       }
       if (state.checked) {
         const ok = state.results[i];

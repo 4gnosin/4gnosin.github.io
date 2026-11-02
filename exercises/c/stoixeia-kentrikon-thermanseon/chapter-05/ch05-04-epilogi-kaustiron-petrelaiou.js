@@ -152,12 +152,12 @@ window.SUBJECT_DATA["stoixeia-kentrikon-thermanseon"].exercises.push(...
         "kind": "calc",
         "subq": "4.1",
         "prompt": "Υπολογίστε την ισχύ $Q_{\\Lambda}$ του λέβητα σε $\\text{kcal/h}$ για τη χαμηλότερη παροχή καυσίμου ($w = 50\\text{ kg/h}$).",
-        "image": "images/c/stoixeia-kentrikon-thermanseon/chapter-05/c_stoixeia-kentrikon-thermanseon_ch05_#25897_fig01.png",
         "formula": "$Q_{\\Lambda} = w \\cdot H \\cdot \\eta$",
         "answer": 400000,
         "unit": "kcal/h",
         "tolerance": 0.01,
         "hint": "Από το διάγραμμα, για αντίθλιψη 6 mbar και καυστήρα OE-5.1Z, η ελάχιστη παροχή είναι $w = 50\\text{ kg/h}$.",
+        "hintImage": "images/c/stoixeia-kentrikon-thermanseon/chapter-05/c_stoixeia-kentrikon-thermanseon_ch05_#25897_sol01.png",
         "explain": "Από το διάγραμμα, για αντίθλιψη $6\\text{ mbar}$ και καυστήρα OE–5.1Ζ, η ωριαία ποσότητα καυσίμου είναι στην περιοχή $50\\text{ kg/h} < w < 65\\text{ kg/h}$. Για τη χαμηλότερη παροχή $w = 50\\text{ kg/h}$: $Q_{\\Lambda} = w \\cdot H \\cdot \\eta = 50\\text{ kg/h} \\cdot 10.000\\text{ kcal/kg} \\cdot 0,8 = 400.000\\text{ kcal/h}$."
       }
     ],

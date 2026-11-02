@@ -100,13 +100,15 @@ window.CATALOG = [
         "id": "michanourgiki-texnologia",
         "title": "Μηχανουργική Τεχνολογία – Εργαλειομηχανές",
         "desc": "Θεωρία και ασκήσεις.",
-        "status": "soon"
+        "status": "ready",
+        "href": "#/michanourgiki-texnologia"
       },
       {
         "id": "stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon",
         "title": "Στοιχεία Ψύξης – Κλιματισμού",
         "desc": "Θεωρία και ασκήσεις.",
-        "status": "soon"
+        "status": "ready",
+        "href": "#/stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"
       }
     ],
     "specializations": [
