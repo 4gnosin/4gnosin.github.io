@@ -14,7 +14,7 @@ window.SUBJECT_DATA["michanourgiki-texnologia"].exercises.push(...
     "theory": "ch04-06-charaktiristika",
     "sourceOrder": 3,
     "stem": "Άξονας από χάλυβα $50-70\\text{ kg/mm}^2$ και με αρχική διάμετρο $d=200\\text{ mm}$, πρόκειται να υποστεί κατεργασία εκχόνδρισης σε τόρνο, με χρήση κοπτικού εργαλείου κατασκευασμένου από ταχυχάλυβα (HSS). Δίνεται $\\pi=3,14$ και ο σχετικός πίνακας συνθηκών κατεργασίας.",
-    "image": "images/c/michanourgiki-texnologia/chapter-04/c_michanourgiki-texnologia_ch04_#25194_fig01.png",
+    "image": "images/c/michanourgiki-texnologia/chapter-04/c_michanourgiki-texnologia_ch04_25194_fig01.webp",
     "items": [
       {
         "kind": "calc",
@@ -24,7 +24,7 @@ window.SUBJECT_DATA["michanourgiki-texnologia"].exercises.push(...
         "answer": 20,
         "unit": "m/min",
         "tolerance": 0.01,
-        "explain": "Από τον δοσμένο πίνακα, για χάλυβα $50-70\\text{ kg/mm}^2$, σε κατεργασία εκχόνδρισης με εργαλείο HSS, η ταχύτητα κοπής είναι $u = 20\\text{ m/min}。」"
+        "explain": "Από τον δοσμένο πίνακα, για χάλυβα $50-70\\text{ kg/mm}^2$, σε κατεργασία εκχόνδρισης με εργαλείο HSS, η ταχύτητα κοπής είναι $u = 20\\text{ m/min}$."
       },
       {
         "kind": "calc",

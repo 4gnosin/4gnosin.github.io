@@ -151,7 +151,7 @@ window.SUBJECT_DATA["antoxi"].exercises.push(...
         "explain": "Επειδή $\\tau = 4000\\text{ daN/cm}^2 > \\tau_{\\text{επ}} = 3000\\text{ daN/cm}^2$, ο ήλος δεν αντέχει."
       }
     ],
-    "image": "images/b/antoxi/chapter-09/b_antoxi_ch09_#20265_fig01.png"
+    "image": "images/b/antoxi/chapter-09/b_antoxi_ch09_20265_fig01.webp"
   },
   {
     "id": "ch09-20470",
@@ -186,7 +186,7 @@ window.SUBJECT_DATA["antoxi"].exercises.push(...
         "answer": 3.14,
         "unit": "cm²",
         "tolerance": 0.01,
-        "hint": "Διαιρέστε τη δύναμη $F$ με την $\\tau_{\\text{επ}}.",
+        "hint": "Διαιρέστε τη δύναμη $F$ με την $\\tau_{\\text{επ}}$.",
         "explain": " \\( S = \\frac{3140}{1000} = 3{,}14\\text{ cm}^2 \\)."
       },
       {

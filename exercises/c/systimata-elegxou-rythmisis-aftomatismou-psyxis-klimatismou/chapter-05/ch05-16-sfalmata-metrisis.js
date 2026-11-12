@@ -62,13 +62,13 @@ window.SUBJECT_DATA["systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou
         "kind": "calc",
         "subq": "2",
         "prompt": "2. Σε ένα σύστημα, ο πρεσσοστάτης έχει ρυθμιστεί σε πίεση $2{,}80\\text{ bar}$. Με βάση τον πίνακα μετατροπής ($1\\text{ bar} = 100\\text{ kPa}$), σε πόσο χρόνο ($s$) θα έχει φτάσει στην πίεση αυτή (αντιστοιχία $\\Delta T = 100\\text{ K}$ δίνει χρόνο $40\\text{ s}$);",
-        "formula": "t = 40\\text{ s}",
+        "formula": "t = 40\s",
         "answer": 40,
         "unit": "s",
         "tolerance": 0.01,
         "hint": "Μετατρέψτε τα bar σε kPa ($2{,}8\\text{ bar} = 280\\text{ kPa}$) και βρείτε τον χρόνο από τον πίνακα αναφοράς.",
         "explain": "Γνωρίζοντας ότι $1\\text{ bar} = 100\\text{ kPa}$, τα $2{,}8\\text{ bar}$ είναι $280\\text{ kPa}$. Συνεπώς, σύμφωνα με τον πίνακα, ο χρόνος είναι $40\\text{ s}$.",
-        "image": "images/c/systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou/chapter-05/c_systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou_ch05_#23780_fig01.png"
+        "image": "images/c/systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou/chapter-05/c_systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou_ch05_23780_fig01.webp"
       }
     ]
   }

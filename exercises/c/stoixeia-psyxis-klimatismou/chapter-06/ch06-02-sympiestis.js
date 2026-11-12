@@ -16,15 +16,15 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"].exercises.push(...
     "stem": "Σε μια ψυκτική διάταξη η ισχύς του συμπιεστή είναι $5\\text{ kW}$ και η απορριπτόμενη θερμική ισχύς στον συμπυκνωτή είναι $12\\text{ kW}$. Η μανομετρική πίεση κατάθλιψης είναι $8\\text{ bar}$ και η σχέση (λόγος) συμπίεσης $CR = 6$. Δίνεται η ατμοσφαιρική πίεση $P_{\\text{atm}} = 1\\text{ bar}$.",
     "givens": [
       {
-        "label": "P_{\\text{συμπ}}",
+        "label": "$P_{\\text{συμπ}}$",
         "value": "5 kW"
       },
       {
-        "label": "Q_{\\text{συμπ}}",
+        "label": "$Q_{\\text{συμπ}}$",
         "value": "12 kW"
       },
       {
-        "label": "P_{\\text{μαν.κατ}}",
+        "label": "$P_{\\text{μαν.κατ}}$",
         "value": "8 bar"
       },
       {
@@ -32,7 +32,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"].exercises.push(...
         "value": "6"
       },
       {
-        "label": "P_{\\text{atm}}",
+        "label": "$P_{\\text{atm}}$",
         "value": "1 bar"
       }
     ],
@@ -89,7 +89,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"].exercises.push(...
     "stem": "Σε ψυκτική διάταξη που λειτουργεί με μηχανική συμπίεση ατμών, η απόλυτη πίεση κατάθλιψης είναι $P_{\\text{απ.κατ.}} = 8\\text{ bar}$ και ο λόγος συμπίεσης $CR = 2{,}5$. Δίνεται η ατμοσφαιρική πίεση $P_{\\text{ατμ.}} = 1\\text{ bar}$.",
     "givens": [
       {
-        "label": "P_{\\text{απ.κατ.}}",
+        "label": "$P_{\\text{απ.κατ.}}$",
         "value": "8 bar"
       },
       {
@@ -97,7 +97,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"].exercises.push(...
         "value": "2.5"
       },
       {
-        "label": "P_{\\text{ατμ.}}",
+        "label": "$P_{\\text{ατμ.}}$",
         "value": "1 bar"
       }
     ],
@@ -139,7 +139,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"].exercises.push(...
         "subq": "2.1",
         "subqPrompt": "2.1 Με βάση το Σχήμα 1, που απεικονίζει έναν συμπιεστή τύπου τυμπάνου, να αντιστοιχίσετε τους αριθμούς 1-8 της Στήλης Α με τα γράμματα α-θ της Στήλης Β:",
         "prompt": "Αντιστοίχιση μερών συμπιεστή τύπου τυμπάνου (Σχήμα 1):",
-        "image": "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_#26759_fig01.png",
+        "image": "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_26759_fig01.webp",
         "left": [
           {
             "id": "1",
@@ -220,10 +220,10 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"].exercises.push(...
         },
         "explain": "1 - δ (Λάμα), 2 - ε (Κατάθλιψη), 3 - θ (Αναρρόφηση), 4 - α (Κέλυφος), 5 - γ (Κύλινδρος), 6 - ζ (Έκκεντρο), 7 - η (Στροφέας), 8 - β (Άξονας του στροφέα).",
         "images": [
-          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_#26759_fig01.png",
-          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_#26759_fig02.png",
-          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_#26759_fig03.png",
-          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_#26759_fig04.png"
+          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_26759_fig01.webp",
+          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_26759_fig02.webp",
+          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_26759_fig03.webp",
+          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_26759_fig04.webp"
         ]
       },
       {
@@ -232,9 +232,9 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"].exercises.push(...
         "subqPrompt": "2.2 Να αντιστοιχίσετε τις ονομασίες των συμπιεστών από τη Στήλη Α με τις αντίστοιχες εικόνες στη Στήλη Β:",
         "prompt": "Αντιστοίχιση τύπων συμπιεστών με τις εικόνες τους:",
         "images": [
-          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_#26759_fig02.png",
-          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_#26759_fig03.png",
-          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_#26759_fig04.png"
+          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_26759_fig02.webp",
+          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_26759_fig03.webp",
+          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_26759_fig04.webp"
         ],
         "left": [
           {
@@ -451,9 +451,9 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"].exercises.push(...
         "subqPrompt": "2.1 α) Να αντιστοιχίσετε την εικόνα του συμπιεστή από τη Στήλη Α με την ονομασία του από τη Στήλη Β (ανάλογα με το πόσο προσιτό είναι το εσωτερικό του):",
         "prompt": "Αντιστοίχιση συμπιεστών 1-3 με τους τύπους τους:",
         "images": [
-          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_#33877_fig01.png",
-          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_#33877_fig02.png",
-          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_#33877_fig03.png"
+          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_33877_fig01.webp",
+          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_33877_fig02.webp",
+          "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_33877_fig03.webp"
         ],
         "left": [
           {
@@ -493,7 +493,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"].exercises.push(...
           "3": "d"
         },
         "explain": "1 - β (Ημιερμητικός), 2 - γ (Ερμητικός), 3 - δ (Ανοιχτού τύπου).",
-        "image": "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_#33877_fig01.png"
+        "image": "images/c/stoixeia-psyxis-klimatismou/chapter-06/c_stoixeia-psyxis-klimatismou_ch06_33877_fig01.webp"
       },
       {
         "kind": "mc",

@@ -74,10 +74,10 @@ window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
           "5": "b"
         },
         "images": [
-          "images/c/michanes-esoterikis-kafsis-2/chapter-03/c_michanes-esoterikis-kafsis-2_ch03_#30028_fig01.png"
+          "images/c/michanes-esoterikis-kafsis-2/chapter-03/c_michanes-esoterikis-kafsis-2_ch03_30028_fig01.webp"
         ],
         "explain": "Η αντιστοίχιση των μερών του συστήματος πολλαπλού ψεκασμού είναι: 1-δ (Καύσιμο), 2-γ (Αέρας), 3-στ (Πεταλούδα), 4-α (Πολλαπλή εισαγωγής), 5-β (Μπεκ).",
-        "image": "images/c/michanes-esoterikis-kafsis-2/chapter-03/c_michanes-esoterikis-kafsis-2_ch03_#30028_fig01.png"
+        "image": "images/c/michanes-esoterikis-kafsis-2/chapter-03/c_michanes-esoterikis-kafsis-2_ch03_30028_fig01.webp"
       },
       {
         "kind": "blank",
@@ -86,10 +86,10 @@ window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
         "subqPrompt": "Να συμπληρώσετε τα κενά στις προτάσεις α έως ε:",
         "textBefore": [
           "α) Εάν τα μπεκ έχουν τοποθετηθεί στην πολλαπλή εισαγωγή πριν από τη βαλβίδα εισαγωγής το σύστημα ψεκασμού ονομάζεται ",
-          ".<br>β) Εάν τα μπεκ ψεκάζουν το καύσιμο απευθείας στο θάλαμο καύσης το σύστημα ψεκασμού ονομάζεται ",
-          ".<br>γ) ",
-          " είναι ο χώρος αποθήκευσης και επιστροφής της περίσσειας του καυσίμου.<br>δ) Τα συστήματα ψεκασμού μονού σημείου διαθέτουν ",
-          " μπέκ.<br>ε) Το σύστημα ψεκασμού L-Jetronic ανήκει στα ",
+          ".  β) Εάν τα μπεκ ψεκάζουν το καύσιμο απευθείας στο θάλαμο καύσης το σύστημα ψεκασμού ονομάζεται ",
+          ".  γ) ",
+          " είναι ο χώρος αποθήκευσης και επιστροφής της περίσσειας του καυσίμου.  δ) Τα συστήματα ψεκασμού μονού σημείου διαθέτουν ",
+          " μπέκ.  ε) Το σύστημα ψεκασμού L-Jetronic ανήκει στα ",
           " ελεγχόμενα συστήματα ψεκασμού."
         ],
         "answers": [
@@ -618,10 +618,10 @@ window.SUBJECT_DATA["michanes-esoterikis-kafsis-2"].exercises.push(...
           "5": "b"
         },
         "images": [
-          "images/c/michanes-esoterikis-kafsis-2/chapter-03/c_michanes-esoterikis-kafsis-2_ch03_#34644_fig01.png"
+          "images/c/michanes-esoterikis-kafsis-2/chapter-03/c_michanes-esoterikis-kafsis-2_ch03_34644_fig01.webp"
         ],
         "explain": "1-δ (Καύσιμο), 2-γ (Αέρας), 3-στ (Πεταλούδα), 4-α (Πολλαπλή εισαγωγής), 5-β (Μπεκ). Περισσεύει το ε (κινητήρας).",
-        "image": "images/c/michanes-esoterikis-kafsis-2/chapter-03/c_michanes-esoterikis-kafsis-2_ch03_#34644_fig01.png"
+        "image": "images/c/michanes-esoterikis-kafsis-2/chapter-03/c_michanes-esoterikis-kafsis-2_ch03_34644_fig01.webp"
       },
       {
         "kind": "tf",

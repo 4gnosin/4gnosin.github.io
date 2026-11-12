@@ -204,11 +204,11 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"].exercises.push(...
         "unit": "°C",
         "tolerance": 0.5,
         "explain": "Από το διάγραμμα, το σημείο τομής της ταχύτητας αέρα $0,4\\text{ m/s}$ και του αριθμού μεταβολισμού $125\\text{ kcal}/(\\text{h}\\cdot\\text{m}^2)$ δίνει θερμοκρασία αέρα $19\\text{ }^\\circ\\text{C}$.",
-        "image": "images/c/stoixeia-psyxis-klimatismou/chapter-09/c_stoixeia-psyxis-klimatismou_ch09_#32836_fig01.png"
+        "image": "images/c/stoixeia-psyxis-klimatismou/chapter-09/c_stoixeia-psyxis-klimatismou_ch09_32836_fig01.webp"
       }
     ],
     "solutionImages": [
-      "images/c/stoixeia-psyxis-klimatismou/chapter-09/c_stoixeia-psyxis-klimatismou_ch09_#32836_sol01.png"
+      "images/c/stoixeia-psyxis-klimatismou/chapter-09/c_stoixeia-psyxis-klimatismou_ch09_32836_sol01.webp"
     ]
   },
   {
@@ -228,7 +228,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"].exercises.push(...
         "kind": "calc",
         "subq": "4.1",
         "prompt": "4.1 Να υπολογίσετε τη θερμοκρασία του αέρα σε $^\\circ\\text{C}$, στην οποία ο τεχνίτης νιώθει άνετα.",
-        "formula": "t_{air}(t_{surf}=25^\\circ\\text{C}, v=0.2\\text{ m/s})",
+        "formula": "$t_{air}$($t_{surf}$=25^\\circ\\text{C}, v=0.2\\text{ m/s})",
         "answer": 27.2,
         "unit": "°C",
         "tolerance": 0.2,
@@ -238,16 +238,16 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou"].exercises.push(...
         "kind": "calc",
         "subq": "4.2",
         "prompt": "4.2 Αν η θερμοκρασία του αέρα στην οποία ο τεχνίτης νιώθει άνετα είναι $36\\text{ }^\\circ\\text{C}$, να υπολογίσετε τη μέση θερμοκρασία των εσωτερικών επιφανειών σε $^\\circ\\text{C}$ (Η ταχύτητα του αέρα παραμένει ίση με $0,2\\text{ m/s}$).",
-        "formula": "t_{surf}(t_{air}=36^\\circ\\text{C}, v=0.2\\text{ m/s})",
+        "formula": "$t_{surf}$($t_{air}$=36^\\circ\\text{C}, v=0.2\\text{ m/s})",
         "answer": 10,
         "unit": "°C",
         "tolerance": 0.5,
         "explain": "Το σημείο τομής της θερμοκρασίας αέρα ($36\\text{ }^\\circ\\text{C}$) και της ταχύτητας του αέρα ($0,2\\text{ m/s}$) δίνει μέση θερμοκρασία εσωτερικών επιφανειών $10\\text{ }^\\circ\\text{C}$.",
-        "image": "images/c/stoixeia-psyxis-klimatismou/chapter-09/c_stoixeia-psyxis-klimatismou_ch09_#33901_fig01.png"
+        "image": "images/c/stoixeia-psyxis-klimatismou/chapter-09/c_stoixeia-psyxis-klimatismou_ch09_33901_fig01.webp"
       }
     ],
     "solutionImages": [
-      "images/c/stoixeia-psyxis-klimatismou/chapter-09/c_stoixeia-psyxis-klimatismou_ch09_#33901_sol01.png"
+      "images/c/stoixeia-psyxis-klimatismou/chapter-09/c_stoixeia-psyxis-klimatismou_ch09_33901_sol01.webp"
     ]
   }
 ]

@@ -1,6 +1,9 @@
 window.SUBJECT_DATA = window.SUBJECT_DATA || {};
+
 window.SUBJECT_DATA["stoixeia-michanon"] = window.SUBJECT_DATA["stoixeia-michanon"] || { sections: [], groups: [], exercises: [] };
+
 window.SUBJECT_DATA["stoixeia-michanon"].exercises.push(...
+
 [
   {
     "id": "ch14-23861",
@@ -166,7 +169,7 @@ window.SUBJECT_DATA["stoixeia-michanon"].exercises.push(...
         "explain": "Από τον τύπο $\\tau = \\frac{Q}{A \\cdot z \\cdot n \\cdot 2}$, θέτοντας $\\tau = \\tau_{\\text{επ}}$, παίρνουμε $z = \\frac{12560}{0{,}785 \\cdot 1 \\cdot 2 \\cdot 500} = 16$ ήλοι."
       }
     ],
-    "image": "images/c/stoixeia-michanon/chapter-14/c_stoixeia-michanon_ch14_#24076_fig01.png"
+    "image": "images/c/stoixeia-michanon/chapter-14/c_stoixeia-michanon_ch14_24076_fig01.webp"
   },
   {
     "id": "ch14-25714",
@@ -225,11 +228,7 @@ window.SUBJECT_DATA["stoixeia-michanon"].exercises.push(...
         "explain": "Με $d = 2\\text{ cm}$, $s = 0{,}5\\text{ cm}$ και $z = 1$, έχουμε $\\sigma_L = \\frac{3140}{1 \\cdot 2 \\cdot 0{,}5} = 3140\\text{ daN/cm}^2$."
       }
     ],
-    "image": "images/c/stoixeia-michanon/chapter-14/c_stoixeia-michanon_ch14_#25714_fig01.png",
-    "images": [
-      "images/c/stoixeia-michanon/chapter-14/c_stoixeia-michanon_ch14_#25714_fig01.png",
-      "images/c/stoixeia-michanon/chapter-14/c_stoixeia-michanon_ch14_#25714_fig02.png"
-    ]
+    "image": "images/c/stoixeia-michanon/chapter-14/c_stoixeia-michanon_ch14_25714_fig01.webp"
   },
   {
     "id": "ch14-25742",
@@ -341,7 +340,7 @@ window.SUBJECT_DATA["stoixeia-michanon"].exercises.push(...
         "explain": "Έχουμε $d = d_1 - 1\\text{ mm} = 10\\text{ mm} = 1\\text{ cm}$, άρα $A = \\frac{3{,}14 \\cdot 1^2}{4} = 0{,}785\\text{ cm}^2$. Ο αριθμός ήλων είναι $z = \\frac{9420}{0{,}785 \\cdot 2 \\cdot 2 \\cdot 1000} = \\frac{9420}{3140} = 3$."
       }
     ],
-    "image": "images/c/stoixeia-michanon/chapter-14/c_stoixeia-michanon_ch14_#25987_fig01.png"
+    "image": "images/c/stoixeia-michanon/chapter-14/c_stoixeia-michanon_ch14_25987_fig01.webp"
   },
   {
     "id": "ch14-25990",
@@ -439,4 +438,6 @@ window.SUBJECT_DATA["stoixeia-michanon"].exercises.push(...
     ]
   }
 ]
+
 );
+

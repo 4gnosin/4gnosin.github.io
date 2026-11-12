@@ -9,7 +9,7 @@ window.KIND_LABEL = {
 };
 (function () {
   const GREEK = { a: "α", b: "β", c: "γ", d: "δ", e: "ε", f: "στ" };
-  const CALLOUT_LAB = { def: "Ορισμός", example: "Παράδειγμα", remember: "Θυμήσου" };
+  const CALLOUT_LAB = { def: "Ορισμός", example: "Παράδειγμα", remember: "Θυμήσου", tip: "Συμβουλή / Tip", warning: "Προσοχή / Σφάλμα Βιβλίου" };
   const SUBJECTS = {
     thermo: {
       title: "Θερμοδυναμική Θεωρία",
@@ -164,9 +164,12 @@ window.KIND_LABEL = {
   };
   let simulationCleanup = null;
 
-    /** Encode path for <img src> — το # στο όνομα αρχείου αλλιώς κόβει το URL. */
+    /** Encode path for <img src> */
   function imgUrl(src) {
     if (!src) return "";
+    src = String(src).replace(/\.(png|jpg|jpeg)$/i, ".webp");
+    // Normalize any legacy bank code _# pattern to _
+    src = src.replace(/_#(?=\d)/g, "_");
     return String(src).split("/").map(function (part) {
       return encodeURIComponent(part);
     }).join("/");
@@ -254,10 +257,14 @@ function esc(s) {
     const value = Number(match[0]);
     return Number.isFinite(value) ? value : null;
   }
-  function nearlyEqual(a, b, tolerance) {
+  function nearlyEqual(a, b, tolerance, mode) {
+    if (mode === "abs") {
+      const t = tolerance == null ? 0.01 : tolerance;
+      return Math.abs(a - b) <= t;
+    }
     const t = tolerance == null ? 0.02 : tolerance;
-    if (b === 0) return Math.abs(a) <= t;
-    return Math.abs(a - b) / Math.abs(b) <= t || Math.abs(a - b) <= 0.51;
+    if (b === 0) return Math.abs(a) <= (tolerance == null ? 1e-4 : tolerance);
+    return Math.abs(a - b) / Math.abs(b) <= t;
   }
 
   function route() {
@@ -363,8 +370,27 @@ function esc(s) {
   }
 
   function getSection(slug) {
+    if (!slug) return undefined;
+    // 1. Προτεραιότητα σε απόλυτο ταίριασμα slug ή num
+    const exact = ctx.sections.find(function (s) {
+      return s.slug === slug || s.num === slug;
+    });
+    if (exact) return exact;
+
+    // 2. Fallback με πρόθεμα κεφαλαίου (π.χ. URL slug 'ch01-genika' με section slug 'genika' στο ίδιο κεφάλαιο)
+    const m = String(slug).match(/^ch0*(\d+)-(.*)$/);
+    if (m) {
+      const chNum = String(parseInt(m[1], 10));
+      const subSlug = m[2];
+      const match = ctx.sections.find(function (s) {
+        return sectionChapter(s) === chNum && (s.slug === subSlug || s.slug === slug);
+      });
+      if (match) return match;
+    }
+
+    // 3. Fallback αντίστροφο (π.χ. παλιό slug 'genika' και section slug 'ch01-genika')
     return ctx.sections.find(function (s) {
-      return s.slug === slug;
+      return s.slug === "ch01-" + slug || s.slug === "ch00-" + slug;
     });
   }
   function sectionChapter(s) {
@@ -441,16 +467,24 @@ function esc(s) {
     }
     const n = parseNumber(a.calc || "");
     if (n === null) return false;
-    return nearlyEqual(n, item.answer, item.tolerance == null ? 0.02 : item.tolerance);
+    return nearlyEqual(n, item.answer, item.tolerance == null ? 0.02 : item.tolerance, item.toleranceMode);
   }
 
   function resetEngine(ex) {
+    if (window._animTimers) {
+      Object.keys(window._animTimers).forEach(function (k) {
+        clearInterval(window._animTimers[k]);
+        delete window._animTimers[k];
+      });
+    }
     state.exId = ex.id;
-    state.step = 0; /* τώρα = ενεργό item (για picks) */
+    state.step = 0;
     state.answers = ex.items.map(emptyAnswer);
     state.checked = false;
     state.results = ex.items.map(function () { return null; });
     state.hints = {};
+    state.animPlaying = {};
+    state.animStep = {};
     state.matchPicked = null;
     state.blankPicked = null;
   }
@@ -464,7 +498,7 @@ function esc(s) {
     let routeChapter = null;
     if (r.name === "notes") {
       routeSection = "theory";
-      const section = getSection(r.slug);
+      const section = getSection(r.slug) || (ctx.sections && ctx.sections[0]);
       if (section) routeChapter = sectionChapter(section);
     } else if (r.name === "board" || r.name === "exercise") {
       routeSection = "exercises";
@@ -515,9 +549,7 @@ function esc(s) {
           chapterOpen +
           '" aria-expanded="' +
           chapterOpen +
-          '"><span>Κεφάλαιο ' +
-          esc(chId) +
-          '</span><span class="nav-chevron">' +
+          '"><span>' + (chId === '0' || chId === 'Ε' || chId === 'intro' ? 'Εισαγωγή' : 'Κεφάλαιο ' + esc(chId)) + '</span><span class="nav-chevron">' +
           (chapterOpen ? "−" : "+") +
           "</span></button>";
         if (chapterOpen) {
@@ -580,9 +612,7 @@ function esc(s) {
             chapterOpen +
             '" aria-expanded="' +
             chapterOpen +
-            '"><span>Κεφάλαιο ' +
-            esc(chId) +
-            '</span><span class="nav-chevron">' +
+            '"><span>' + (chId === '0' || chId === 'Ε' || chId === 'intro' ? 'Εισαγωγή' : 'Κεφάλαιο ' + esc(chId)) + '</span><span class="nav-chevron">' +
             (chapterOpen ? "−" : "+") +
             "</span></button>";
           if (chapterOpen) {
@@ -593,6 +623,7 @@ function esc(s) {
               sortedExercises(ctx.exercises.filter(function (e) {
                 return e.group === g.id;
               })).forEach(function (e) {
+                const hasAnim = hasExerciseAnim(e);
                 html +=
                   '<a class="nav-subitem nav-exercise-item' +
                   (r.name === "exercise" && r.id === e.id ? " active" : "") +
@@ -602,6 +633,7 @@ function esc(s) {
                   e.id +
                   '">' +
                   fmtOrd(e.title) +
+                  (hasAnim ? '<span class="nav-anim-pill" title="Διαθέσιμο Animation Επίλυσης">🎬</span>' : '') +
                   "</a>";
               });
             });
@@ -725,9 +757,25 @@ function esc(s) {
     return '<figure class="diagram">' + body + cap + "</figure>";
   }
 
+  function renderProseText(str) {
+    if (!str) return "";
+    var s = String(str).replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    var out = renderMathText(s);
+    return out
+      .replace(/&lt;strong&gt;/g, "<strong>")
+      .replace(/&lt;\/strong&gt;/g, "</strong>")
+      .replace(/&lt;b&gt;/g, "<strong>")
+      .replace(/&lt;\/b&gt;/g, "</strong>")
+      .replace(/&lt;em&gt;/g, "<em>")
+      .replace(/&lt;\/em&gt;/g, "</em>")
+      .replace(/&lt;code&gt;/g, "<code>")
+      .replace(/&lt;\/code&gt;/g, "</code>")
+      .replace(/&lt;br\s*\/?&gt;/g, "<br>");
+  }
+
   function renderBlock(b) {
-    if (b.type === "p") return "<p>" + esc(b.text) + "</p>";
-    if (b.type === "h") return "<h2 style='margin:1.4rem 0 .5rem;font-size:1.45rem'>" + esc(b.text) + "</h2>";
+    if (b.type === "p") return "<p>" + renderProseText(b.text) + "</p>";
+    if (b.type === "h") return "<h2 style='margin:1.4rem 0 .5rem;font-size:1.45rem'>" + renderProseText(b.text) + "</h2>";
     if (b.type === "image") {
       const src = typeof b.src === "string" ? b.src.trim() : "";
       if (!src) return "";
@@ -737,7 +785,7 @@ function esc(s) {
         '" alt="' +
         esc(b.alt || "") +
         '" loading="lazy">' +
-        (b.caption ? "<figcaption>" + esc(b.caption) + "</figcaption>" : "") +
+        (b.caption ? "<figcaption>" + renderProseText(b.caption) + "</figcaption>" : "") +
         "</figure>"
       );
     }
@@ -746,7 +794,7 @@ function esc(s) {
         "<ul>" +
         b.items
           .map(function (it) {
-            return "<li>" + esc(it) + "</li>";
+            return "<li>" + renderProseText(it) + "</li>";
           })
           .join("") +
         "</ul>"
@@ -756,7 +804,7 @@ function esc(s) {
       return (
         '<div class="formula">' +
         b.html +
-        (b.caption ? "<small>" + esc(b.caption) + "</small>" : "") +
+        (b.caption ? "<small>" + renderProseText(b.caption) + "</small>" : "") +
         "</div>"
       );
     }
@@ -772,18 +820,18 @@ function esc(s) {
         "</p>" +
         title +
         "<p>" +
-        esc(b.text) +
+        renderProseText(b.text) +
         "</p></aside>"
       );
     }
     if (b.type === "table") {
       return (
-        '<table class="units"><caption>' +
-        esc(b.caption || "") +
-        "</caption><thead><tr>" +
+        '<table class="units">' +
+        (b.caption ? "<caption>" + renderProseText(b.caption) + "</caption>" : "") +
+        "<thead><tr>" +
         b.headers
           .map(function (h) {
-            return "<th>" + esc(h) + "</th>";
+            return "<th>" + renderProseText(h) + "</th>";
           })
           .join("") +
         "</tr></thead><tbody>" +
@@ -793,7 +841,7 @@ function esc(s) {
               "<tr>" +
               row
                 .map(function (c) {
-                  return "<td>" + esc(c) + "</td>";
+                  return "<td>" + renderProseText(c) + "</td>";
                 })
                 .join("") +
               "</tr>"
@@ -1189,70 +1237,234 @@ function esc(s) {
     }
   }
 
+  /**
+   * Παιδαγωγική μορφοποίηση μαθηματικών πράξεων για τον πίνακα:
+   * Σε κάθε υπολογισμό με διαδοχικά ίσα (A = B = C), το κάθε επόμενο «=»
+   * πηγαίνει στη γραμμή από κάτω με στοίχιση (\begin{aligned} A &= B \\ &= C \end{aligned}).
+   * Επίσης σπάει σε νέα γραμμή τα \Rightarrow / \implies ώστε οι τύποι να μη βγαίνουν εκτός πλαισίου.
+   */
+  function formatPedagogicalMath(tex) {
+    if (!tex || typeof tex !== "string") return tex;
+    var s = tex.trim();
+    if (/\\begin\{(aligned|align\*?|array|cases|matrix|pmatrix|bmatrix)\}/.test(s)) {
+      return s;
+    }
+    // Εάν περιέχει $ delimiters ή προτάσεις με ελληνικό πεζό κείμενο, ΔΕΝ είναι καθαρή εξίσωση
+    if (/[$]/.test(s) || /[α-ωΑ-Ω]{2,}\s+[α-ωΑ-Ω]{2,}/i.test(s)) {
+      return s;
+    }
+    // Εάν πρόκειται για λίστα δοσμένων δεδομένων (π.χ. F1 = 20 N, F2 = 30 N, φ = 70°)
+    if (/(\\quad|\\qquad|;|,\s*[A-Za-z\u0370-\u03ff_])/.test(s)) {
+      return s;
+    }
+    // Εάν είναι μαθηματικός ορισμός με αθροίσματα, ολοκληρώματα ή αποσιωπητικά (\sum, \int, \dots), ΔΕΝ σπάμε
+    if (/(\\sum|\\int|\\prod|\\lim|\\dots|\\cdots|\\dotsb)/.test(s)) {
+      return s;
+    }
+    // Διαχείριση συνεπαγωγών \Rightarrow / \implies
+    if (/(\\Rightarrow|\\implies)/.test(s)) {
+      var arrowParts = s.split(/(\\Rightarrow|\\implies)/g);
+      if (arrowParts.length >= 3) {
+        var lines = [];
+        for (var i = 0; i < arrowParts.length; i += 2) {
+          var p = arrowParts[i].trim();
+          var prefix = (i > 0) ? (arrowParts[i - 1].trim() + " ") : "";
+          if (p) {
+            var eqIdx = p.indexOf("=");
+            if (eqIdx !== -1) {
+              lines.push(prefix + p.slice(0, eqIdx).trim() + " &= " + p.slice(eqIdx + 1).trim());
+            } else {
+              lines.push(prefix + p);
+            }
+          }
+        }
+        if (lines.length > 1) {
+          return "\\begin{aligned}\n" + lines.join(" \\\\[0.45em]\n") + "\n\\end{aligned}";
+        }
+      }
+    }
+    // Διαχωρισμός στα ίσα ανώτερου επιπέδου (βάθος {}=0)
+    var parts = [];
+    var current = "";
+    var depth = 0;
+    for (var c = 0; c < s.length; c++) {
+      var ch = s[c];
+      if (ch === "{" || ch === "[" || ch === "(") depth++;
+      else if (ch === "}" || ch === "]" || ch === ")") depth = Math.max(0, depth - 1);
+      if (ch === "=" && depth === 0) {
+        parts.push(current.trim());
+        current = "";
+      } else {
+        current += ch;
+      }
+    }
+    parts.push(current.trim());
+    if (parts.length >= 3) {
+      // Σπάμε σε aligned ΜΟΝΟ αν υπάρχει αριθμητικός υπολογισμός (περιέχει αριθμούς)
+      if (!/\d/.test(s)) {
+        return s;
+      }
+      var out = "\\begin{aligned}\n";
+      out += parts[0] + " &= " + parts[1] + " \\\\[0.45em]\n";
+      for (var k = 2; k < parts.length; k++) {
+        out += "&= " + parts[k] + (k < parts.length - 1 ? " \\\\[0.45em]\n" : "\n");
+      }
+      out += "\\end{aligned}";
+      return out;
+    }
+    return s;
+  }
+  function stripLatexToReadableText(raw) {
+    if (!raw) return "";
+    var t = String(raw);
+    t = t.replace(/\\text\{([^}]*)\}/g, "$1");
+    t = t.replace(/\\frac\{([^}]*)\}\{([^}]*)\}/g, "$1/$2");
+    t = t.replace(/\\sqrt\{([^}]*)\}/g, "√($1)");
+    t = t.replace(/\\cdot\s*/g, "·");
+    t = t.replace(/\\times\s*/g, "×");
+    t = t.replace(/\\pm\s*/g, "±");
+    t = t.replace(/\\approx\s*/g, "≈");
+    t = t.replace(/\\le\b|\\leq\b/g, "≤");
+    t = t.replace(/\\ge\b|\\geq\b/g, "≥");
+    t = t.replace(/\\Delta\b/g, "Δ");
+    t = t.replace(/\\sigma\b/g, "σ");
+    t = t.replace(/\\tau\b/g, "τ");
+    t = t.replace(/\\mu\b/g, "μ");
+    t = t.replace(/\\alpha\b/g, "α");
+    t = t.replace(/\\beta\b/g, "β");
+    t = t.replace(/\\gamma\b/g, "γ");
+    t = t.replace(/\\lambda\b/g, "λ");
+    t = t.replace(/\\omega\b/g, "ω");
+    t = t.replace(/\\rho\b/g, "ρ");
+    t = t.replace(/\\pi\b/g, "π");
+    t = t.replace(/\{,\}/g, ",");
+    t = t.replace(/\{?\^?\\circ\}?\s*(?:\\text\{C\}|C)?/g, "°C");
+    t = t.replace(/\^2\b/g, "²").replace(/\^3\b/g, "³");
+    t = t.replace(/\\([a-zA-Z]+)/g, "$1");
+    t = t.replace(/[{}]/g, "");
+    return t;
+  }
+  function prepareKatexMath(tex) {
+    if (!tex) return "";
+    var t = String(tex).trim();
+    if (t.startsWith("^")) t = "{}" + t;
+    t = t.replace(/\\cdot([a-zA-Z\u0370-\u03ff])/g, "\\cdot $1")
+         .replace(/\\text\{\s*\}\s*\^?\\circ\s*\\text\{C\}/g, "{}^\\circ\\text{C}")
+         .replace(/\{\}\s*\^?\\circ\s*\\text\{C\}/g, "{}^\\circ\\text{C}")
+         .replace(/\^?\\circ\s*\\text\{C\}/g, "{}^\\circ\\text{C}")
+         .replace(/\\text\{\s*\^?\\circ\s*C\s*\}/g, "{}^\\circ\\text{C}")
+         .replace(/([0-9])°C\b/g, "$1{}^\\circ\\text{C}")
+         .replace(/°C\b/g, "{}^\\circ\\text{C}")
+         .replace(/([0-9])°/g, "$1{}^\\circ")
+         .replace(/(^|[=+\-(,\s])\^\s*\\circ/g, "$1{}^\\circ");
+    return t;
+  }
   function renderMathText(str) {
     if (!str) return "";
     if (typeof katex === "undefined") return esc(str);
-
     var s = String(str);
-
-    // Αν περιέχει ελληνικό πεζό κείμενο ή %, ΔΕΝ είναι αυτόνομος μαθηματικός τύπος
-    // και δεν πρέπει να σταλεί ολόκληρο στο katex.renderToString (διότι θα χαθούν τα κενά
-    // μεταξύ λέξεων και το % λειτουργεί ως LaTeX comment περικόπτοντας το υπόλοιπο κείμενο).
-    var isProse = /[α-ωΑ-Ω]{2,}/i.test(s) || s.indexOf("%") !== -1 || (s.indexOf(" ") !== -1 && s.length > 35);
-
-    // ΜΟΝΟ αν είναι σύντομος, αποκλειστικά μαθηματικός τύπος χωρίς $ delimiters
-    if (!isProse && !/[$]/.test(s) && (/\\(?:frac|sqrt|cdot|times|pm|Delta|sigma|tau|mu|alpha|beta|gamma|lambda|phi|psi|omega)\b|^\^|(?:\^|_)\{/).test(s)) {
+    // 0. Αυτόματη διόρθωση mismatched delimiters \( ... \} -> \( ... \) και \[ ... \) -> \[ ... \]
+    s = s.replace(/\\\(([\s\S]*?)\\\}/g, "\\($1\\)")
+         .replace(/\\\[([\s\S]*?)\\\)/g, "\\[$1\\]");
+    // 0b. Αυτόματη διόρθωση \cdotm -> \cdot m
+    s = s.replace(/\\cdot([a-zA-Z\u0370-\u03ff])/g, "\\cdot $1");
+    // 1. Αυτόνομα μαθηματικά περιβάλλοντα (aligned, cases, array, matrix) χωρίς πεζό κείμενο: άμεση απόδοση σε displayMode
+    if (/^\s*(?:\\\[|\$\$)?\s*\\begin\{(?:aligned|align\*?|cases|array|matrix|pmatrix)\}/.test(s) &&
+        /\\end\{(?:aligned|align\*?|cases|array|matrix|pmatrix)\}\s*(?:\\\]|\$\$)?\s*$/.test(s)) {
       try {
-        var cleanTex = s.startsWith("^") ? "{}" + s : s;
-        return katex.renderToString(cleanTex, { throwOnError: false, displayMode: false });
+        var cleanEnv = s.replace(/^\s*(?:\\\[|\$\$)\s*/, "").replace(/\s*(?:\\\]|\$\$)\s*$/, "");
+        return katex.renderToString(prepareKatexMath(cleanEnv), { throwOnError: false, displayMode: true });
       } catch (e) {
-        // Fallback στον διαχωρισμό
+        return esc(stripLatexToReadableText(s));
       }
     }
-
-    // Καθαρισμός συνηθισμένων γυμνών LaTeX εκφράσεων που παρεισφρέουν σε πεζό κείμενο
-    if (isProse && s.indexOf("\\") !== -1) {
-      s = s
-        .replace(/\\text\{\s*\}\s*\^?\\circ\s*\\text\{C\}/g, "°C")
-        .replace(/\^?\\circ\s*\\text\{C\}/g, "°C")
-        .replace(/\\text\{\s*\^?\\circ\s*C\s*\}/g, "°C")
-        .replace(/\\text\{\s*([a-zA-Z0-9/³²°%_ -]+)\s*\}/g, "$1");
+    // 2. Εάν είναι σύντομος, αυτόνομος μαθηματικός τύπος χωρίς πεζό κείμενο
+    var hasProseWords = /[α-ωΑ-Ω]{2,}\s+[α-ωΑ-Ω]{2,}/i.test(s) || s.indexOf("%") !== -1;
+    if (!hasProseWords && !/[$]/.test(s) && !s.startsWith("\\[") && !s.startsWith("$$") && !s.startsWith("\\(") &&
+        (/\\(?:frac|sqrt|cdot|times|pm|Delta|sigma|tau|mu|alpha|beta|gamma|lambda|phi|psi|omega|eta|theta|varphi|upsilon|nu|mathbf|approx|le|ge|Sigma|Omega|dot|ddot|bar|vec|rho|pi|epsilon|kappa|zeta|chi|text|hat)\b|^\^|(?:\^|_)\{|(?:\{,\})|=/).test(s)) {
+      try {
+        var cleanTex = prepareKatexMath(s);
+        var isDisplay = cleanTex.indexOf("\\\\") !== -1 || cleanTex.length > 55;
+        var rendered = katex.renderToString(cleanTex, { throwOnError: false, displayMode: isDisplay });
+        if (rendered.indexOf("katex-error") === -1) {
+          return rendered;
+        }
+      } catch (e) {}
     }
-
+    // 3. Διαχωρισμός στα συνήθη delimiters: $$, \[, \(, $
     var mathRegex = /(\$\$[\s\S]*?\$\$|\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)|\$(?:\\\$|[^$\n])+\$)/g;
     var parts = s.split(mathRegex);
-
     return parts.map(function (part) {
       if (!part) return "";
       if ((part.startsWith("$$") && part.endsWith("$$")) || (part.startsWith("\\[") && part.endsWith("\\]"))) {
-        var tex = part.slice(2, -2).trim();
+        var rawTex = prepareKatexMath(part.slice(2, -2).trim());
+        var tex = formatPedagogicalMath(rawTex);
         try {
-          return katex.renderToString(tex, { throwOnError: false, displayMode: true });
+          var res = katex.renderToString(tex, { throwOnError: false, displayMode: true });
+          if (res.indexOf("katex-error") !== -1) {
+            var res2 = katex.renderToString(rawTex, { throwOnError: false, displayMode: true });
+            if (res2.indexOf("katex-error") === -1) return res2;
+            return renderMathText(rawTex);
+          }
+          return res;
         } catch (e) {
-          return esc(part);
+          return renderMathText(rawTex);
         }
       }
       if (part.startsWith("\\(") && part.endsWith("\\)")) {
         var tex = part.slice(2, -2).trim();
         try {
-          return katex.renderToString(tex, { throwOnError: false, displayMode: false });
+          return katex.renderToString(prepareKatexMath(tex), { throwOnError: false, displayMode: false });
         } catch (e) {
-          return esc(part);
+          return esc(stripLatexToReadableText(part));
         }
       }
       if (part.startsWith("$") && part.endsWith("$") && part.length > 2) {
         var tex = part.slice(1, -1).trim();
         try {
-          return katex.renderToString(tex, { throwOnError: false, displayMode: false });
-        } catch (e) {
-          return esc(part);
-        }
+          var r = katex.renderToString(prepareKatexMath(tex), { throwOnError: false, displayMode: false });
+          if (r.indexOf("katex-error") === -1) return r;
+        } catch (e) {}
+        return esc(stripLatexToReadableText(part));
       }
-      return esc(part);
+      // 4. Πεζό τμήμα: Πρώτα μετατρέπουμε τυχόν γυμνά σύμβολα βαθμών Κελσίου σε καθαρό Unicode °C / °
+      // ώστε να μην μείνουν ποτέ ορφανά {}^\circ σε πεζό κείμενο!
+      part = part.replace(/\\text\{\s*\}\s*\^?\\circ\s*\\text\{C\}/g, "°C")
+                 .replace(/\{\}\s*\^?\\circ\s*\\text\{C\}/g, "°C")
+                 .replace(/\^?\\circ\s*\\text\{C\}/g, "°C")
+                 .replace(/\\text\{\s*\^?\\circ\s*C\s*\}/g, "°C")
+                 .replace(/\{\}\s*\^?\\circ\s*C\b/g, "°C")
+                 .replace(/\^\s*\\circ\s*C\b/g, "°C")
+                 .replace(/\{\}\s*\^?\\circ/g, "°")
+                 .replace(/\^\s*\\circ/g, "°");
+      // 5. Εάν το πεζό τμήμα περιέχει γυμνές εντολές LaTeX (π.χ. \sigma\upsilon\nu 60^\circ = \frac{1}{2} ή \tau = \frac{Q}{A})
+      if (part.indexOf("\\") !== -1 && (/\\(?:frac|sqrt|cdot|times|pm|Delta|sigma|tau|mu|alpha|beta|gamma|lambda|phi|psi|omega|eta|theta|varphi|upsilon|nu|mathbf|approx|le|ge|Sigma|Omega|dot|ddot|bar|vec|rho|pi|epsilon|kappa|zeta|chi|text|hat)\b/).test(part)) {
+        var cmdPattern = /((?:[A-Za-z\u0370-\u03ff0-9_]+\s*=\s*)?\\(?:frac|sqrt|cdot|times|pm|Delta|sigma|tau|mu|alpha|beta|gamma|lambda|phi|psi|omega|eta|theta|varphi|upsilon|nu|mathbf|approx|le|ge|Sigma|Omega|dot|ddot|bar|vec|rho|pi|epsilon|kappa|zeta|chi|text|hat)[^\n,;.!?]*?(?:\{[^{}]*\}|[^\n,;.!?])*)/g;
+        return part.replace(cmdPattern, function (m) {
+          var rawMath = m.trim();
+          var trailing = "";
+          while (rawMath && ".,;:!?".indexOf(rawMath.charAt(rawMath.length - 1)) !== -1) {
+            trailing = rawMath.charAt(rawMath.length - 1) + trailing;
+            rawMath = rawMath.slice(0, -1).trim();
+          }
+          if (rawMath) {
+            try {
+              var cleanM = prepareKatexMath(rawMath);
+              var r = katex.renderToString(cleanM, { throwOnError: false, displayMode: false });
+              if (r.indexOf("katex-error") === -1) {
+                return r + esc(trailing);
+              }
+            } catch (err) {}
+          }
+          // Αν η KaTeX αποτύχει, ΠΟΤΕ μην εκτυπώσεις ωμό LaTeX κώδικα (\text{...}, \cdotm)!
+          return esc(stripLatexToReadableText(m));
+        });
+      }
+      // Καθαρισμός τυχόν ορφανού {,} σε πεζό κείμενο (π.χ. 0{,}2m -> 0,2m)
+      var cleanPart = esc(part).replace(/(\d+)\{,\}(\d+)/g, "$1,$2");
+      return cleanPart;
     }).join("");
   }
-
-  /* "Βήμα 1ο" → "ΒΗΜΑ 1<sup>ο</sup>" — το ο ως εκθέτης */
   function fmtStepLabel(lbl) {
     return esc(lbl).replace(/(\d+)ο/g, '$1<sup style="font-size:.65em;vertical-align:super;line-height:1;font-weight:700">ο</sup>');
   }
@@ -1530,7 +1742,7 @@ function esc(s) {
     const homeChapterIds = chaptersOf(ctx.sections, sectionChapter);
     homeChapterIds.forEach(function (chId) {
       inner +=
-        '<p class="kicker" style="padding:.8rem 1.1rem 0">Κεφάλαιο ' + esc(chId) + "</p>";
+        '<p class="kicker" style="padding:.8rem 1.1rem 0">' + (chId === "0" || chId === "Ε" || chId === "intro" ? "Εισαγωγή" : "Κεφάλαιο " + esc(chId)) + "</p>";
       ctx.sections.filter(function (s) {
         return sectionChapter(s) === chId;
       }).forEach(function (s) {
@@ -1566,7 +1778,7 @@ function esc(s) {
       esc(s.num) +
       "</p>";
     inner += '<h1 style="font-size:clamp(2rem,5vw,3rem);margin-top:.2rem">' + esc(s.title) + "</h1>";
-    inner += '<p class="lead" style="margin-top:.8rem">' + esc(s.lead) + "</p>";
+    inner += '<p class="lead" style="margin-top:.8rem">' + renderProseText(s.lead) + "</p>";
     inner += '<div class="prose" style="margin-top:1.2rem">';
     s.blocks.forEach(function (b) {
       inner += renderBlock(b);
@@ -1620,9 +1832,7 @@ function esc(s) {
     boardChapterIds.forEach(function (chId) {
       if (boardChapterIds.length > 1)
         inner +=
-          '<h2 style="margin-top:2.4rem;font-family:var(--font-serif);color:var(--copper)">Κεφάλαιο ' +
-          esc(chId) +
-          "</h2>";
+          '<h2 style="margin-top:2.4rem;font-family:var(--font-serif);color:var(--copper)">' + (chId === "0" || chId === "Ε" || chId === "intro" ? "Εισαγωγή" : "Κεφάλαιο " + esc(chId)) + "</h2>";
       ctx.groups.filter(function (g) {
         return g.chapter === chId;
       }).forEach(function (g) {
@@ -1637,6 +1847,7 @@ function esc(s) {
         })).forEach(function (ex) {
           const res = p.exercises[ex.id];
           const cls = res ? (res.status === "done" ? "done" : "miss") : "";
+          const hasAnim = hasExerciseAnim(ex);
           inner +=
             '<button class="ex-link ' +
             cls +
@@ -1650,7 +1861,9 @@ function esc(s) {
             fmtOrd(ex.code) +
             " · " +
             ex.units +
-            ' μον.</span><span style="font-family:var(--font-serif);font-size:1.25rem">' +
+            ' μον.' +
+            (hasAnim ? '<span class="board-anim-badge">🎬 Animation</span>' : '') +
+            '</span><span style="font-family:var(--font-serif);font-size:1.25rem">' +
             fmtOrd(ex.title) +
             "</span></span><span>" +
             (res && res.status === "done" ? "✓" : "→") +
@@ -1670,7 +1883,7 @@ function esc(s) {
         '<p style="font-family:var(--font-serif);font-size:1.45rem;line-height:1.4">' +
         renderMathText(item.prompt) +
         '</p><div style="margin-top:.6rem;padding:.55rem .85rem;border-radius:6px;background:rgba(128,128,128,.12);font-size:.88rem;line-height:1.45;opacity:.9">' +
-        "📐 <b>Σχεδιαστικό / Γραφικό ερώτημα:</b> Δεν απαιτείται πληκτρολόγηση. Πατήστε <b>«Έλεγχος όλων»</b> στο τέλος για να δείτε την ενδεικτική λύση και το διάγραμμα πάνω στον ψυχρομετρικό χάρτη." +
+        "📐 <b>Σχεδιαστικό / Γραφικό ερώτημα:</b> Δεν απαιτείται πληκτρολόγηση. Πατήστε <b>«Έλεγχος όλων»</b> στο τέλος για να δείτε την ενδεικτική λύση και το διάγραμμα." +
         "</div>"
       );
     }
@@ -1700,7 +1913,9 @@ function esc(s) {
           (checked ? " disabled" : "") +
           '><span class="ltr">' +
           letter(opt.id) +
-          "</span><span>" +
+          "</span>" +
+          (opt.image ? '<img src="' + imgUrl(opt.image) + '" alt="' + esc(opt.text || "") + '" style="max-height:80px;max-width:140px;object-fit:contain;margin:0 .6rem;border-radius:4px;background:#fff;vertical-align:middle" loading="lazy"/>' : "") +
+          "<span>" +
           renderMathText(opt.text) +
           "</span></button>";
       });
@@ -1749,6 +1964,12 @@ function esc(s) {
         });
         const good = checked && value[l.id] === item.pairs[l.id];
         const bad = checked && value[l.id] !== item.pairs[l.id];
+        const lImgHtml = l.image
+          ? '<img src="' + imgUrl(l.image) + '" alt="' + esc(l.text || l.id) + '" style="max-height:75px;max-width:130px;object-fit:contain;border-radius:4px;background:#fff;padding:2px;vertical-align:middle;margin:0 .45rem" loading="lazy"/>'
+          : "";
+        const rImgHtml = (r && r.image)
+          ? '<img src="' + imgUrl(r.image) + '" alt="' + esc(r.text || r.id) + '" style="max-height:75px;max-width:130px;object-fit:contain;border-radius:4px;background:#fff;padding:2px;vertical-align:middle;margin:0 .45rem" loading="lazy"/>'
+          : "";
         h +=
           '<button class="pair ' +
           (good ? "ok" : bad ? "bad" : "") +
@@ -1759,10 +1980,12 @@ function esc(s) {
           "><span><b style='color:var(--copper);font-family:var(--font-serif)'>" +
           esc(l.id) +
           ".</b> " +
+          lImgHtml +
           renderMathText(l.text) +
           "</span><span style='flex:0;opacity:.5'>→</span><span><b style='color:var(--copper);font-family:var(--font-serif)'>" +
           letter(r ? r.id : "") +
           ".</b> " +
+          rImgHtml +
           renderMathText(r ? r.text : "") +
           "</span></button>";
       });
@@ -1775,6 +1998,9 @@ function esc(s) {
       h += '<div class="cols" style="margin-top:1rem">';
       h += '<div class="col"><h4>Στήλη Α</h4>';
       remainingLeft.forEach(function (it) {
+        const itImgHtml = it.image
+          ? '<div style="margin:.45rem 0"><img src="' + imgUrl(it.image) + '" alt="' + esc(it.text || it.id) + '" style="max-width:100%;max-height:190px;object-fit:contain;border-radius:6px;background:#fff;padding:4px;display:block" loading="lazy"/></div>'
+          : "";
         h +=
           '<button class="match-item ' +
           (matchPicked === it.id ? "picked" : "") +
@@ -1786,6 +2012,7 @@ function esc(s) {
           esc(it.id) +
           ".</b> " +
           renderMathText(it.text) +
+          itImgHtml +
           "</button>";
       });
       if (!remainingLeft.length) h += '<p style="opacity:.5;padding:.8rem">—</p>';
@@ -1795,6 +2022,9 @@ function esc(s) {
         (matchPicked && !checked ? "wait" : "") +
         '"><h4>Στήλη Β</h4>';
       remainingRight.forEach(function (it) {
+        const itImgHtml = it.image
+          ? '<div style="margin:.45rem 0"><img src="' + imgUrl(it.image) + '" alt="' + esc(it.text || it.id) + '" style="max-width:100%;max-height:190px;object-fit:contain;border-radius:6px;background:#fff;padding:4px;display:block" loading="lazy"/></div>'
+          : "";
         h +=
           '<button class="match-item" data-act="match-right" data-id="' +
           it.id +
@@ -1804,6 +2034,7 @@ function esc(s) {
           letter(it.id) +
           ".</b> " +
           renderMathText(it.text) +
+          itImgHtml +
           "</button>";
       });
       if (!remainingRight.length) h += '<p style="opacity:.5;padding:.8rem">—</p>';
@@ -1894,6 +2125,305 @@ function esc(s) {
     return "";
   }
 
+  function getAnimationForCalcItem(item, exId, itemIdx) {
+    if (item && item.animation && Array.isArray(item.animation.steps) && item.animation.steps.length > 0) {
+      return item.animation;
+    }
+    const store = window.EXERCISE_ANIMATIONS;
+    if (!store || !exId) return null;
+    const exAnims = store[exId];
+    if (exAnims) {
+      if (Array.isArray(exAnims.steps) && exAnims.steps.length > 0) return exAnims;
+      if (item && item.subq) {
+        if (exAnims[item.subq]) return exAnims[item.subq];
+        const cleanSubq = String(item.subq).replace(/^[^\dα-ωa-z]+/i, "").trim();
+        if (exAnims[cleanSubq]) return exAnims[cleanSubq];
+      }
+      if (itemIdx !== undefined) {
+        if (exAnims[itemIdx]) return exAnims[itemIdx];
+        if (exAnims[String(itemIdx)]) return exAnims[String(itemIdx)];
+      }
+    }
+    if (item && item.subq && store[exId + "_" + item.subq]) return store[exId + "_" + item.subq];
+    if (itemIdx !== undefined && store[exId + "_" + itemIdx]) return store[exId + "_" + itemIdx];
+    return null;
+  }
+
+  function hasExerciseAnim(ex) {
+    if (!ex || !ex.items) return false;
+    return ex.items.some(function (it, idx) {
+      const a = getAnimationForCalcItem(it, ex.id, idx);
+      return Boolean(a && Array.isArray(a.steps) && a.steps.length > 0);
+    });
+  }
+  function renderChalkTypewriterText(text, isLatest) {
+    if (!text) return { html: "", durationMs: 0 };
+    if (!isLatest) {
+      return { html: renderMathText(text), durationMs: 0 };
+    }
+
+    var mathRegex = /(\$\$[\s\S]*?\$\$|\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)|\$(?:\\\$|[^$\n])+\$)/g;
+    var parts = String(text).split(mathRegex);
+
+    var charDelayMs = 15;
+    var currentDelay = 80;
+    var htmlOut = [];
+
+    for (var p = 0; p < parts.length; p++) {
+      var part = parts[p];
+      if (!part) continue;
+
+      var trimmed = part.trim();
+      var isMathToken = (
+        (trimmed.startsWith("$$") && trimmed.endsWith("$$")) ||
+        (trimmed.startsWith("\\[") && trimmed.endsWith("\\]")) ||
+        (trimmed.startsWith("\\(") && trimmed.endsWith("\\)")) ||
+        (trimmed.startsWith("$") && trimmed.endsWith("$") && trimmed.length >= 2) ||
+        /^(\$\$[\s\S]*?\$\$|\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)|\$(?:\\\$|[^$\n])+\$)$/.test(trimmed)
+      );
+      if (isMathToken) {
+        htmlOut.push('<span class="manim-word manim-word-math"><span class="manim-char manim-char-math" style="animation-delay:' + currentDelay + 'ms">' + renderMathText(part) + '</span></span>');
+        currentDelay += charDelayMs * 3;
+      } else {
+        var words = part.split(" ");
+        for (var w = 0; w < words.length; w++) {
+          if (w > 0) htmlOut.push(" ");
+          var word = words[w];
+          if (!word) continue;
+
+          var wordChars = [];
+          for (var c = 0; c < word.length; c++) {
+            var ch = word.charAt(c);
+            wordChars.push('<span class="manim-char" style="animation-delay:' + currentDelay + 'ms">' + esc(ch) + '</span>');
+            currentDelay += charDelayMs;
+          }
+          htmlOut.push('<span class="manim-word">' + wordChars.join("") + '</span>');
+        }
+      }
+    }
+
+    htmlOut.push('<span class="manim-chalk-caret" style="animation-delay:' + currentDelay + 'ms"></span>');
+    return { html: htmlOut.join(""), durationMs: currentDelay };
+  }
+
+  function stopAnimTimer(exId, itemIdx) {
+    var key = exId + "_" + itemIdx;
+    state.animPlaying = state.animPlaying || {};
+    state.animPlaying[key] = false;
+    if (window._animTimers && window._animTimers[key]) {
+      clearInterval(window._animTimers[key]);
+      delete window._animTimers[key];
+    }
+  }
+
+  function startAnimTimer(exId, itemIdx) {
+    var key = exId + "_" + itemIdx;
+    state.animPlaying = state.animPlaying || {};
+    state.animPlaying[key] = true;
+    window._animTimers = window._animTimers || {};
+    if (window._animTimers[key]) {
+      clearInterval(window._animTimers[key]);
+    }
+    window._animTimers[key] = setInterval(function () {
+      var curr = (state.animStep && state.animStep[key] !== undefined) ? state.animStep[key] : 0;
+      var exObj = getExercise(exId);
+      var itObj = exObj && exObj.items && exObj.items[Number(itemIdx)];
+      var aObj = itObj && getAnimationForCalcItem(itObj);
+      var maxSteps = aObj && aObj.steps ? aObj.steps.length : 4;
+      if (curr + 1 < maxSteps) {
+        state.animStep = state.animStep || {};
+        state.animStep[key] = curr + 1;
+        stay();
+        scrollManimStepIntoView(exId, itemIdx);
+      } else {
+        stopAnimTimer(exId, itemIdx);
+        var playerEl = document.querySelector('.manim-player[data-ex="' + exId + '"][data-item="' + itemIdx + '"]');
+        if (playerEl) {
+          var playBtns = playerEl.querySelectorAll('.manim-btn-play');
+          playBtns.forEach(function (btn) {
+            btn.innerHTML = '🔄 Επανάληψη';
+            btn.classList.remove('playing');
+          });
+          var liveTag = playerEl.querySelector('.manim-live-tag');
+          if (liveTag) liveTag.remove();
+          var chalkActive = playerEl.querySelector('.manim-chalk-active');
+          if (chalkActive) {
+            chalkActive.className = "manim-chalk-passive";
+            chalkActive.textContent = "✅ Ολοκληρώθηκε";
+          }
+        }
+      }
+    }, 4000);
+  }
+
+  function scrollManimStepIntoView(exId, itemIdx) {
+    setTimeout(function () {
+      const selector = (typeof exId !== "undefined" && typeof itemIdx !== "undefined")
+        ? '.manim-player[data-ex="' + exId + '"][data-item="' + itemIdx + '"]'
+        : '.manim-player';
+      const player = document.querySelector(selector);
+      if (!player) return;
+      const target = player.querySelector('.manim-step-latest') || player;
+      const rect = target.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      if (rect.bottom > vh - 25 || rect.top < 70) {
+        target.scrollIntoView({ behavior: "smooth", block: "end" });
+      }
+    }, 120);
+
+    setTimeout(function () {
+      const selector = (typeof exId !== "undefined" && typeof itemIdx !== "undefined")
+        ? '.manim-player[data-ex="' + exId + '"][data-item="' + itemIdx + '"]'
+        : '.manim-player';
+      const player = document.querySelector(selector);
+      if (!player) return;
+      const target = player.querySelector('.manim-step-latest') || player;
+      const rect = target.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      if (rect.bottom > vh - 25) {
+        target.scrollIntoView({ behavior: "smooth", block: "end" });
+      }
+    }, 1600);
+  }
+
+  function renderManimPlayer(item, exId, itemIdx) {
+    var anim = getAnimationForCalcItem(item, exId, itemIdx);
+    if (!anim || !anim.steps || !anim.steps.length) return "";
+
+    state.animStep = state.animStep || {};
+    state.animPlaying = state.animPlaying || {};
+    state.animMode = state.animMode || {};
+
+    var key = exId + "_" + itemIdx;
+    var currentStep = state.animStep[key] !== undefined ? state.animStep[key] : 0;
+    var totalSteps = anim.steps.length;
+    if (currentStep >= totalSteps) currentStep = totalSteps - 1;
+    if (currentStep < 0) currentStep = 0;
+
+    var mode = state.animMode[key] || "board"; // "board" = Συνολικός Πίνακας, "single" = Βήμα-Βήμα
+    var isPlaying = Boolean(state.animPlaying[key]);
+    var progressPct = Math.round(((currentStep + 1) / totalSteps) * 100);
+
+    var pillsHtml = "";
+    for (var sIdx = 0; sIdx < totalSteps; sIdx++) {
+      var s = anim.steps[sIdx];
+      var shortTitle = s.kicker ? s.kicker.split(":")[0].trim() : ("Βήμα " + (sIdx + 1));
+      pillsHtml += '<button class="manim-pill ' + (sIdx === currentStep ? "active" : "") +
+        '" data-act="anim-step" data-ex="' + esc(exId) + '" data-item="' + itemIdx + '" data-step="' + sIdx + '">' +
+        renderMathText(shortTitle) + '</button>';
+    }
+    if (mode === "board") {
+      pillsHtml += '<button class="manim-pill ' + (currentStep === totalSteps - 1 ? "active" : "") +
+        '" data-act="anim-step" data-ex="' + esc(exId) + '" data-item="' + itemIdx + '" data-step="' + (totalSteps - 1) + '" style="margin-left:auto;border-color:#ffe66d;color:#ffe66d">' +
+        '✨ Όλα τα βήματα</button>';
+    }
+
+    var stepsListHtml = "";
+    var startIdx = (mode === "single") ? currentStep : 0;
+
+    for (var idx = startIdx; idx <= currentStep; idx++) {
+      var stepItem = anim.steps[idx];
+      var isLatest = (idx === currentStep);
+
+      var textResult = renderChalkTypewriterText(stepItem.text || "", isLatest);
+      var textDuration = textResult.durationMs;
+      var formulaDelay = isLatest ? (textDuration + 180) : 0;
+      var noteDelay = isLatest ? (formulaDelay + 750) : 0;
+
+      var mathHtml = "";
+      if (stepItem.math) {
+        var rawMath = String(stepItem.math).trim();
+        var hasDelims = /[$]/.test(rawMath) || /^\\\\[[\s\S]*\\\\]$/.test(rawMath) || /^\\\\([\s\S]*\\\\)$/.test(rawMath);
+        var isProse = /[α-ωΑ-Ω]{2,}\s+[α-ωΑ-Ω]{2,}/i.test(rawMath);
+
+        var renderedFormula = "";
+        if (hasDelims || isProse) {
+          renderedFormula = renderMathText(rawMath);
+        } else {
+          var cleanMath = rawMath.replace(/^\$+|\$+$/g, "").trim();
+          var alignedMath = formatPedagogicalMath(cleanMath);
+          try {
+            renderedFormula = katex.renderToString(alignedMath, { throwOnError: false, displayMode: true });
+            if (renderedFormula.indexOf("katex-error") !== -1) {
+              renderedFormula = renderMathText(cleanMath);
+            }
+          } catch (e) {
+            renderedFormula = renderMathText(cleanMath);
+          }
+        }
+
+        var mathStyle = isLatest ? ('style="animation-delay:' + formulaDelay + 'ms;"') : '';
+        mathHtml = '<div class="manim-stage-formula ' + (stepItem.highlight ? "manim-highlight" : "") + ' manim-chalk-formula" ' + mathStyle + '>' +
+          renderedFormula + '</div>';
+      }
+
+      var noteHtml = "";
+      if (stepItem.note) {
+        var noteStyle = isLatest ? ('style="animation-delay:' + noteDelay + 'ms;"') : '';
+        noteHtml = '<div class="manim-stage-note" ' + noteStyle + '><span class="manim-note-icon">💡</span><div class="manim-note-body">' +
+          renderMathText(stepItem.note) + '</div></div>';
+      }
+
+      stepsListHtml += '<div class="manim-step-block ' + (isLatest ? "manim-step-latest" : "manim-step-done") + ' ' + (mode === "single" ? "manim-step-solo" : "") + '" data-act="reveal-step">' +
+        '<div class="manim-step-badge-col">' +
+          '<div class="manim-step-num">' + (idx + 1) + '</div>' +
+          (mode === "board" && idx < currentStep ? '<div class="manim-step-line"></div>' : '') +
+        '</div>' +
+        '<div class="manim-step-content">' +
+          '<div class="manim-stage-header">' +
+            '<div class="manim-stage-kicker">' + renderMathText(stepItem.kicker || ("Βήμα " + (idx + 1))) + '</div>' +
+            (isLatest && isPlaying ? '<span class="manim-live-tag">✍️ ΓΡΑΦΗ ΣΤΟΝ ΠΙΝΑΚΑ</span>' : '') +
+          '</div>' +
+          '<p class="manim-stage-text manim-chalk-text">' + textResult.html + '</p>' +
+          mathHtml +
+          noteHtml +
+        '</div>' +
+      '</div>';
+    }
+
+    var modeSwitcherHtml = '<div class="manim-mode-switch">' +
+      '<button class="manim-mode-btn ' + (mode === "board" ? "active" : "") + '" data-act="anim-mode" data-ex="' + esc(exId) + '" data-item="' + itemIdx + '" data-mode="board" title="Προβολή όλων των βημάτων σε έναν ενιαίο πίνακα">' +
+      '📋 Συνολικός Πίνακας</button>' +
+      '<button class="manim-mode-btn ' + (mode === "single" ? "active" : "") + '" data-act="anim-mode" data-ex="' + esc(exId) + '" data-item="' + itemIdx + '" data-mode="single" title="Εστίαση μόνο στο τρέχον βήμα">' +
+      '📑 Βήμα-Βήμα</button>' +
+    '</div>';
+
+    var playButtonLabel = isPlaying ? "⏸ Παύση" : (currentStep >= totalSteps - 1 ? "🔄 Επανάληψη" : "▶ Play");
+    var playButtonClass = isPlaying ? "playing" : "";
+    var topbarPlayBtn = '<button class="btn btn-chalk btn-sm manim-btn-play manim-topbar-play-btn ' + playButtonClass + '" data-act="anim-play" data-ex="' + esc(exId) + '" data-item="' + itemIdx + '" title="' + (isPlaying ? "Παύση αυτόματης επίλυσης" : "Έναρξη αυτόματης επίλυσης") + '">' + playButtonLabel + '</button>';
+
+    return '<div class="manim-player" data-ex="' + esc(exId) + '" data-item="' + itemIdx + '">' +
+      '<div class="manim-topbar">' +
+        '<div class="manim-badge"><span class="manim-dot"></span><span>' + renderMathText(anim.title || "Επίλυση Βήμα-Βήμα") + '</span></div>' +
+        topbarPlayBtn +
+        modeSwitcherHtml +
+        '<div class="manim-step-counter">' + (mode === "single" ? ('Βήμα ' + (currentStep + 1) + ' από ' + totalSteps) : ('Εμφάνιση 1–' + (currentStep + 1) + ' από ' + totalSteps)) + '</div>' +
+      '</div>' +
+      '<div class="manim-progress-track"><div class="manim-progress-bar" style="width: ' + progressPct + '%"></div></div>' +
+      '<div class="manim-pills">' + pillsHtml + '</div>' +
+      '<div class="manim-stage">' +
+        '<div class="manim-chalkboard-header">' +
+          '<span class="manim-chalk-indicator">✍️ ' + (mode === "single" ? "Εστιασμένη Προβολή Βήματος" : "Μαυροπίνακας Επίλυσης") + '</span>' +
+          (isPlaying ? '<span class="manim-chalk-active">✍️ Ο καθηγητής γράφει στον πίνακα...</span>' : '<span class="manim-chalk-passive">Γραφή με κιμωλία</span>') +
+          '<button class="btn btn-chalk btn-sm manim-btn-play manim-chalk-play-toggle ' + playButtonClass + '" data-act="anim-play" data-ex="' + esc(exId) + '" data-item="' + itemIdx + '" style="margin-left:auto">' +
+            playButtonLabel +
+          '</button>' +
+        '</div>' +
+        '<div class="manim-stage-steps ' + (mode === "single" ? "manim-stage-single" : "") + '">' + stepsListHtml + '</div>' +
+      '</div>' +
+      '<div class="manim-controls">' +
+        '<div class="manim-ctrl-group">' +
+          '<button class="btn btn-chalk btn-sm" data-act="anim-prev" data-ex="' + esc(exId) + '" data-item="' + itemIdx + '" ' + (currentStep === 0 ? "disabled" : "") + '>⏮ Πίσω</button>' +
+          '<button class="btn btn-chalk btn-sm manim-btn-play ' + playButtonClass + '" data-act="anim-play" data-ex="' + esc(exId) + '" data-item="' + itemIdx + '">' + playButtonLabel + '</button>' +
+          '<button class="btn btn-chalk btn-sm" data-act="anim-next" data-ex="' + esc(exId) + '" data-item="' + itemIdx + '" ' + (currentStep >= totalSteps - 1 ? "disabled" : "") + '>Επόμενο Βήμα ⏭</button>' +
+        '</div>' +
+        '<div class="manim-ctrl-group">' +
+          '<button class="btn btn-chalk btn-sm" data-act="anim-reset" data-ex="' + esc(exId) + '" data-item="' + itemIdx + '" title="Επιστροφή στο 1ο βήμα">🔄 Αρχή</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+
   function exercisePage(id) {
     const ex = getExercise(id);
     if (!ex) {
@@ -1931,6 +2461,22 @@ function esc(s) {
       '<span class="kind-units">' + kindAndUnits + '</span>' +
       '</div>';
     inner += '<h1 class="exercise-main-title">' + displayHeading + "</h1>";
+    const hasAnyAnim = hasExerciseAnim(ex);
+    if (hasAnyAnim) {
+      const isAnyHintOpen = ex.items.some(function(_, idx) { return Boolean(state.hints[idx]); });
+      inner += '<div class="ex-anim-hero-banner" data-act="hint" data-i="0">' +
+        '<div class="ex-anim-hero-left">' +
+          '<span class="ex-anim-icon">🎬</span>' +
+          '<div>' +
+            '<div class="ex-anim-title">Διαδραστικός Μαυροπίνακας &amp; Animation Επίλυσης</div>' +
+            '<div class="ex-anim-subtitle">Βήμα-βήμα καθοδήγηση με γραφή κιμωλίας, στοίχιση τύπων και επεξήγηση πράξεων.</div>' +
+          '</div>' +
+        '</div>' +
+        '<button class="btn btn-chalk ex-anim-hero-btn" data-act="hint" data-i="0">' +
+          (isAnyHintOpen ? "⏸ Απόκρυψη Πίνακα" : "▶ Προβολή Animation") +
+        '</button>' +
+      '</div>';
+    }
     if (ex.stem) inner += '<p style="margin-top:.85rem;opacity:.95;font-size:1.18rem;line-height:1.6;white-space:pre-line">' + renderMathText(ex.stem) + "</p>";
     // Σχήματα εκφώνησης (πάντα ορατά)
     (function () {
@@ -1942,12 +2488,12 @@ function esc(s) {
         });
       }
       if (figs.length) {
-        const isGrid = ex.imageLayout === "grid" || (figs.length === 4 && ex.imageLayout !== "column");
+        const isGrid = ex.imageLayout === "grid" || ex.imageLayout === "row" || (figs.length >= 2 && ex.imageLayout !== "column");
         const gridClass = isGrid ? " ex-figures-grid" : "";
         inner += '<div class="ex-figures' + gridClass + '">';
         figs.forEach(function (src, idx) {
           const customLabel = (ex.imageLabels && ex.imageLabels[idx]) || "";
-          const label = customLabel || (isGrid || figs.length > 1 ? ("Σχήμα " + (idx + 1)) : "");
+          const label = customLabel || (ex.kind === "match" && (isGrid || figs.length > 1) ? ("Σχήμα " + (idx + 1)) : "");
           inner +=
             '<figure class="ex-figure">' +
             '<div class="ex-figure-img-wrap"><img src="' + imgUrl(src) + '" alt="' + esc(label || "Σχήμα θέματος") + '" loading="lazy"/></div>' +
@@ -1960,7 +2506,7 @@ function esc(s) {
     if (ex.givens) {
       inner += '<div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem">';
       ex.givens.forEach(function (g) {
-        inner += '<span class="chip"><span style="opacity:.7">' + esc(g.label) + "</span> <b>" + esc(g.value) + "</b></span>";
+        inner += '<span class="chip"><span style="opacity:.7">' + renderMathText(g.label) + "</span> <b>" + renderMathText(g.value) + "</b></span>";
       });
       inner += "</div>";
     }
@@ -1994,21 +2540,26 @@ function esc(s) {
       if (item.subqPrompt && !sameSubq) {
         inner += '<p style="margin:0 0 .85rem;opacity:.92;font-size:1.1rem;line-height:1.5;white-space:pre-line">' + renderMathText(item.subqPrompt) + "</p>";
       }
+      const itemSolFigs = [];
       if (item.image || (item.images && item.images.length)) {
         const itemFigs = [];
-        if (item.image && item.image !== ex.image) itemFigs.push(item.image);
-        if (item.images) {
-          item.images.forEach(function (src) {
-            if (src !== ex.image && itemFigs.indexOf(src) < 0) itemFigs.push(src);
-          });
-        }
+        const pushFig = function (src) {
+          if (!src || src === ex.image) return;
+          if (/_sol\d+\./i.test(src)) {
+            if (itemSolFigs.indexOf(src) < 0) itemSolFigs.push(src);
+          } else {
+            if (itemFigs.indexOf(src) < 0) itemFigs.push(src);
+          }
+        };
+        if (item.image) pushFig(item.image);
+        if (item.images) item.images.forEach(pushFig);
         if (itemFigs.length) {
-          const isGrid = item.imageLayout === "grid" || (itemFigs.length === 4 && item.imageLayout !== "column");
+          const isGrid = item.imageLayout === "grid" || item.imageLayout === "row" || (itemFigs.length >= 2 && item.imageLayout !== "column");
           const gridClass = isGrid ? " item-figures-grid" : "";
           inner += '<div class="item-figures' + gridClass + '">';
           itemFigs.forEach(function (src, idx) {
             const customLabel = (item.imageLabels && item.imageLabels[idx]) || "";
-            const label = customLabel || (isGrid || itemFigs.length > 1 ? ("Σχήμα " + (idx + 1)) : "");
+            const label = customLabel || (item.kind === "match" && (isGrid || itemFigs.length > 1) ? ("Σχήμα " + (idx + 1)) : "");
             inner +=
               '<figure class="ex-figure">' +
               '<div class="ex-figure-img-wrap"><img src="' + imgUrl(src) + '" alt="' + esc(label || "Σχήμα ερωτήματος") + '" loading="lazy"/></div>' +
@@ -2019,29 +2570,44 @@ function esc(s) {
         }
       }
       inner += itemView(item, answer, state.checked, i);
-      const hasHint = item.hint || item.hintImage;
+      const itemAnim = getAnimationForCalcItem(item, ex.id, i);
+      const hasAnim = Boolean(itemAnim && Array.isArray(itemAnim.steps) && itemAnim.steps.length > 0);
+      const hasHint = item.hint || item.formula || item.hintImage || hasAnim;
       if (hasHint) {
-        inner += '<p><button class="btn btn-chalk" style="margin-top:.8rem" data-act="hint">' +
-          (state.hints[i] ? "Απόκρυψη υπόδειξης" : "Υπόδειξη") + "</button></p>";
+        const btnChalkClass = hasAnim ? "btn btn-chalk btn-chalk-anim" : "btn btn-chalk";
+        inner += '<p><button class="' + btnChalkClass + '" style="margin-top:.8rem" data-act="hint" data-i="' + i + '">' +
+          (state.hints[i] ? "Απόκρυψη υπόδειξης" : (hasAnim ? "Υπόδειξη & Animation 🎬" : "Υπόδειξη")) + "</button></p>";
         if (state.hints[i]) {
           inner += '<div class="hintbox" style="margin-top:.5rem">';
           if (item.hint) {
             inner += '<p style="margin:0 0 .4rem">' + renderMathText(item.hint) + '</p>';
           }
-          if (item.formula) {
+          if (item.formula && !hasAnim) {
             inner += '<span class="f">' + renderMathText(item.formula) + '</span>';
           }
           if (item.hintImage) {
             inner += '<figure class="ex-figure" style="margin:.6rem 0 0"><div class="ex-figure-img-wrap"><img src="' +
               imgUrl(item.hintImage) + '" alt="Σχήμα υπόδειξης" style="max-width:100%;height:auto;border-radius:8px;background:#fff" loading="lazy"/></div></figure>';
           }
+          if (hasAnim) {
+            inner += renderManimPlayer(item, ex.id, i);
+          }
           inner += "</div>";
         }
       }
       if (state.checked) {
         const ok = state.results[i];
+        let solImgsHtml = "";
+        if (itemSolFigs.length) {
+          itemSolFigs.forEach(function (src) {
+            if (!ex.solutionImages || ex.solutionImages.indexOf(src) < 0) {
+              solImgsHtml += '<figure class="ex-figure" style="margin:.65rem 0 0"><div class="ex-figure-img-wrap"><img src="' +
+                imgUrl(src) + '" alt="Σχήμα λύσης" style="max-width:100%;height:auto;border-radius:8px;background:#fff;padding:6px" loading="lazy"/></div></figure>';
+            }
+          });
+        }
         inner += '<div class="feedback ' + (ok ? "ok" : "bad") + '"><b>' + (ok ? "Σωστά" : "Όχι ακριβώς") +
-          "</b><p style='margin:.35rem 0 0;line-height:1.5'>" + renderMathText(item.explain || "") + "</p></div>";
+          "</b><p style='margin:.35rem 0 0;line-height:1.5'>" + renderMathText(item.explain || "") + "</p>" + solImgsHtml + "</div>";
       }
       inner += "</section>";
     });
@@ -2108,6 +2674,45 @@ function esc(s) {
     });
   }
 
+  const loadedSubjects = Object.create(null);
+
+  function ensureSubjectLoaded(subjectId) {
+    if (!subjectId || loadedSubjects[subjectId]) {
+      return Promise.resolve();
+    }
+    const scripts = (window.SUBJECT_SCRIPTS && window.SUBJECT_SCRIPTS[subjectId]) || [];
+    if (!scripts.length) {
+      loadedSubjects[subjectId] = true;
+      return Promise.resolve();
+    }
+    return new Promise(function (resolve) {
+      let loadedCount = 0;
+      const total = scripts.length;
+      function checkDone() {
+        loadedCount++;
+        if (loadedCount >= total) {
+          loadedSubjects[subjectId] = true;
+          resolve();
+        }
+      }
+      scripts.forEach(function (src) {
+        if (document.querySelector('script[src="' + src + '"]')) {
+          checkDone();
+          return;
+        }
+        const s = document.createElement("script");
+        s.src = src;
+        s.async = false;
+        s.onload = checkDone;
+        s.onerror = function () {
+          console.warn("Could not load script:", src);
+          checkDone();
+        };
+        document.body.appendChild(s);
+      });
+    });
+  }
+
   function render(opts) {
     opts = opts || {};
     const y = window.scrollY;
@@ -2122,6 +2727,19 @@ function esc(s) {
     }
     applyTheme();
     const r = route();
+    if (r.subject && !loadedSubjects[r.subject] && window.SUBJECT_SCRIPTS && window.SUBJECT_SCRIPTS[r.subject]) {
+      const root = document.getElementById("app");
+      if (root) {
+        root.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:50vh;gap:1rem;color:var(--text-muted);font-family:var(--font-sans);">' +
+          '<div style="font-size:2rem;">⏳</div>' +
+          '<div style="font-size:1.1rem;font-weight:500;">Φόρτωση περιεχομένου μαθήματος...</div>' +
+          '</div>';
+      }
+      ensureSubjectLoaded(r.subject).then(function () {
+        render(opts);
+      });
+      return;
+    }
     if (r.subject) setCtx(r.subject);
     const root = document.getElementById("app");
     if (r.name === "site-home") {
@@ -2453,7 +3071,7 @@ function esc(s) {
       input.style.backgroundColor = "rgba(143,219,154,.15)";
       feedback.style.display = "block";
       feedback.style.backgroundColor = "rgba(143,219,154,.12)";
-      feedback.innerHTML = "<b>Μπράβο!</b> " + esc(ex.explain);
+      feedback.innerHTML = "<b>Μπράβο!</b> " + renderMathText(ex.explain);
       itemEl.setAttribute("data-solved", "1");
     } else {
       status.style.color = "var(--wrong, #e07a5f)";
@@ -2487,7 +3105,7 @@ function esc(s) {
     status.textContent = "Λύση";
     feedback.style.display = "block";
     feedback.style.backgroundColor = "rgba(196,92,38,.08)";
-    feedback.innerHTML = "<b>Αποτέλεσμα:</b> " + esc(ex.explain);
+    feedback.innerHTML = "<b>Αποτέλεσμα:</b> " + renderMathText(ex.explain);
     itemEl.removeAttribute("data-solved");
     updateMathScore();
   }
@@ -2588,7 +3206,19 @@ function esc(s) {
       const section = el.getAttribute("data-section");
       const chapter = el.getAttribute("data-chapter");
       state.navSection = section;
-      state.navChapter = el.getAttribute("data-expanded") === "true" ? null : chapter;
+      const isOpening = el.getAttribute("data-expanded") !== "true";
+      state.navChapter = isOpening ? chapter : null;
+      if (isOpening && section === "theory") {
+        const curR = route();
+        const curSec = (curR && curR.name === "notes" && curR.slug) ? getSection(curR.slug) : (ctx.sections && ctx.sections[0]);
+        const firstSec = ctx.sections.find(function (s) {
+          return sectionChapter(s) === String(chapter);
+        });
+        if (firstSec && (!curSec || sectionChapter(curSec) !== String(chapter))) {
+          go(ctx.base + "/notes/" + firstSec.slug);
+          return;
+        }
+      }
       stay();
       return;
     }
@@ -2695,8 +3325,94 @@ function esc(s) {
       return;
     }
     if (act === "hint") {
-      state.hints[state.step] = !state.hints[state.step];
+      const idx = el.getAttribute("data-i") !== null ? Number(el.getAttribute("data-i")) : state.step;
+      state.hints[idx] = !state.hints[idx];
+      const key = state.exId + "_" + idx;
+      if (state.hints[idx]) {
+        // By default: Ξεκινάει αυτόματα να λύνει την άσκηση σα να γράφει καθηγητής στον πίνακα!
+        state.animStep = state.animStep || {};
+        state.animStep[key] = 0;
+        startAnimTimer(state.exId, idx);
+      } else {
+        stopAnimTimer(state.exId, idx);
+      }
       stay();
+      if (state.hints[idx]) {
+        scrollManimStepIntoView(state.exId, idx);
+      }
+      return;
+    }
+    if (act === "anim-step") {
+      const exId = el.getAttribute("data-ex");
+      const itemIdx = el.getAttribute("data-item");
+      const targetStep = Number(el.getAttribute("data-step"));
+      const key = exId + "_" + itemIdx;
+      stopAnimTimer(exId, itemIdx);
+      state.animStep = state.animStep || {};
+      state.animStep[key] = targetStep;
+      stay();
+      scrollManimStepIntoView(exId, itemIdx);
+      return;
+    }
+    if (act === "anim-prev") {
+      const exId = el.getAttribute("data-ex");
+      const itemIdx = el.getAttribute("data-item");
+      const key = exId + "_" + itemIdx;
+      stopAnimTimer(exId, itemIdx);
+      state.animStep = state.animStep || {};
+      const prevStep = Math.max(0, (state.animStep[key] || 0) - 1);
+      state.animStep[key] = prevStep;
+      stay();
+      scrollManimStepIntoView(exId, itemIdx);
+      return;
+    }
+    if (act === "anim-next") {
+      const exId = el.getAttribute("data-ex");
+      const itemIdx = el.getAttribute("data-item");
+      const key = exId + "_" + itemIdx;
+      stopAnimTimer(exId, itemIdx);
+      const exObj = getExercise(exId);
+      const itObj = exObj && exObj.items && exObj.items[Number(itemIdx)];
+      const aObj = itObj && getAnimationForCalcItem(itObj);
+      const maxSteps = aObj && aObj.steps ? aObj.steps.length : 4;
+      state.animStep = state.animStep || {};
+      const nextStep = Math.min(maxSteps - 1, (state.animStep[key] || 0) + 1);
+      state.animStep[key] = nextStep;
+      stay();
+      scrollManimStepIntoView(exId, itemIdx);
+      return;
+    }
+    if (act === "anim-reset") {
+      const exId = el.getAttribute("data-ex");
+      const itemIdx = el.getAttribute("data-item");
+      const key = exId + "_" + itemIdx;
+      stopAnimTimer(exId, itemIdx);
+      state.animStep = state.animStep || {};
+      state.animStep[key] = 0;
+      stay();
+      scrollManimStepIntoView(exId, itemIdx);
+      return;
+    }
+    if (act === "anim-play") {
+      const exId = el.getAttribute("data-ex");
+      const itemIdx = el.getAttribute("data-item");
+      const key = exId + "_" + itemIdx;
+      if (state.animPlaying && state.animPlaying[key]) {
+        stopAnimTimer(exId, itemIdx);
+      } else {
+        const curr = (state.animStep && state.animStep[key] !== undefined) ? state.animStep[key] : 0;
+        const exObj = getExercise(exId);
+        const itObj = exObj && exObj.items && exObj.items[Number(itemIdx)];
+        const aObj = itObj && getAnimationForCalcItem(itObj);
+        const maxSteps = aObj && aObj.steps ? aObj.steps.length : 4;
+        if (curr >= maxSteps - 1) {
+          state.animStep = state.animStep || {};
+          state.animStep[key] = 0;
+        }
+        startAnimTimer(exId, itemIdx);
+      }
+      stay();
+      scrollManimStepIntoView(exId, itemIdx);
       return;
     }
     if (act === "check" && ex) {

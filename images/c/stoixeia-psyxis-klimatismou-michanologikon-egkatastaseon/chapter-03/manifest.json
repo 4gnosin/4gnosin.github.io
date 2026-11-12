@@ -16,7 +16,7 @@
   },
   "images": [
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23748_sol01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23748_sol01.png",
       "bank_code": "23748",
       "role": "sol",
       "page": 7,
@@ -32,13 +32,23 @@
         524.3,
         459.0
       ],
+      "row_id": "p7_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        70.8,
+        224.0,
+        524.3,
+        459.0
+      ],
       "question_anchor": "4.2",
+      "sub_index": null,
       "text_before": "4.2.",
       "text_after": "",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23891_fig01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23891_fig01.png",
       "bank_code": "23891",
       "role": "fig",
       "page": 8,
@@ -54,13 +64,23 @@
         273.8,
         336.1
       ],
+      "row_id": "p8_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        91.9,
+        207.6,
+        273.8,
+        336.1
+      ],
       "question_anchor": "2.1",
-      "text_before": "Στήλη Α  Στήλη Β",
-      "text_after": "1.",
+      "sub_index": 1,
+      "text_before": "1.",
+      "text_after": "β. Ισόθλιπτη Μεταβολή",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23891_fig02.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23891_fig02.png",
       "bank_code": "23891",
       "role": "fig",
       "page": 8,
@@ -76,13 +96,23 @@
         293.3,
         532.5
       ],
+      "row_id": "p8_r2",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        104.9,
+        363.0,
+        293.3,
+        532.5
+      ],
       "question_anchor": "2.1",
-      "text_before": "1.",
-      "text_after": "2.",
+      "sub_index": 2,
+      "text_before": "2.",
+      "text_after": "γ. Αδιαβατική Μεταβολή",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23891_fig03.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23891_fig03.png",
       "bank_code": "23891",
       "role": "fig",
       "page": 8,
@@ -98,13 +128,23 @@
         273.4,
         739.4
       ],
+      "row_id": "p8_r3",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        99.4,
+        549.0,
+        273.4,
+        739.4
+      ],
       "question_anchor": "2.1",
-      "text_before": "2.",
-      "text_after": "3.",
+      "sub_index": 3,
+      "text_before": "3.",
+      "text_after": "",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23891_fig04.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23891_fig04.png",
       "bank_code": "23891",
       "role": "fig",
       "page": 9,
@@ -120,13 +160,23 @@
         324.6,
         230.7
       ],
-      "question_anchor": null,
-      "text_before": "",
-      "text_after": "4.",
+      "row_id": "p9_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        101.9,
+        93.4,
+        324.6,
+        230.7
+      ],
+      "question_anchor": "2.1",
+      "sub_index": 4,
+      "text_before": "4.",
+      "text_after": "Μονάδες 16",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23963_sol01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23963_sol01.png",
       "bank_code": "23963",
       "role": "sol",
       "page": 14,
@@ -142,13 +192,23 @@
         397.5,
         307.7
       ],
+      "row_id": "p14_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        197.1,
+        137.9,
+        397.5,
+        307.7
+      ],
       "question_anchor": "4.1",
+      "sub_index": null,
       "text_before": "4.1. H ισοθερμοκρασιακή μεταβολή απεικονίζεται στο παρακάτω διάγραμμα P-V.",
       "text_after": "4.2. Το έργο που προσφέρθηκε απεικονίζεται στο ακόλουθο διάγραμμα.",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23963_sol02.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23963_sol02.png",
       "bank_code": "23963",
       "role": "sol",
       "page": 14,
@@ -164,19 +224,29 @@
         392.4,
         516.9
       ],
+      "row_id": "p14_r2",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        202.9,
+        358.3,
+        392.4,
+        516.9
+      ],
       "question_anchor": "4.2",
+      "sub_index": null,
       "text_before": "4.2. Το έργο που προσφέρθηκε απεικονίζεται στο ακόλουθο διάγραμμα.",
       "text_after": "4.3.",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23978_fig01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23978_fig01.png",
       "bank_code": "23978",
       "role": "fig",
       "page": 16,
-      "kind": "rendered_vector",
-      "width": 792,
-      "height": 459,
+      "kind": "embedded",
+      "width": 136,
+      "height": 79,
       "sha1": "644a2f79f3d6",
       "bank_code_inherited": false,
       "xref": 611,
@@ -186,19 +256,29 @@
         224.8,
         430.4
       ],
+      "row_id": "p16_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        175.7,
+        401.8,
+        224.8,
+        430.4
+      ],
       "question_anchor": "4.2",
+      "sub_index": null,
       "text_before": "P (bar)",
       "text_after": "Β",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23978_sol01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23978_sol01.png",
       "bank_code": "23978",
       "role": "sol",
       "page": 17,
-      "kind": "rendered_vector",
-      "width": 612,
-      "height": 403,
+      "kind": "embedded",
+      "width": 119,
+      "height": 79,
       "sha1": "63ab709607b7",
       "bank_code_inherited": false,
       "xref": 674,
@@ -208,13 +288,23 @@
         135.0,
         172.4
       ],
+      "row_id": "p17_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        91.9,
+        143.8,
+        135.0,
+        172.4
+      ],
       "question_anchor": "4.1",
+      "sub_index": null,
       "text_before": "P",
       "text_after": "A",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23638_sol01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23638_sol01.png",
       "bank_code": "23638",
       "role": "sol",
       "page": 27,
@@ -230,13 +320,23 @@
         412.5,
         332.5
       ],
+      "row_id": "p27_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        184.3,
+        136.8,
+        412.5,
+        332.5
+      ],
       "question_anchor": "4.1",
+      "sub_index": null,
       "text_before": "4.1 Η κυκλική μεταβολή απεικονίζεται στο παρακάτω διάγραμμα P-V.",
       "text_after": "4.2 Η μεταβολή 1-2  είναι ισοθερμοκρασιακή (Τ1 = Τ2 = 350 Κ), οπότε:",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#29507_fig01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_29507_fig01.png",
       "bank_code": "29507",
       "role": "fig",
       "page": 28,
@@ -252,13 +352,23 @@
         452.7,
         395.6
       ],
+      "row_id": "p28_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        142.4,
+        136.8,
+        452.7,
+        395.6
+      ],
       "question_anchor": null,
+      "sub_index": null,
       "text_before": "μεταβολή 2-3 είναι ισοθερμοκρασιακή.",
       "text_after": "Σχήμα 1",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23832_fig01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23832_fig01.png",
       "bank_code": "23832",
       "role": "fig",
       "page": 32,
@@ -274,13 +384,23 @@
         391.3,
         611.0
       ],
+      "row_id": "p32_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        205.4,
+        444.4,
+        391.3,
+        611.0
+      ],
       "question_anchor": "2.2",
+      "sub_index": null,
       "text_before": "θα περισσέψουν.",
       "text_after": "ΣΤΗΛΗ Α  ΣΤΗΛΗ Β",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23959_fig01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23959_fig01.png",
       "bank_code": "23959",
       "role": "fig",
       "page": 36,
@@ -296,13 +416,23 @@
         357.4,
         542.6
       ],
+      "row_id": "p36_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        205.3,
+        400.4,
+        357.4,
+        542.6
+      ],
       "question_anchor": "2.2",
+      "sub_index": null,
       "text_before": "τέσσερις μεταβολές (1-2, 2-3, 3-4 και 4-1).",
       "text_after": "α.  Τι είδους μεταβολές είναι η 4-1 και η 1-2, στο παραπάνω διάγραμμα; (Μονάδες 8)",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#33862_fig01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_33862_fig01.png",
       "bank_code": "33862",
       "role": "fig",
       "page": 40,
@@ -318,7 +448,17 @@
         316.3,
         454.3
       ],
+      "row_id": "p40_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        76.4,
+        223.9,
+        316.3,
+        454.3
+      ],
       "question_anchor": "2.1",
+      "sub_index": null,
       "text_before": "(Φάσεις-μεταβολές)",
       "text_after": "δ. Ισοθερμοκρασιακή Εκτόνωση",
       "is_full_page_scan": false
@@ -328,11 +468,11 @@
     "23638": {
       "fig": [],
       "sol": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23638_sol01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23638_sol01.png"
       ],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23638_sol01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23638_sol01.png",
           "bank_code": "23638",
           "role": "sol",
           "page": 27,
@@ -348,7 +488,17 @@
             412.5,
             332.5
           ],
+          "row_id": "p27_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            184.3,
+            136.8,
+            412.5,
+            332.5
+          ],
           "question_anchor": "4.1",
+          "sub_index": null,
           "text_before": "4.1 Η κυκλική μεταβολή απεικονίζεται στο παρακάτω διάγραμμα P-V.",
           "text_after": "4.2 Η μεταβολή 1-2  είναι ισοθερμοκρασιακή (Τ1 = Τ2 = 350 Κ), οπότε:",
           "is_full_page_scan": false
@@ -358,11 +508,11 @@
     "23748": {
       "fig": [],
       "sol": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23748_sol01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23748_sol01.png"
       ],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23748_sol01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23748_sol01.png",
           "bank_code": "23748",
           "role": "sol",
           "page": 7,
@@ -378,7 +528,17 @@
             524.3,
             459.0
           ],
+          "row_id": "p7_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            70.8,
+            224.0,
+            524.3,
+            459.0
+          ],
           "question_anchor": "4.2",
+          "sub_index": null,
           "text_before": "4.2.",
           "text_after": "",
           "is_full_page_scan": false
@@ -387,12 +547,12 @@
     },
     "23832": {
       "fig": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23832_fig01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23832_fig01.png"
       ],
       "sol": [],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23832_fig01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23832_fig01.png",
           "bank_code": "23832",
           "role": "fig",
           "page": 32,
@@ -408,7 +568,17 @@
             391.3,
             611.0
           ],
+          "row_id": "p32_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            205.4,
+            444.4,
+            391.3,
+            611.0
+          ],
           "question_anchor": "2.2",
+          "sub_index": null,
           "text_before": "θα περισσέψουν.",
           "text_after": "ΣΤΗΛΗ Α  ΣΤΗΛΗ Β",
           "is_full_page_scan": false
@@ -417,15 +587,15 @@
     },
     "23891": {
       "fig": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23891_fig01.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23891_fig02.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23891_fig03.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23891_fig04.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23891_fig01.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23891_fig02.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23891_fig03.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23891_fig04.png"
       ],
       "sol": [],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23891_fig01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23891_fig01.png",
           "bank_code": "23891",
           "role": "fig",
           "page": 8,
@@ -441,13 +611,23 @@
             273.8,
             336.1
           ],
+          "row_id": "p8_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            91.9,
+            207.6,
+            273.8,
+            336.1
+          ],
           "question_anchor": "2.1",
-          "text_before": "Στήλη Α  Στήλη Β",
-          "text_after": "1.",
+          "sub_index": 1,
+          "text_before": "1.",
+          "text_after": "β. Ισόθλιπτη Μεταβολή",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23891_fig02.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23891_fig02.png",
           "bank_code": "23891",
           "role": "fig",
           "page": 8,
@@ -463,13 +643,23 @@
             293.3,
             532.5
           ],
+          "row_id": "p8_r2",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            104.9,
+            363.0,
+            293.3,
+            532.5
+          ],
           "question_anchor": "2.1",
-          "text_before": "1.",
-          "text_after": "2.",
+          "sub_index": 2,
+          "text_before": "2.",
+          "text_after": "γ. Αδιαβατική Μεταβολή",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23891_fig03.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23891_fig03.png",
           "bank_code": "23891",
           "role": "fig",
           "page": 8,
@@ -485,13 +675,23 @@
             273.4,
             739.4
           ],
+          "row_id": "p8_r3",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            99.4,
+            549.0,
+            273.4,
+            739.4
+          ],
           "question_anchor": "2.1",
-          "text_before": "2.",
-          "text_after": "3.",
+          "sub_index": 3,
+          "text_before": "3.",
+          "text_after": "",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23891_fig04.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23891_fig04.png",
           "bank_code": "23891",
           "role": "fig",
           "page": 9,
@@ -507,21 +707,31 @@
             324.6,
             230.7
           ],
-          "question_anchor": null,
-          "text_before": "",
-          "text_after": "4.",
+          "row_id": "p9_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            101.9,
+            93.4,
+            324.6,
+            230.7
+          ],
+          "question_anchor": "2.1",
+          "sub_index": 4,
+          "text_before": "4.",
+          "text_after": "Μονάδες 16",
           "is_full_page_scan": false
         }
       ]
     },
     "23959": {
       "fig": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23959_fig01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23959_fig01.png"
       ],
       "sol": [],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23959_fig01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23959_fig01.png",
           "bank_code": "23959",
           "role": "fig",
           "page": 36,
@@ -537,7 +747,17 @@
             357.4,
             542.6
           ],
+          "row_id": "p36_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            205.3,
+            400.4,
+            357.4,
+            542.6
+          ],
           "question_anchor": "2.2",
+          "sub_index": null,
           "text_before": "τέσσερις μεταβολές (1-2, 2-3, 3-4 και 4-1).",
           "text_after": "α.  Τι είδους μεταβολές είναι η 4-1 και η 1-2, στο παραπάνω διάγραμμα; (Μονάδες 8)",
           "is_full_page_scan": false
@@ -547,12 +767,12 @@
     "23963": {
       "fig": [],
       "sol": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23963_sol01.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23963_sol02.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23963_sol01.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23963_sol02.png"
       ],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23963_sol01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23963_sol01.png",
           "bank_code": "23963",
           "role": "sol",
           "page": 14,
@@ -568,13 +788,23 @@
             397.5,
             307.7
           ],
+          "row_id": "p14_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            197.1,
+            137.9,
+            397.5,
+            307.7
+          ],
           "question_anchor": "4.1",
+          "sub_index": null,
           "text_before": "4.1. H ισοθερμοκρασιακή μεταβολή απεικονίζεται στο παρακάτω διάγραμμα P-V.",
           "text_after": "4.2. Το έργο που προσφέρθηκε απεικονίζεται στο ακόλουθο διάγραμμα.",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23963_sol02.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23963_sol02.png",
           "bank_code": "23963",
           "role": "sol",
           "page": 14,
@@ -590,7 +820,17 @@
             392.4,
             516.9
           ],
+          "row_id": "p14_r2",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            202.9,
+            358.3,
+            392.4,
+            516.9
+          ],
           "question_anchor": "4.2",
+          "sub_index": null,
           "text_before": "4.2. Το έργο που προσφέρθηκε απεικονίζεται στο ακόλουθο διάγραμμα.",
           "text_after": "4.3.",
           "is_full_page_scan": false
@@ -599,14 +839,14 @@
     },
     "23978": {
       "fig": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23978_fig01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23978_fig01.png"
       ],
       "sol": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23978_sol01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23978_sol01.png"
       ],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23978_fig01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23978_fig01.png",
           "bank_code": "23978",
           "role": "fig",
           "page": 16,
@@ -622,13 +862,23 @@
             224.8,
             430.4
           ],
+          "row_id": "p16_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            175.7,
+            401.8,
+            224.8,
+            430.4
+          ],
           "question_anchor": "4.2",
+          "sub_index": null,
           "text_before": "P (bar)",
           "text_after": "Β",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#23978_sol01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23978_sol01.png",
           "bank_code": "23978",
           "role": "sol",
           "page": 17,
@@ -644,7 +894,17 @@
             135.0,
             172.4
           ],
+          "row_id": "p17_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            91.9,
+            143.8,
+            135.0,
+            172.4
+          ],
           "question_anchor": "4.1",
+          "sub_index": null,
           "text_before": "P",
           "text_after": "A",
           "is_full_page_scan": false
@@ -653,12 +913,12 @@
     },
     "29507": {
       "fig": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#29507_fig01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_29507_fig01.png"
       ],
       "sol": [],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#29507_fig01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_29507_fig01.png",
           "bank_code": "29507",
           "role": "fig",
           "page": 28,
@@ -674,7 +934,17 @@
             452.7,
             395.6
           ],
+          "row_id": "p28_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            142.4,
+            136.8,
+            452.7,
+            395.6
+          ],
           "question_anchor": null,
+          "sub_index": null,
           "text_before": "μεταβολή 2-3 είναι ισοθερμοκρασιακή.",
           "text_after": "Σχήμα 1",
           "is_full_page_scan": false
@@ -683,12 +953,12 @@
     },
     "33862": {
       "fig": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#33862_fig01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_33862_fig01.png"
       ],
       "sol": [],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_#33862_fig01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_33862_fig01.png",
           "bank_code": "33862",
           "role": "fig",
           "page": 40,
@@ -704,12 +974,29 @@
             316.3,
             454.3
           ],
+          "row_id": "p40_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            76.4,
+            223.9,
+            316.3,
+            454.3
+          ],
           "question_anchor": "2.1",
+          "sub_index": null,
           "text_before": "(Φάσεις-μεταβολές)",
           "text_after": "δ. Ισοθερμοκρασιακή Εκτόνωση",
           "is_full_page_scan": false
         }
       ]
+    },
+    "23746": {
+      "fig": [
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch03_23746_fig01.png"
+      ],
+      "sol": [],
+      "images": []
     }
   }
 }

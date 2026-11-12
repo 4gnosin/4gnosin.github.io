@@ -16,7 +16,7 @@
   },
   "images": [
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32788_fig01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32788_fig01.png",
       "bank_code": "32788",
       "role": "fig",
       "page": 8,
@@ -32,13 +32,23 @@
         552.7,
         712.8
       ],
+      "row_id": "p8_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        99.2,
+        312.6,
+        552.7,
+        712.8
+      ],
       "question_anchor": null,
+      "sub_index": null,
       "text_before": "στ) Την ενθαλπία. (Μονάδες 4)",
       "text_after": "Μονάδες 25",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32788_sol01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32788_sol01.png",
       "bank_code": "32788",
       "role": "sol",
       "page": 9,
@@ -54,13 +64,23 @@
         524.4,
         750.7
       ],
+      "row_id": "p9_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        70.9,
+        356.5,
+        524.4,
+        750.7
+      ],
       "question_anchor": null,
+      "sub_index": null,
       "text_before": "στ) Η ενθαλπία είναι 57 KJ/kg",
       "text_after": "",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32936_fig01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32936_fig01.png",
       "bank_code": "32936",
       "role": "fig",
       "page": 10,
@@ -76,13 +96,23 @@
         441.7,
         716.2
       ],
+      "row_id": "p10_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        169.6,
+        511.4,
+        441.7,
+        716.2
+      ],
       "question_anchor": "2.2",
+      "sub_index": null,
       "text_before": "τη στήλη Β θα περισσέψει.",
       "text_after": "",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33886_fig01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33886_fig01.png",
       "bank_code": "33886",
       "role": "fig",
       "page": 13,
@@ -98,13 +128,23 @@
         524.6,
         643.9
       ],
+      "row_id": "p13_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        70.6,
+        334.3,
+        524.6,
+        643.9
+      ],
       "question_anchor": null,
+      "sub_index": null,
       "text_before": "Μονάδες 25",
       "text_after": "",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33886_sol01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33886_sol01.png",
       "bank_code": "33886",
       "role": "sol",
       "page": 14,
@@ -120,13 +160,23 @@
         524.6,
         426.2
       ],
+      "row_id": "p14_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        70.6,
+        116.4,
+        524.6,
+        426.2
+      ],
       "question_anchor": null,
+      "sub_index": null,
       "text_before": "Θέμα 4ο",
       "text_after": "α) Στον ψυχρομετρικό χάρτη από το σημείο των 25 oC χαράσσουμε μία κατακόρυφη γραμμή",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32205_fig01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32205_fig01.png",
       "bank_code": "32205",
       "role": "fig",
       "page": 16,
@@ -142,13 +192,23 @@
         519.2,
         721.0
       ],
+      "row_id": "p16_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        76.0,
+        71.0,
+        519.2,
+        721.0
+      ],
       "question_anchor": null,
+      "sub_index": null,
       "text_before": "",
       "text_after": "",
       "is_full_page_scan": true
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32205_sol01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32205_sol01.png",
       "bank_code": "32205",
       "role": "sol",
       "page": 17,
@@ -164,13 +224,23 @@
         524.4,
         512.0
       ],
+      "row_id": "p17_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        70.9,
+        202.7,
+        524.4,
+        512.0
+      ],
       "question_anchor": null,
+      "sub_index": null,
       "text_before": "γ) Δεν υπάρχει ύγρανση του αέρα καθώς ο λόγος υγρασίας W παραμένει σταθερός.",
       "text_after": "",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32787_fig01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32787_fig01.png",
       "bank_code": "32787",
       "role": "fig",
       "page": 18,
@@ -186,13 +256,23 @@
         504.5,
         684.9
       ],
+      "row_id": "p18_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        90.5,
+        158.6,
+        504.5,
+        684.9
+      ],
       "question_anchor": "2.1",
+      "sub_index": null,
       "text_before": "γράμματα α, β, γ, δ, ε της Στήλης Β που δίνει τη σωστή αντιστοίχιση.",
       "text_after": "ΣΤΗΛΗ Α  ΣΤΗΛΗ Β",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32787_fig02.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32787_fig02.png",
       "bank_code": "32787",
       "role": "fig",
       "page": 19,
@@ -208,13 +288,23 @@
         474.4,
         438.8
       ],
+      "row_id": "p19_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        256.4,
+        279.5,
+        474.4,
+        438.8
+      ],
       "question_anchor": "2.2",
+      "sub_index": 1,
       "text_before": "1. Θέρμανση χωρίς ύγρανση.",
       "text_after": "α)    2. Ψύξη αέρα με αφύγρανση.",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32787_fig03.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32787_fig03.png",
       "bank_code": "32787",
       "role": "fig",
       "page": 19,
@@ -230,13 +320,23 @@
         475.4,
         608.7
       ],
+      "row_id": "p19_r2",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        253.8,
+        442.0,
+        475.4,
+        608.7
+      ],
       "question_anchor": "2.2",
+      "sub_index": 1,
       "text_before": "α)    2. Ψύξη αέρα με αφύγρανση.",
       "text_after": "β)",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32787_fig04.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32787_fig04.png",
       "bank_code": "32787",
       "role": "fig",
       "page": 20,
@@ -252,13 +352,23 @@
         483.3,
         240.6
       ],
-      "question_anchor": null,
+      "row_id": "p20_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        245.2,
+        71.4,
+        483.3,
+        240.6
+      ],
+      "question_anchor": "2.2",
+      "sub_index": null,
       "text_before": "",
       "text_after": "γ)    Μονάδες 10",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32843_fig01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32843_fig01.png",
       "bank_code": "32843",
       "role": "fig",
       "page": 24,
@@ -274,13 +384,23 @@
         282.7,
         357.9
       ],
+      "row_id": "p24_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        88.1,
+        214.7,
+        282.7,
+        357.9
+      ],
       "question_anchor": "2.1",
-      "text_before": "(Ψυχρομετρικές μεταβολές)",
-      "text_after": "1.",
+      "sub_index": 1,
+      "text_before": "1.",
+      "text_after": "β. Θέρμανση του αέρα χωρίς ύγρανση",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32843_fig02.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32843_fig02.png",
       "bank_code": "32843",
       "role": "fig",
       "page": 24,
@@ -296,13 +416,23 @@
         284.4,
         522.0
       ],
+      "row_id": "p24_r2",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        88.1,
+        380.0,
+        284.4,
+        522.0
+      ],
       "question_anchor": "2.1",
-      "text_before": "1.",
-      "text_after": "2.",
+      "sub_index": 2,
+      "text_before": "2.",
+      "text_after": "γ. Ψύξη του αέρα με αφύγρανση στην",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32843_fig03.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32843_fig03.png",
       "bank_code": "32843",
       "role": "fig",
       "page": 24,
@@ -318,13 +448,23 @@
         283.9,
         684.0
       ],
+      "row_id": "p24_r3",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        88.1,
+        544.5,
+        283.9,
+        684.0
+      ],
       "question_anchor": "2.1",
-      "text_before": "2.",
-      "text_after": "3.",
+      "sub_index": 3,
+      "text_before": "3.",
+      "text_after": "δ. Αδιαβατική ψύξη",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32844_fig01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32844_fig01.png",
       "bank_code": "32844",
       "role": "fig",
       "page": 27,
@@ -340,13 +480,23 @@
         427.5,
         584.4
       ],
+      "row_id": "p27_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        167.8,
+        290.6,
+        427.5,
+        584.4
+      ],
       "question_anchor": "4.2",
+      "sub_index": 1,
       "text_before": "επαγγελματικού χώρου μας θα νιώθουν άνετα.",
       "text_after": "Διάγραμμα 1. Ψυχομετρικός χάρτης με τις συνθήκες άνεσης",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32844_fig02.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32844_fig02.png",
       "bank_code": "32844",
       "role": "fig",
       "page": 28,
@@ -362,13 +512,23 @@
         521.6,
         728.9
       ],
-      "question_anchor": null,
+      "row_id": "p28_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        73.2,
+        71.3,
+        521.6,
+        728.9
+      ],
+      "question_anchor": "4.3",
+      "sub_index": null,
       "text_before": "",
       "text_after": "Διάγραμμα 2. Ψυχομετρικός Χάρτης",
       "is_full_page_scan": true
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32844_sol01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32844_sol01.png",
       "bank_code": "32844",
       "role": "sol",
       "page": 29,
@@ -384,13 +544,23 @@
         541.6,
         474.4
       ],
+      "row_id": "p29_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        90.0,
+        159.9,
+        541.6,
+        474.4
+      ],
       "question_anchor": "4.1",
+      "sub_index": null,
       "text_before": "H αποτύπωση της μεταβολής απεικονίζεται στο παρακάτω διάγραμμα.",
       "text_after": "4.2.",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32844_sol02.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32844_sol02.png",
       "bank_code": "32844",
       "role": "sol",
       "page": 30,
@@ -406,13 +576,23 @@
         429.0,
         373.3
       ],
+      "row_id": "p30_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        166.2,
+        72.0,
+        429.0,
+        373.3
+      ],
       "question_anchor": null,
+      "sub_index": null,
       "text_before": "",
       "text_after": "4.3",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32844_sol03.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32844_sol03.png",
       "bank_code": "32844",
       "role": "sol",
       "page": 31,
@@ -428,13 +608,23 @@
         525.8,
         365.2
       ],
+      "row_id": "p31_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        90.0,
+        72.0,
+        525.8,
+        365.2
+      ],
       "question_anchor": null,
+      "sub_index": null,
       "text_before": "",
       "text_after": "Άρα η μεταβολή μας είναι θέρμανση, αφού η θερμοκρασία ΤΒ > ΤΑ, χωρίς ύγρανση",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32938_fig01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_fig01.png",
       "bank_code": "32938",
       "role": "fig",
       "page": 33,
@@ -450,57 +640,23 @@
         769.1,
         545.6
       ],
-      "question_anchor": null,
-      "text_before": "",
-      "text_after": "",
-      "is_full_page_scan": true
-    },
-    {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32938_sol01.png",
-      "bank_code": "32938",
-      "role": "sol",
-      "page": 35,
-      "kind": "embedded",
-      "width": 1600,
-      "height": 1091,
-      "sha1": "23c78d8ffe0a",
-      "bank_code_inherited": true,
-      "xref": 1045,
-      "bbox": [
+      "row_id": "p33_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        72.7,
         70.9,
-        70.9,
-        767.2,
+        769.1,
         545.6
       ],
       "question_anchor": null,
+      "sub_index": null,
       "text_before": "",
       "text_after": "",
       "is_full_page_scan": true
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32938_sol02.png",
-      "bank_code": "32938",
-      "role": "sol",
-      "page": 35,
-      "kind": "embedded",
-      "width": 251,
-      "height": 43,
-      "sha1": "ed7aac0f89ed",
-      "bank_code_inherited": true,
-      "xref": 1048,
-      "bbox": [
-        97.1,
-        308.2,
-        184.8,
-        363.2
-      ],
-      "question_anchor": null,
-      "text_before": "",
-      "text_after": "2",
-      "is_full_page_scan": false
-    },
-    {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32938_sol03.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_sol01.png",
       "bank_code": "32938",
       "role": "sol",
       "page": 35,
@@ -516,13 +672,119 @@
         132.0,
         418.6
       ],
+      "row_id": "p35_r1",
+      "row_index": 0,
+      "row_size": 4,
+      "row_bbox": [
+        44.3,
+        70.9,
+        767.2,
+        545.6
+      ],
       "question_anchor": null,
+      "sub_index": null,
       "text_before": "",
       "text_after": "2",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32938_sol04.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_sol02.png",
+      "bank_code": "32938",
+      "role": "sol",
+      "page": 35,
+      "kind": "embedded",
+      "width": 1600,
+      "height": 1091,
+      "sha1": "23c78d8ffe0a",
+      "bank_code_inherited": true,
+      "xref": 1045,
+      "bbox": [
+        70.9,
+        70.9,
+        767.2,
+        545.6
+      ],
+      "row_id": "p35_r1",
+      "row_index": 1,
+      "row_size": 4,
+      "row_bbox": [
+        44.3,
+        70.9,
+        767.2,
+        545.6
+      ],
+      "question_anchor": null,
+      "sub_index": null,
+      "text_before": "",
+      "text_after": "",
+      "is_full_page_scan": true
+    },
+    {
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_sol03.png",
+      "bank_code": "32938",
+      "role": "sol",
+      "page": 35,
+      "kind": "embedded",
+      "width": 251,
+      "height": 43,
+      "sha1": "ed7aac0f89ed",
+      "bank_code_inherited": true,
+      "xref": 1048,
+      "bbox": [
+        97.1,
+        308.2,
+        184.8,
+        363.2
+      ],
+      "row_id": "p35_r1",
+      "row_index": 2,
+      "row_size": 4,
+      "row_bbox": [
+        44.3,
+        70.9,
+        767.2,
+        545.6
+      ],
+      "question_anchor": null,
+      "sub_index": null,
+      "text_before": "",
+      "text_after": "2",
+      "is_full_page_scan": false
+    },
+    {
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_sol04.png",
+      "bank_code": "32938",
+      "role": "sol",
+      "page": 35,
+      "kind": "embedded",
+      "width": 251,
+      "height": 43,
+      "sha1": "ed7aac0f89ed",
+      "bank_code_inherited": true,
+      "xref": 1048,
+      "bbox": [
+        340.2,
+        417.4,
+        427.9,
+        472.4
+      ],
+      "row_id": "p35_r1",
+      "row_index": 3,
+      "row_size": 4,
+      "row_bbox": [
+        44.3,
+        70.9,
+        767.2,
+        545.6
+      ],
+      "question_anchor": null,
+      "sub_index": null,
+      "text_before": "",
+      "text_after": "W1 = 3 g/kg ξηρού αέρα",
+      "is_full_page_scan": false
+    },
+    {
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_sol05.png",
       "bank_code": "32938",
       "role": "sol",
       "page": 35,
@@ -533,13 +795,18 @@
       "bank_code_inherited": true,
       "xref": 1046,
       "bbox": null,
+      "row_id": null,
+      "row_index": null,
+      "row_size": 1,
+      "row_bbox": null,
       "question_anchor": null,
+      "sub_index": null,
       "text_before": "",
       "text_after": "",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33898_fig01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33898_fig01.png",
       "bank_code": "33898",
       "role": "fig",
       "page": 36,
@@ -555,13 +822,23 @@
         395.9,
         571.7
       ],
+      "row_id": "p36_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        200.9,
+        422.5,
+        395.9,
+        571.7
+      ],
       "question_anchor": "2.2",
+      "sub_index": null,
       "text_before": "αντιστοίχιση.",
       "text_after": "ΣΤΗΛΗ Α  ΣΤΗΛΗ Β",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33913_fig01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_fig01.png",
       "bank_code": "33913",
       "role": "fig",
       "page": 38,
@@ -577,13 +854,23 @@
         524.4,
         563.3
       ],
+      "row_id": "p38_r1",
+      "row_index": 0,
+      "row_size": 1,
+      "row_bbox": [
+        70.9,
+        254.1,
+        524.4,
+        563.3
+      ],
       "question_anchor": null,
+      "sub_index": null,
       "text_before": "Μονάδες 25",
       "text_after": "",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33913_sol01.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_sol01.png",
       "bank_code": "33913",
       "role": "sol",
       "page": 40,
@@ -599,35 +886,23 @@
         546.0,
         770.6
       ],
+      "row_id": "p40_r1",
+      "row_index": 0,
+      "row_size": 5,
+      "row_bbox": [
+        58.6,
+        68.5,
+        546.0,
+        770.6
+      ],
       "question_anchor": null,
+      "sub_index": null,
       "text_before": "",
       "text_after": "",
       "is_full_page_scan": true
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33913_sol02.png",
-      "bank_code": "33913",
-      "role": "sol",
-      "page": 40,
-      "kind": "embedded",
-      "width": 236,
-      "height": 127,
-      "sha1": "80f937aed2d9",
-      "bank_code_inherited": true,
-      "xref": 1224,
-      "bbox": [
-        365.7,
-        469.5,
-        411.4,
-        554.4
-      ],
-      "question_anchor": null,
-      "text_before": "",
-      "text_after": "Α",
-      "is_full_page_scan": false
-    },
-    {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33913_sol03.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_sol02.png",
       "bank_code": "33913",
       "role": "sol",
       "page": 40,
@@ -643,13 +918,55 @@
         400.9,
         514.4
       ],
+      "row_id": "p40_r1",
+      "row_index": 1,
+      "row_size": 5,
+      "row_bbox": [
+        58.6,
+        68.5,
+        546.0,
+        770.6
+      ],
       "question_anchor": null,
+      "sub_index": null,
       "text_before": "",
       "text_after": "Α",
       "is_full_page_scan": false
     },
     {
-      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33913_sol04.png",
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_sol03.png",
+      "bank_code": "33913",
+      "role": "sol",
+      "page": 40,
+      "kind": "embedded",
+      "width": 236,
+      "height": 127,
+      "sha1": "80f937aed2d9",
+      "bank_code_inherited": true,
+      "xref": 1224,
+      "bbox": [
+        365.7,
+        469.5,
+        411.4,
+        554.4
+      ],
+      "row_id": "p40_r1",
+      "row_index": 2,
+      "row_size": 5,
+      "row_bbox": [
+        58.6,
+        68.5,
+        546.0,
+        770.6
+      ],
+      "question_anchor": null,
+      "sub_index": null,
+      "text_before": "",
+      "text_after": "Α",
+      "is_full_page_scan": false
+    },
+    {
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_sol04.png",
       "bank_code": "33913",
       "role": "sol",
       "page": 40,
@@ -665,7 +982,49 @@
         476.1,
         575.2
       ],
+      "row_id": "p40_r1",
+      "row_index": 3,
+      "row_size": 5,
+      "row_bbox": [
+        58.6,
+        68.5,
+        546.0,
+        770.6
+      ],
       "question_anchor": null,
+      "sub_index": null,
+      "text_before": "Β",
+      "text_after": "",
+      "is_full_page_scan": false
+    },
+    {
+      "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_sol05.png",
+      "bank_code": "33913",
+      "role": "sol",
+      "page": 40,
+      "kind": "embedded",
+      "width": 236,
+      "height": 127,
+      "sha1": "80f937aed2d9",
+      "bank_code_inherited": true,
+      "xref": 1224,
+      "bbox": [
+        440.9,
+        529.9,
+        486.6,
+        614.9
+      ],
+      "row_id": "p40_r1",
+      "row_index": 4,
+      "row_size": 5,
+      "row_bbox": [
+        58.6,
+        68.5,
+        546.0,
+        770.6
+      ],
+      "question_anchor": null,
+      "sub_index": null,
       "text_before": "Β",
       "text_after": "",
       "is_full_page_scan": false
@@ -674,14 +1033,14 @@
   "by_bank_code": {
     "32205": {
       "fig": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32205_fig01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32205_fig01.png"
       ],
       "sol": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32205_sol01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32205_sol01.png"
       ],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32205_fig01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32205_fig01.png",
           "bank_code": "32205",
           "role": "fig",
           "page": 16,
@@ -697,13 +1056,23 @@
             519.2,
             721.0
           ],
+          "row_id": "p16_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            76.0,
+            71.0,
+            519.2,
+            721.0
+          ],
           "question_anchor": null,
+          "sub_index": null,
           "text_before": "",
           "text_after": "",
           "is_full_page_scan": true
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32205_sol01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32205_sol01.png",
           "bank_code": "32205",
           "role": "sol",
           "page": 17,
@@ -719,7 +1088,17 @@
             524.4,
             512.0
           ],
+          "row_id": "p17_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            70.9,
+            202.7,
+            524.4,
+            512.0
+          ],
           "question_anchor": null,
+          "sub_index": null,
           "text_before": "γ) Δεν υπάρχει ύγρανση του αέρα καθώς ο λόγος υγρασίας W παραμένει σταθερός.",
           "text_after": "",
           "is_full_page_scan": false
@@ -728,15 +1107,15 @@
     },
     "32787": {
       "fig": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32787_fig01.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32787_fig02.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32787_fig03.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32787_fig04.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32787_fig01.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32787_fig02.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32787_fig03.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32787_fig04.png"
       ],
       "sol": [],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32787_fig01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32787_fig01.png",
           "bank_code": "32787",
           "role": "fig",
           "page": 18,
@@ -752,13 +1131,23 @@
             504.5,
             684.9
           ],
+          "row_id": "p18_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            90.5,
+            158.6,
+            504.5,
+            684.9
+          ],
           "question_anchor": "2.1",
+          "sub_index": null,
           "text_before": "γράμματα α, β, γ, δ, ε της Στήλης Β που δίνει τη σωστή αντιστοίχιση.",
           "text_after": "ΣΤΗΛΗ Α  ΣΤΗΛΗ Β",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32787_fig02.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32787_fig02.png",
           "bank_code": "32787",
           "role": "fig",
           "page": 19,
@@ -774,13 +1163,23 @@
             474.4,
             438.8
           ],
+          "row_id": "p19_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            256.4,
+            279.5,
+            474.4,
+            438.8
+          ],
           "question_anchor": "2.2",
+          "sub_index": 1,
           "text_before": "1. Θέρμανση χωρίς ύγρανση.",
           "text_after": "α)    2. Ψύξη αέρα με αφύγρανση.",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32787_fig03.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32787_fig03.png",
           "bank_code": "32787",
           "role": "fig",
           "page": 19,
@@ -796,13 +1195,23 @@
             475.4,
             608.7
           ],
+          "row_id": "p19_r2",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            253.8,
+            442.0,
+            475.4,
+            608.7
+          ],
           "question_anchor": "2.2",
+          "sub_index": 1,
           "text_before": "α)    2. Ψύξη αέρα με αφύγρανση.",
           "text_after": "β)",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32787_fig04.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32787_fig04.png",
           "bank_code": "32787",
           "role": "fig",
           "page": 20,
@@ -818,7 +1227,17 @@
             483.3,
             240.6
           ],
-          "question_anchor": null,
+          "row_id": "p20_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            245.2,
+            71.4,
+            483.3,
+            240.6
+          ],
+          "question_anchor": "2.2",
+          "sub_index": null,
           "text_before": "",
           "text_after": "γ)    Μονάδες 10",
           "is_full_page_scan": false
@@ -827,14 +1246,14 @@
     },
     "32788": {
       "fig": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32788_fig01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32788_fig01.png"
       ],
       "sol": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32788_sol01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32788_sol01.png"
       ],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32788_fig01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32788_fig01.png",
           "bank_code": "32788",
           "role": "fig",
           "page": 8,
@@ -850,13 +1269,23 @@
             552.7,
             712.8
           ],
+          "row_id": "p8_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            99.2,
+            312.6,
+            552.7,
+            712.8
+          ],
           "question_anchor": null,
+          "sub_index": null,
           "text_before": "στ) Την ενθαλπία. (Μονάδες 4)",
           "text_after": "Μονάδες 25",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32788_sol01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32788_sol01.png",
           "bank_code": "32788",
           "role": "sol",
           "page": 9,
@@ -872,7 +1301,17 @@
             524.4,
             750.7
           ],
+          "row_id": "p9_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            70.9,
+            356.5,
+            524.4,
+            750.7
+          ],
           "question_anchor": null,
+          "sub_index": null,
           "text_before": "στ) Η ενθαλπία είναι 57 KJ/kg",
           "text_after": "",
           "is_full_page_scan": false
@@ -881,14 +1320,14 @@
     },
     "32843": {
       "fig": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32843_fig01.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32843_fig02.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32843_fig03.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32843_fig01.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32843_fig02.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32843_fig03.png"
       ],
       "sol": [],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32843_fig01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32843_fig01.png",
           "bank_code": "32843",
           "role": "fig",
           "page": 24,
@@ -904,13 +1343,23 @@
             282.7,
             357.9
           ],
+          "row_id": "p24_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            88.1,
+            214.7,
+            282.7,
+            357.9
+          ],
           "question_anchor": "2.1",
-          "text_before": "(Ψυχρομετρικές μεταβολές)",
-          "text_after": "1.",
+          "sub_index": 1,
+          "text_before": "1.",
+          "text_after": "β. Θέρμανση του αέρα χωρίς ύγρανση",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32843_fig02.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32843_fig02.png",
           "bank_code": "32843",
           "role": "fig",
           "page": 24,
@@ -926,13 +1375,23 @@
             284.4,
             522.0
           ],
+          "row_id": "p24_r2",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            88.1,
+            380.0,
+            284.4,
+            522.0
+          ],
           "question_anchor": "2.1",
-          "text_before": "1.",
-          "text_after": "2.",
+          "sub_index": 2,
+          "text_before": "2.",
+          "text_after": "γ. Ψύξη του αέρα με αφύγρανση στην",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32843_fig03.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32843_fig03.png",
           "bank_code": "32843",
           "role": "fig",
           "page": 24,
@@ -948,26 +1407,36 @@
             283.9,
             684.0
           ],
+          "row_id": "p24_r3",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            88.1,
+            544.5,
+            283.9,
+            684.0
+          ],
           "question_anchor": "2.1",
-          "text_before": "2.",
-          "text_after": "3.",
+          "sub_index": 3,
+          "text_before": "3.",
+          "text_after": "δ. Αδιαβατική ψύξη",
           "is_full_page_scan": false
         }
       ]
     },
     "32844": {
       "fig": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32844_fig01.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32844_fig02.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32844_fig01.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32844_fig02.png"
       ],
       "sol": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32844_sol01.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32844_sol02.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32844_sol03.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32844_sol01.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32844_sol02.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32844_sol03.png"
       ],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32844_fig01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32844_fig01.png",
           "bank_code": "32844",
           "role": "fig",
           "page": 27,
@@ -983,13 +1452,23 @@
             427.5,
             584.4
           ],
+          "row_id": "p27_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            167.8,
+            290.6,
+            427.5,
+            584.4
+          ],
           "question_anchor": "4.2",
+          "sub_index": 1,
           "text_before": "επαγγελματικού χώρου μας θα νιώθουν άνετα.",
           "text_after": "Διάγραμμα 1. Ψυχομετρικός χάρτης με τις συνθήκες άνεσης",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32844_fig02.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32844_fig02.png",
           "bank_code": "32844",
           "role": "fig",
           "page": 28,
@@ -1005,13 +1484,23 @@
             521.6,
             728.9
           ],
-          "question_anchor": null,
+          "row_id": "p28_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            73.2,
+            71.3,
+            521.6,
+            728.9
+          ],
+          "question_anchor": "4.3",
+          "sub_index": null,
           "text_before": "",
           "text_after": "Διάγραμμα 2. Ψυχομετρικός Χάρτης",
           "is_full_page_scan": true
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32844_sol01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32844_sol01.png",
           "bank_code": "32844",
           "role": "sol",
           "page": 29,
@@ -1027,13 +1516,23 @@
             541.6,
             474.4
           ],
+          "row_id": "p29_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            90.0,
+            159.9,
+            541.6,
+            474.4
+          ],
           "question_anchor": "4.1",
+          "sub_index": null,
           "text_before": "H αποτύπωση της μεταβολής απεικονίζεται στο παρακάτω διάγραμμα.",
           "text_after": "4.2.",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32844_sol02.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32844_sol02.png",
           "bank_code": "32844",
           "role": "sol",
           "page": 30,
@@ -1049,13 +1548,23 @@
             429.0,
             373.3
           ],
+          "row_id": "p30_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            166.2,
+            72.0,
+            429.0,
+            373.3
+          ],
           "question_anchor": null,
+          "sub_index": null,
           "text_before": "",
           "text_after": "4.3",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32844_sol03.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32844_sol03.png",
           "bank_code": "32844",
           "role": "sol",
           "page": 31,
@@ -1071,7 +1580,17 @@
             525.8,
             365.2
           ],
+          "row_id": "p31_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            90.0,
+            72.0,
+            525.8,
+            365.2
+          ],
           "question_anchor": null,
+          "sub_index": null,
           "text_before": "",
           "text_after": "Άρα η μεταβολή μας είναι θέρμανση, αφού η θερμοκρασία ΤΒ > ΤΑ, χωρίς ύγρανση",
           "is_full_page_scan": false
@@ -1080,12 +1599,12 @@
     },
     "32936": {
       "fig": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32936_fig01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32936_fig01.png"
       ],
       "sol": [],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32936_fig01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32936_fig01.png",
           "bank_code": "32936",
           "role": "fig",
           "page": 10,
@@ -1101,7 +1620,17 @@
             441.7,
             716.2
           ],
+          "row_id": "p10_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            169.6,
+            511.4,
+            441.7,
+            716.2
+          ],
           "question_anchor": "2.2",
+          "sub_index": null,
           "text_before": "τη στήλη Β θα περισσέψει.",
           "text_after": "",
           "is_full_page_scan": false
@@ -1110,17 +1639,18 @@
     },
     "32938": {
       "fig": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32938_fig01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_fig01.png"
       ],
       "sol": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32938_sol01.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32938_sol02.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32938_sol03.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32938_sol04.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_sol01.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_sol02.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_sol03.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_sol04.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_sol05.png"
       ],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32938_fig01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_fig01.png",
           "bank_code": "32938",
           "role": "fig",
           "page": 33,
@@ -1136,57 +1666,23 @@
             769.1,
             545.6
           ],
-          "question_anchor": null,
-          "text_before": "",
-          "text_after": "",
-          "is_full_page_scan": true
-        },
-        {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32938_sol01.png",
-          "bank_code": "32938",
-          "role": "sol",
-          "page": 35,
-          "kind": "embedded",
-          "width": 1600,
-          "height": 1091,
-          "sha1": "23c78d8ffe0a",
-          "bank_code_inherited": true,
-          "xref": 1045,
-          "bbox": [
+          "row_id": "p33_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            72.7,
             70.9,
-            70.9,
-            767.2,
+            769.1,
             545.6
           ],
           "question_anchor": null,
+          "sub_index": null,
           "text_before": "",
           "text_after": "",
           "is_full_page_scan": true
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32938_sol02.png",
-          "bank_code": "32938",
-          "role": "sol",
-          "page": 35,
-          "kind": "embedded",
-          "width": 251,
-          "height": 43,
-          "sha1": "ed7aac0f89ed",
-          "bank_code_inherited": true,
-          "xref": 1048,
-          "bbox": [
-            97.1,
-            308.2,
-            184.8,
-            363.2
-          ],
-          "question_anchor": null,
-          "text_before": "",
-          "text_after": "2",
-          "is_full_page_scan": false
-        },
-        {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32938_sol03.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_sol01.png",
           "bank_code": "32938",
           "role": "sol",
           "page": 35,
@@ -1202,13 +1698,119 @@
             132.0,
             418.6
           ],
+          "row_id": "p35_r1",
+          "row_index": 0,
+          "row_size": 4,
+          "row_bbox": [
+            44.3,
+            70.9,
+            767.2,
+            545.6
+          ],
           "question_anchor": null,
+          "sub_index": null,
           "text_before": "",
           "text_after": "2",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#32938_sol04.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_sol02.png",
+          "bank_code": "32938",
+          "role": "sol",
+          "page": 35,
+          "kind": "embedded",
+          "width": 1600,
+          "height": 1091,
+          "sha1": "23c78d8ffe0a",
+          "bank_code_inherited": true,
+          "xref": 1045,
+          "bbox": [
+            70.9,
+            70.9,
+            767.2,
+            545.6
+          ],
+          "row_id": "p35_r1",
+          "row_index": 1,
+          "row_size": 4,
+          "row_bbox": [
+            44.3,
+            70.9,
+            767.2,
+            545.6
+          ],
+          "question_anchor": null,
+          "sub_index": null,
+          "text_before": "",
+          "text_after": "",
+          "is_full_page_scan": true
+        },
+        {
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_sol03.png",
+          "bank_code": "32938",
+          "role": "sol",
+          "page": 35,
+          "kind": "embedded",
+          "width": 251,
+          "height": 43,
+          "sha1": "ed7aac0f89ed",
+          "bank_code_inherited": true,
+          "xref": 1048,
+          "bbox": [
+            97.1,
+            308.2,
+            184.8,
+            363.2
+          ],
+          "row_id": "p35_r1",
+          "row_index": 2,
+          "row_size": 4,
+          "row_bbox": [
+            44.3,
+            70.9,
+            767.2,
+            545.6
+          ],
+          "question_anchor": null,
+          "sub_index": null,
+          "text_before": "",
+          "text_after": "2",
+          "is_full_page_scan": false
+        },
+        {
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_sol04.png",
+          "bank_code": "32938",
+          "role": "sol",
+          "page": 35,
+          "kind": "embedded",
+          "width": 251,
+          "height": 43,
+          "sha1": "ed7aac0f89ed",
+          "bank_code_inherited": true,
+          "xref": 1048,
+          "bbox": [
+            340.2,
+            417.4,
+            427.9,
+            472.4
+          ],
+          "row_id": "p35_r1",
+          "row_index": 3,
+          "row_size": 4,
+          "row_bbox": [
+            44.3,
+            70.9,
+            767.2,
+            545.6
+          ],
+          "question_anchor": null,
+          "sub_index": null,
+          "text_before": "",
+          "text_after": "W1 = 3 g/kg ξηρού αέρα",
+          "is_full_page_scan": false
+        },
+        {
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_32938_sol05.png",
           "bank_code": "32938",
           "role": "sol",
           "page": 35,
@@ -1219,7 +1821,12 @@
           "bank_code_inherited": true,
           "xref": 1046,
           "bbox": null,
+          "row_id": null,
+          "row_index": null,
+          "row_size": 1,
+          "row_bbox": null,
           "question_anchor": null,
+          "sub_index": null,
           "text_before": "",
           "text_after": "",
           "is_full_page_scan": false
@@ -1228,14 +1835,14 @@
     },
     "33886": {
       "fig": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33886_fig01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33886_fig01.png"
       ],
       "sol": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33886_sol01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33886_sol01.png"
       ],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33886_fig01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33886_fig01.png",
           "bank_code": "33886",
           "role": "fig",
           "page": 13,
@@ -1251,13 +1858,23 @@
             524.6,
             643.9
           ],
+          "row_id": "p13_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            70.6,
+            334.3,
+            524.6,
+            643.9
+          ],
           "question_anchor": null,
+          "sub_index": null,
           "text_before": "Μονάδες 25",
           "text_after": "",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33886_sol01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33886_sol01.png",
           "bank_code": "33886",
           "role": "sol",
           "page": 14,
@@ -1273,7 +1890,17 @@
             524.6,
             426.2
           ],
+          "row_id": "p14_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            70.6,
+            116.4,
+            524.6,
+            426.2
+          ],
           "question_anchor": null,
+          "sub_index": null,
           "text_before": "Θέμα 4ο",
           "text_after": "α) Στον ψυχρομετρικό χάρτη από το σημείο των 25 oC χαράσσουμε μία κατακόρυφη γραμμή",
           "is_full_page_scan": false
@@ -1282,12 +1909,12 @@
     },
     "33898": {
       "fig": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33898_fig01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33898_fig01.png"
       ],
       "sol": [],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33898_fig01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33898_fig01.png",
           "bank_code": "33898",
           "role": "fig",
           "page": 36,
@@ -1303,7 +1930,17 @@
             395.9,
             571.7
           ],
+          "row_id": "p36_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            200.9,
+            422.5,
+            395.9,
+            571.7
+          ],
           "question_anchor": "2.2",
+          "sub_index": null,
           "text_before": "αντιστοίχιση.",
           "text_after": "ΣΤΗΛΗ Α  ΣΤΗΛΗ Β",
           "is_full_page_scan": false
@@ -1312,17 +1949,18 @@
     },
     "33913": {
       "fig": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33913_fig01.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_fig01.png"
       ],
       "sol": [
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33913_sol01.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33913_sol02.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33913_sol03.png",
-        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33913_sol04.png"
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_sol01.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_sol02.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_sol03.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_sol04.png",
+        "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_sol05.png"
       ],
       "images": [
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33913_fig01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_fig01.png",
           "bank_code": "33913",
           "role": "fig",
           "page": 38,
@@ -1338,13 +1976,23 @@
             524.4,
             563.3
           ],
+          "row_id": "p38_r1",
+          "row_index": 0,
+          "row_size": 1,
+          "row_bbox": [
+            70.9,
+            254.1,
+            524.4,
+            563.3
+          ],
           "question_anchor": null,
+          "sub_index": null,
           "text_before": "Μονάδες 25",
           "text_after": "",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33913_sol01.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_sol01.png",
           "bank_code": "33913",
           "role": "sol",
           "page": 40,
@@ -1360,35 +2008,23 @@
             546.0,
             770.6
           ],
+          "row_id": "p40_r1",
+          "row_index": 0,
+          "row_size": 5,
+          "row_bbox": [
+            58.6,
+            68.5,
+            546.0,
+            770.6
+          ],
           "question_anchor": null,
+          "sub_index": null,
           "text_before": "",
           "text_after": "",
           "is_full_page_scan": true
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33913_sol02.png",
-          "bank_code": "33913",
-          "role": "sol",
-          "page": 40,
-          "kind": "embedded",
-          "width": 236,
-          "height": 127,
-          "sha1": "80f937aed2d9",
-          "bank_code_inherited": true,
-          "xref": 1224,
-          "bbox": [
-            365.7,
-            469.5,
-            411.4,
-            554.4
-          ],
-          "question_anchor": null,
-          "text_before": "",
-          "text_after": "Α",
-          "is_full_page_scan": false
-        },
-        {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33913_sol03.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_sol02.png",
           "bank_code": "33913",
           "role": "sol",
           "page": 40,
@@ -1404,13 +2040,55 @@
             400.9,
             514.4
           ],
+          "row_id": "p40_r1",
+          "row_index": 1,
+          "row_size": 5,
+          "row_bbox": [
+            58.6,
+            68.5,
+            546.0,
+            770.6
+          ],
           "question_anchor": null,
+          "sub_index": null,
           "text_before": "",
           "text_after": "Α",
           "is_full_page_scan": false
         },
         {
-          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_#33913_sol04.png",
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_sol03.png",
+          "bank_code": "33913",
+          "role": "sol",
+          "page": 40,
+          "kind": "embedded",
+          "width": 236,
+          "height": 127,
+          "sha1": "80f937aed2d9",
+          "bank_code_inherited": true,
+          "xref": 1224,
+          "bbox": [
+            365.7,
+            469.5,
+            411.4,
+            554.4
+          ],
+          "row_id": "p40_r1",
+          "row_index": 2,
+          "row_size": 5,
+          "row_bbox": [
+            58.6,
+            68.5,
+            546.0,
+            770.6
+          ],
+          "question_anchor": null,
+          "sub_index": null,
+          "text_before": "",
+          "text_after": "Α",
+          "is_full_page_scan": false
+        },
+        {
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_sol04.png",
           "bank_code": "33913",
           "role": "sol",
           "page": 40,
@@ -1426,7 +2104,49 @@
             476.1,
             575.2
           ],
+          "row_id": "p40_r1",
+          "row_index": 3,
+          "row_size": 5,
+          "row_bbox": [
+            58.6,
+            68.5,
+            546.0,
+            770.6
+          ],
           "question_anchor": null,
+          "sub_index": null,
+          "text_before": "Β",
+          "text_after": "",
+          "is_full_page_scan": false
+        },
+        {
+          "file": "c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch10_33913_sol05.png",
+          "bank_code": "33913",
+          "role": "sol",
+          "page": 40,
+          "kind": "embedded",
+          "width": 236,
+          "height": 127,
+          "sha1": "80f937aed2d9",
+          "bank_code_inherited": true,
+          "xref": 1224,
+          "bbox": [
+            440.9,
+            529.9,
+            486.6,
+            614.9
+          ],
+          "row_id": "p40_r1",
+          "row_index": 4,
+          "row_size": 5,
+          "row_bbox": [
+            58.6,
+            68.5,
+            546.0,
+            770.6
+          ],
+          "question_anchor": null,
+          "sub_index": null,
           "text_before": "Β",
           "text_after": "",
           "is_full_page_scan": false

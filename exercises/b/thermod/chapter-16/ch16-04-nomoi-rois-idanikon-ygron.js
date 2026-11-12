@@ -106,7 +106,7 @@ window.EXERCISES.push(...
         "unit": "m³/h",
         "tolerance": 0.02,
         "hint": "Διαιρέστε τον συνολικό όγκο $U$ με τον χρόνο $t$.",
-        "explain": "Η παροχή υπολογίζεται ως $Q = \\frac{U}{t} = \\frac{200\\text{ m}^3}{4\\text{ h}} = 50\\text{ m}^3\\text{/h}."
+        "explain": "Η παροχή υπολογίζεται ως $Q = \\frac{U}{t} = \\frac{200\\text{ m}^3}{4\\text{ h}} = 50\\text{ m}^3\\text{/h}$."
       },
       {
         "kind": "calc",
@@ -117,7 +117,7 @@ window.EXERCISES.push(...
         "unit": "m/h",
         "tolerance": 0.02,
         "hint": "Χρησιμοποιήστε τον τύπο $Q = V_1 \\cdot A_1$.",
-        "explain": "Η ταχύτητα $V_1$ είναι $V_1 = \\frac{Q}{A_1} = \\frac{50\\text{ m}^3\\text{/h}}{0,05\\text{ m}^2} = 1000\\text{ m/h}."
+        "explain": "Η ταχύτητα $V_1$ είναι $V_1 = \\frac{Q}{A_1} = \\frac{50\\text{ m}^3\\text{/h}}{0,05\\text{ m}^2} = 1000\\text{ m/h}$."
       },
       {
         "kind": "calc",
@@ -128,7 +128,7 @@ window.EXERCISES.push(...
         "unit": "m/h",
         "tolerance": 0.02,
         "hint": "Εφαρμόστε την εξίσωση συνέχειας $V_1 \\cdot A_1 = V_2 \\cdot A_2$.",
-        "explain": "Από την εξίσωση συνέχειας: $V_2 = \\frac{V_1 \\cdot A_1}{A_2} = \\frac{1000\\text{ m/h} \\cdot 0,05\\text{ m}^2}{0,02\\text{ m}^2} = 2500\\text{ m/h}."
+        "explain": "Από την εξίσωση συνέχειας: $V_2 = \\frac{V_1 \\cdot A_1}{A_2} = \\frac{1000\\text{ m/h} \\cdot 0,05\\text{ m}^2}{0,02\\text{ m}^2} = 2500\\text{ m/h}$."
       }
     ]
   },
@@ -144,9 +144,9 @@ window.EXERCISES.push(...
     "theory": "ch16-04",
     "sourceOrder": 4,
     "images": [
-      "images/b/thermod/chapter-16/b_thermod_ch16_#27121_fig01.png",
-      "images/b/thermod/chapter-16/b_thermod_ch16_#27121_fig02.png",
-      "images/b/thermod/chapter-16/b_thermod_ch16_#27121_fig03.png"
+      "images/b/thermod/chapter-16/b_thermod_ch16_27121_fig01.webp",
+      "images/b/thermod/chapter-16/b_thermod_ch16_27121_fig02.webp",
+      "images/b/thermod/chapter-16/b_thermod_ch16_27121_fig03.webp"
     ],
     "items": [
       {
@@ -187,11 +187,11 @@ window.EXERCISES.push(...
           "3": "b"
         },
         "explain": "Το σχήμα 1 αντιστοιχεί σε ομοιόμορφη μόνιμη ροή, το σχήμα 2 σε ανομοιόμορφη μόνιμη ροή και το σχήμα 3 σε μη μόνιμη ροή.",
-        "image": "images/b/thermod/chapter-16/b_thermod_ch16_#27121_fig01.png",
+        "image": "images/b/thermod/chapter-16/b_thermod_ch16_27121_fig01.webp",
         "images": [
-          "images/b/thermod/chapter-16/b_thermod_ch16_#27121_fig01.png",
-          "images/b/thermod/chapter-16/b_thermod_ch16_#27121_fig02.png",
-          "images/b/thermod/chapter-16/b_thermod_ch16_#27121_fig03.png"
+          "images/b/thermod/chapter-16/b_thermod_ch16_27121_fig01.webp",
+          "images/b/thermod/chapter-16/b_thermod_ch16_27121_fig02.webp",
+          "images/b/thermod/chapter-16/b_thermod_ch16_27121_fig03.webp"
         ]
       },
       {

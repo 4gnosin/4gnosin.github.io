@@ -16,7 +16,7 @@ window.SUBJECT_DATA["stoixeia-kentrikon-thermanseon"].exercises.push(...
     "stem": "Σε μία εγκατάσταση κεντρικής θέρμανσης, που λειτουργεί 24 ώρες ανά ημέρα, η πιθανή κατανάλωση πετρελαίου είναι $M = 78000\\text{ kg/έτος}$ και ο εκτιμώμενος χρόνος λειτουργίας της εγκατάστασης είναι $T = 65\\text{ ημέρες/έτος}$.",
     "givens": [
       {
-        "label": "t_{\\text{ημέρα}}",
+        "label": "$t_{\\text{ημέρα}}$",
         "value": "24 h/ημέρα"
       },
       {
@@ -24,7 +24,7 @@ window.SUBJECT_DATA["stoixeia-kentrikon-thermanseon"].exercises.push(...
         "value": "78000 kg/έτος"
       },
       {
-        "label": "T_{\\text{ημέρες}}",
+        "label": "$T_{\\text{ημέρες}}$",
         "value": "65 ημέρες/έτος"
       }
     ],
@@ -150,7 +150,7 @@ window.SUBJECT_DATA["stoixeia-kentrikon-thermanseon"].exercises.push(...
     "stem": "Σε μία εγκατάσταση κεντρικής θέρμανσης, που λειτουργεί 11 ώρες ανά ημέρα, η ειδική κατανάλωση του καυστήρα (ωριαία ποσότητα καυσίμου) είναι $w = 50\\text{ kg/h}$ και η πιθανή κατανάλωση πετρελαίου είναι $M = 55000\\text{ kg/έτος}$.",
     "givens": [
       {
-        "label": "t_{\\text{ημέρα}}",
+        "label": "$t_{\\text{ημέρα}}$",
         "value": "11 h/ημέρα"
       },
       {
@@ -467,7 +467,7 @@ window.SUBJECT_DATA["stoixeia-kentrikon-thermanseon"].exercises.push(...
         "value": "4"
       },
       {
-        "label": "V_{\\text{ορόφου}}",
+        "label": "$V_{\\text{ορόφου}}$",
         "value": "1750 m³"
       }
     ],
@@ -476,7 +476,7 @@ window.SUBJECT_DATA["stoixeia-kentrikon-thermanseon"].exercises.push(...
         "kind": "calc",
         "subq": "α",
         "prompt": "α) Να υπολογιστεί ο συνολικός όγκος του κτιρίου ($V_{\\text{κτιρίου}}$) και να προσδιοριστεί η χωρητικότητα της νέας δεξαμενής (σε $\\text{m}^3$) με βάση τον Πίνακα 1.",
-        "image": "images/c/stoixeia-kentrikon-thermanseon/chapter-04/c_stoixeia-kentrikon-thermanseon_ch04_#31268_fig01.png",
+        "image": "images/c/stoixeia-kentrikon-thermanseon/chapter-04/c_stoixeia-kentrikon-thermanseon_ch04_31268_fig01.webp",
         "formula": "$V_{\\text{κτιρίου}} = 4 \\cdot 1750\\text{ m}^3 = 7000\\text{ m}^3 \\Rightarrow \\text{Χωρητικότητα} = 3{,}5\\text{ m}^3$",
         "answer": 3.5,
         "unit": "m³",
