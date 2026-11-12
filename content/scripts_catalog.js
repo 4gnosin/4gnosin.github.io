@@ -1,6 +1,53 @@
 // Αυτόματα παραγόμενος κατάλογος scripts ανά μάθημα για On-Demand Lazy Loading (χωρίς fetch)
 // Υποστηρίζει άμεση εκτέλεση σε file:/// και GitHub Pages.
+// Παράγεται από το scripts/build_bundles.py
 window.SUBJECT_SCRIPTS = {
+  "antoxi": [
+    "bundles/antoxi.bundle.js"
+  ],
+  "egkatastaseis-klimatismou": [
+    "bundles/egkatastaseis-klimatismou.bundle.js"
+  ],
+  "michanes-esoterikis-kafsis-2": [
+    "bundles/michanes-esoterikis-kafsis-2.bundle.js"
+  ],
+  "michanourgiki-texnologia": [
+    "bundles/michanourgiki-texnologia.bundle.js"
+  ],
+  "stoixeia-kentrikon-thermanseon": [
+    "bundles/stoixeia-kentrikon-thermanseon.bundle.js"
+  ],
+  "stoixeia-michanon": [
+    "bundles/stoixeia-michanon.bundle.js"
+  ],
+  "stoixeia-psyxis-klimatismou": [
+    "bundles/stoixeia-psyxis-klimatismou.bundle.js"
+  ],
+  "stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon": [
+    "bundles/stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon.bundle.js"
+  ],
+  "systimata-aftokinitou": [
+    "bundles/systimata-aftokinitou.bundle.js"
+  ],
+  "systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou": [
+    "bundles/systimata-elegxou-rythmisis-aftomatismou-psyxis-klimatismou.bundle.js"
+  ],
+  "texnologia-elegxou-diagnoseon": [
+    "bundles/texnologia-elegxou-diagnoseon.bundle.js"
+  ],
+  "texnologia-michanologikon-kataskevon": [
+    "bundles/texnologia-michanologikon-kataskevon.bundle.js"
+  ],
+  "thermo": [
+    "bundles/thermo.bundle.js"
+  ],
+  "thermo-lab": [
+    "bundles/thermo-lab.bundle.js"
+  ]
+};
+
+// Πλήρης κατάλογος αρχικών πηγαίων αρχείων (για αναφορά & development)
+window.SUBJECT_RAW_SCRIPTS = {
   "antoxi": [
     "content/b/antoxi/chapter-00/00-stoxoi.js",
     "content/b/antoxi/chapter-00/01-genika.js",

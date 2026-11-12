@@ -8,7 +8,7 @@ window.EXERCISES.push(...
     "layout": "unified",
     "bankCode": "20954",
     "code": "Θέμα 4<sup>ο</sup> · #20954",
-    "title": "#20954 — Θέμα 4<sup>ο</sup> (4.1–4.3)",
+    "title": "#20954 — Θέμα 4$^{ο}$ (4.1–4.3)",
     "units": 25,
     "theory": "ch05-01-protos-nomos",
     "sourceOrder": 1,

@@ -9,7 +9,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #32205",
     "bankCode": "32205",
-    "title": "#32205 — Θέμα 4<sup>ο</sup>",
+    "title": "#32205 — Θέμα 4$^{ο}$",
     "units": 25,
     "theory": "psychrometrikes-metavoles-thermansi",
     "stem": "Στον παρακάτω ψυχρομετρικό χάρτη έχει σχεδιαστεί μία ψυχρομετρική μεταβολή θέρμανσης του αέρα.",
@@ -76,7 +76,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #32787",
     "bankCode": "32787",
-    "title": "#32787 — Θέμα 2<sup>ο</sup>",
+    "title": "#32787 — Θέμα 2$^{ο}$",
     "units": 15,
     "theory": "psychrometrikes-metavoles-diagrammata",
     "stem": "Με βάση τα διαγράμματα και τις καμπύλες του ψυχρομετρικού χάρτη, να κάνετε τις αντιστοιχίσεις.",
@@ -186,7 +186,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #32837",
     "bankCode": "32837",
-    "title": "#32837 — Θέμα 2<sup>ο</sup>",
+    "title": "#32837 — Θέμα 2$^{ο}$",
     "units": 25,
     "theory": "psychrometrikes-metavoles-thermansi-ugransi",
     "stem": "Απαντήστε στις ερωτήσεις σχετικά με τους ψυχρομετρικούς όρους και τη θέρμανση με ύγρανση.",
@@ -229,7 +229,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
           },
           {
             "id": "b",
-            "text": "Για να αυξηθεί η θερμοκρασία του αέρα πάνω από τους 40 °C."
+            "text": "Για να αυξηθεί η θερμοκρασία του αέρα πάνω από τους 40°C."
           },
           {
             "id": "c",
@@ -278,7 +278,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #32843",
     "bankCode": "32843",
-    "title": "#32843 — Θέμα 2<sup>ο</sup>",
+    "title": "#32843 — Θέμα 2$^{ο}$",
     "units": 25,
     "theory": "psychrometrikes-metavoles-enallaktikes",
     "stem": "Μελέτη ψυχρομετρικών μεταβολών και χαρακτηριστικών αέρα ανάμειξης.",
@@ -391,7 +391,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #32844",
     "bankCode": "32844",
-    "title": "#32844 — Θέμα 4<sup>ο</sup> (Ψυχρομετρική μεταβολή ΑΒ)",
+    "title": "#32844 — Θέμα 4$^{ο}$ (Ψυχρομετρική μεταβολή ΑΒ)",
     "units": 25,
     "theory": "psychrometric-processes",
     "stem": "Σε επαγγελματικό χώρο τον μήνα Δεκέμβριο, ο ατμοσφαιρικός αέρας μετρήθηκε να έχει θερμοκρασία ξηρού βολβού $17\\,{}^{\\circ}\\text{C}$ και σχετική υγρασία $50\\%$. Ο αέρας του χώρου αυτού κλιματίζεται μέχρι τη θερμοκρασία ξηρού βολβού των $25\\,{}^{\\circ}\\text{C}$ και σχετική υγρασία $30\\%$. Με τη βοήθεια του Διαγράμματος 2 (ψυχρομετρικός χάρτης) που σας δίνεται:",
@@ -468,7 +468,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #32938",
     "bankCode": "32938",
-    "title": "#32938 — Θέμα 4<sup>ο</sup> (Ψυχρομετρικές μεταβολές και ενθαλπία)",
+    "title": "#32938 — Θέμα 4$^{ο}$ (Ψυχρομετρικές μεταβολές και ενθαλπία)",
     "units": 25,
     "theory": "psychrometric-processes",
     "stem": "Ατμοσφαιρικός αέρας εσωτερικού χώρου, θερμοκρασίας ξηρού βολβού $14\\,{}^{\\circ}\\text{C}$ και σχετικής υγρασίας $30\\%$, θερμαίνεται με ύγρανση έως τους $19\\,{}^{\\circ}\\text{C}$ και σχετική υγρασία $50\\%$.",
@@ -541,7 +541,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #33898",
     "bankCode": "33898",
-    "title": "#33898 — Θέμα 2<sup>ο</sup> (Αδιαβατική ψύξη και θέρμανση αέρα)",
+    "title": "#33898 — Θέμα 2$^{ο}$ (Αδιαβατική ψύξη και θέρμανση αέρα)",
     "units": 25,
     "theory": "psychrometric-processes",
     "items": [
@@ -605,7 +605,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #33913",
     "bankCode": "33913",
-    "title": "#33913 — Θέμα 4<sup>ο</sup> (Θέρμανση και προσθήκη υγρασίας)",
+    "title": "#33913 — Θέμα 4$^{ο}$ (Θέρμανση και προσθήκη υγρασίας)",
     "units": 25,
     "theory": "psychrometric-processes",
     "stem": "Χώρος με θερμοκρασία (ξηρού θερμομέτρου) $18\\,{}^{\\circ}\\text{C}$ και σχετική υγρασία $20\\%$ θερμαίνεται με αποτέλεσμα να αυξηθεί η θερμοκρασία του κατά $4\\,{}^{\\circ}\\text{C}$. Παράλληλα προστέθηκε στο χώρο υγρασία σε ποσότητα $5\\,\\text{gr}$ νερού/kg ξηρού αέρα.",
@@ -624,7 +624,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
       },
       {
         "label": "$\\Delta W$",
-        "value": "$5\\text{ gr/kg}$"
+        "value": "$5 \\text{gr/kg}$"
       }
     ],
     "items": [

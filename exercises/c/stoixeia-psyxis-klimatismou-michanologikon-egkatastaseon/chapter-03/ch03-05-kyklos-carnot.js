@@ -9,7 +9,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #23781",
     "bankCode": "23781",
-    "title": "#23781 — Θέμα 4<sup>ο</sup> (3.5)",
+    "title": "#23781 — Θέμα 4$^{ο}$ (3.5)",
     "units": 25,
     "theory": "kyklos-carnot",
     "stem": "Μια θερμική μηχανή παραλαμβάνει θερμότητα $Q_1 = 800\\text{ kcal}$ από μία δεξαμενή υψηλής θερμοκρασίας $T_1 = 227\\,{}^{\\circ}\\text{C}$ και μέρος αυτής μετατρέπει σε έργο $W = 200\\text{ kcal}$. Το υπόλοιπο ποσό θερμότητας το απορρίπτει σε μια δεξαμενή χαμηλής θερμοκρασίας $T_2 = 27\\,{}^{\\circ}\\text{C}$.",
@@ -46,13 +46,13 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
       {
         "kind": "calc",
         "subq": "β",
-        "prompt": "Να υπολογίσετε τον βαθμό απόδοσης $\\eta$ αυτής της θερμικής μηχανής (σε ποσοστό %).",
-        "formula": "$\\eta = \\frac{W}{Q_1}$",
+        "prompt": "Να υπολογίσετε τον βαθμό απόδοσης $\\\\beta$ αυτής της θερμικής μηχανής (σε ποσοστό %).",
+        "formula": "$\\\\beta = \\frac{W}{Q_1}$",
         "answer": 25,
         "unit": "%",
         "tolerance": 0.01,
         "hint": "Διαιρέστε το έργο $W$ με τη θερμότητα $Q_1$.",
-        "explain": "$\\eta = \\frac{W}{Q_1} = \\frac{200}{800} = 0{,}25 = 25\\%$."
+        "explain": "$\\\\beta = \\frac{W}{Q_1} = \\frac{200}{800} = 0{,}25 = 25\\%$."
       },
       {
         "kind": "calc",
@@ -68,13 +68,13 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
       {
         "kind": "calc",
         "subq": "δ",
-        "prompt": "Να υπολογίσετε τον βαθμό απόδοσης $\\eta_{\\text{Carnot}}$ της αντίστοιχης θερμικής μηχανής Carnot (σε ποσοστό %).",
-        "formula": "$\\eta_{\\text{Carnot}} = 1 - \\frac{T_2}{T_1}$",
+        "prompt": "Να υπολογίσετε τον βαθμό απόδοσης $\\\\beta_{\\text{Carnot}}$ της αντίστοιχης θερμικής μηχανής Carnot (σε ποσοστό %).",
+        "formula": "$\\\\beta_{\\text{Carnot}} = 1 - \\frac{T_2}{T_1}$",
         "answer": 40,
         "unit": "%",
         "tolerance": 0.01,
         "hint": "Χρησιμοποιήστε τις απόλυτες θερμοκρασίες $T_1$ και $T_2$ στον τύπο απόδοσης Carnot.",
-        "explain": "$T_2 = 27 + 273 = 300\\text{ K}$. Ο βαθμός απόδοσης Carnot είναι:\n$$\\eta_{\\text{Carnot}} = 1 - \\frac{T_2}{T_1} = 1 - \\frac{300}{500} = 1 - 0{,}6 = 0{,}4 = 40\\%$$"
+        "explain": "$T_2 = 27 + 273 = 300\\text{ K}$. Ο βαθμός απόδοσης Carnot είναι:\n$$\\\\beta_{\\text{Carnot}} = 1 - \\frac{T_2}{T_1} = 1 - \\frac{300}{500} = 1 - 0{,}6 = 0{,}4 = 40\\%$$"
       }
     ]
   },
@@ -85,7 +85,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #23832",
     "bankCode": "23832",
-    "title": "#23832 — Θέμα 2<sup>ο</sup> (3.5)",
+    "title": "#23832 — Θέμα 2$^{ο}$ (3.5)",
     "units": 25,
     "theory": "kyklos-carnot",
     "stem": "Χαρακτηρισμός προτάσεων και αντιστοίχιση διαδικασιών κύκλου Carnot σε διάγραμμα P-V.",
@@ -182,7 +182,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #23892",
     "bankCode": "23892",
-    "title": "#23892 — Θέμα 4<sup>ο</sup>",
+    "title": "#23892 — Θέμα 4$^{ο}$",
     "units": 25,
     "theory": "kyklos-carnot",
     "stem": "Δύο θερμικές μηχανές λειτουργούν ταυτόχρονα. Η πρώτη θερμική μηχανή αντλεί θερμότητα από δεξαμενή υψηλής θερμοκρασίας $127~{}^{\\circ}\\text{C}$ και την αποδίδει σε δεξαμενή χαμηλής θερμοκρασίας $27~{}^{\\circ}\\text{C}$. Η δεύτερη θερμική μηχανή αντλεί θερμότητα από την ίδια δεξαμενή υψηλής θερμότητας, την αποδίδει όμως σε δεξαμενή θερμοκρασίας $47~{}^{\\circ}\\text{C}$.",
@@ -204,13 +204,13 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
       {
         "kind": "calc",
         "subq": "4.1",
-        "prompt": "Να υπολογίσετε τον βέλτιστο βαθμό απόδοσης $\\eta$ των δύο θερμικών μηχανών.",
-        "formula": "$\\eta = 1 - \\frac{T_2}{T_1}$",
+        "prompt": "Να υπολογίσετε τον βέλτιστο βαθμό απόδοσης $\\\\beta$ των δύο θερμικών μηχανών.",
+        "formula": "$\\\\beta = 1 - \\frac{T_2}{T_1}$",
         "answer": 0.25,
         "unit": "",
         "tolerance": 0.02,
-        "hint": "Μετατρέψτε τις θερμοκρασίες σε Κέλβιν ($T = t + 273$) και χρησιμοποιήστε τον τύπο του κύκλου Carnot: $\\eta = 1 - \\frac{T_2}{T_1}$.",
-        "explain": "Για την 1η μηχανή: $T_1 = 273 + 127 = 400~\\text{K}$ και $T_2 = 273 + 27 = 300~\\text{K}$. Ο βαθμός απόδοσης είναι $\\eta_1 = 1 - \\frac{300}{400} = 1 - 0{,}75 = 0{,}25$. Για τη 2η μηχανή: $T_1 = 400~\\text{K}$ και $T_2 = 273 + 47 = 320~\\text{K}$. Ο βαθμός απόδοσης είναι $\\eta_2 = 1 - \\frac{320}{400} = 1 - 0{,}8 = 0{,}2$."
+        "hint": "Μετατρέψτε τις θερμοκρασίες σε Κέλβιν ($T = t + 273$) και χρησιμοποιήστε τον τύπο του κύκλου Carnot: $\\\\beta = 1 - \\frac{T_2}{T_1}$.",
+        "explain": "Για την 1η μηχανή: $T_1 = 273 + 127 = 400~\\text{K}$ και $T_2 = 273 + 27 = 300~\\text{K}$. Ο βαθμός απόδοσης είναι $\\\\beta_1 = 1 - \\frac{300}{400} = 1 - 0{,}75 = 0{,}25$. Για τη 2η μηχανή: $T_1 = 400~\\text{K}$ και $T_2 = 273 + 47 = 320~\\text{K}$. Ο βαθμός απόδοσης είναι $\\\\beta_2 = 1 - \\frac{320}{400} = 1 - 0{,}8 = 0{,}2$."
       },
       {
         "kind": "mc",
@@ -235,7 +235,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
           }
         ],
         "answer": "a",
-        "explain": "Η 1η θερμική μηχανή έχει μεγαλύτερο βέλτιστο βαθμό απόδοσης καθώς $\\eta_1 = 0{,}25 > \\eta_2 = 0{,}2$."
+        "explain": "Η 1η θερμική μηχανή έχει μεγαλύτερο βέλτιστο βαθμό απόδοσης καθώς $\\\\beta_1 = 0{,}25 > \\\\beta_2 = 0{,}2$."
       }
     ]
   },
@@ -246,7 +246,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #23959",
     "bankCode": "23959",
-    "title": "#23959 — Θέμα 2<sup>ο</sup>",
+    "title": "#23959 — Θέμα 2$^{ο}$",
     "units": 25,
     "theory": "thermodynamikes-metavoles",
     "givens": [],
@@ -336,17 +336,17 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #25274",
     "bankCode": "25274",
-    "title": "#25274 — Θέμα 4<sup>ο</sup>",
+    "title": "#25274 — Θέμα 4$^{ο}$",
     "units": 25,
     "theory": "kyklos-carnot",
-    "stem": "Μία θερμική μηχανή που ακολουθεί τον κύκλο του Carnot, λειτουργεί ανάμεσα στις θερμοκρασίες $T_1$ (υψηλή) και $T_2 = 280~\\text{K}$ (χαμηλή). Ο θερμικός βαθμός απόδοσης της μηχανής είναι $\\eta_\\theta = 0{,}8$.",
+    "stem": "Μία θερμική μηχανή που ακολουθεί τον κύκλο του Carnot, λειτουργεί ανάμεσα στις θερμοκρασίες $T_1$ (υψηλή) και $T_2 = 280~\\text{K}$ (χαμηλή). Ο θερμικός βαθμός απόδοσης της μηχανής είναι $\\\\beta_\\theta = 0{,}8$.",
     "givens": [
       {
         "label": "$T_2$",
         "value": "$280 \\text{K}$"
       },
       {
-        "label": "$\\eta_\\theta$",
+        "label": "$\\\\beta_\\theta$",
         "value": "$0{,}8$"
       }
     ],
@@ -355,23 +355,23 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
         "kind": "calc",
         "subq": "4.1",
         "prompt": "Να υπολογιστεί η θερμοκρασία $T_1$ σε βαθμούς Κελσίου (${}^{\\circ}\\text{C}$).",
-        "formula": "$T_1 = \\frac{T_2}{1 - \\eta_\\theta}$",
+        "formula": "$T_1 = \\frac{T_2}{1 - \\\\beta_\\theta}$",
         "answer": 1127,
         "unit": "°C",
         "tolerance": 0.02,
-        "hint": "Χρησιμοποιήστε τον τύπο $\\eta_\\theta = 1 - \\frac{T_2}{T_1}$ για να λύσετε ως προς $T_1$ σε Κέλβιν και έπειτα μετατρέψτε σε βαθμούς Κελσίου ($t_1 = T_1 - 273$).",
-        "explain": "Από τη σχέση $\\eta_\\theta = 1 - \\frac{T_2}{T_1}$, έχουμε $\\frac{T_2}{T_1} = 1 - \\eta_\\theta \\Rightarrow T_1 = \\frac{T_2}{1 - \\eta_\\theta} = \\frac{280~\\text{K}}{1 - 0{,}8} = \\frac{280}{0{,}2} = 1400~\\text{K}$. Μετατρέποντας σε βαθμούς Κελσίου: $t_1 = 1400 - 273 = 1127~{}^{\\circ}\\text{C}$."
+        "hint": "Χρησιμοποιήστε τον τύπο $\\\\beta_\\theta = 1 - \\frac{T_2}{T_1}$ για να λύσετε ως προς $T_1$ σε Κέλβιν και έπειτα μετατρέψτε σε βαθμούς Κελσίου ($t_1 = T_1 - 273$).",
+        "explain": "Από τη σχέση $\\\\beta_\\theta = 1 - \\frac{T_2}{T_1}$, έχουμε $\\frac{T_2}{T_1} = 1 - \\\\beta_\\theta \\Rightarrow T_1 = \\frac{T_2}{1 - \\\\beta_\\theta} = \\frac{280~\\text{K}}{1 - 0{,}8} = \\frac{280}{0{,}2} = 1400~\\text{K}$. Μετατρέποντας σε βαθμούς Κελσίου: $t_1 = 1400 - 273 = 1127~{}^{\\circ}\\text{C}$."
       },
       {
         "kind": "calc",
         "subq": "4.2",
-        "prompt": "Να υπολογιστεί ο νέος θερμικός βαθμός απόδοσης $\\eta_\\theta'$ αν διατηρήσουμε σταθερή τη θερμοκρασία $T_1$ και διπλασιάσουμε τη θερμοκρασία $T_2$.",
-        "formula": "$\\eta_\\theta' = 1 - \\frac{T_2'}{T_1}$",
+        "prompt": "Να υπολογιστεί ο νέος θερμικός βαθμός απόδοσης $\\\\beta_\\theta'$ αν διατηρήσουμε σταθερή τη θερμοκρασία $T_1$ και διπλασιάσουμε τη θερμοκρασία $T_2$.",
+        "formula": "$\\\\beta_\\theta' = 1 - \\frac{T_2'}{T_1}$",
         "answer": 0.6,
         "unit": "",
         "tolerance": 0.02,
         "hint": "Υπολογίστε τη νέα θερμοκρασία $T_2' = 2 \\cdot T_2$ και εφαρμόστε ξανά τον τύπο απόδοσης Carnot.",
-        "explain": "Η νέα θερμοκρασία είναι $T_2' = 2 \\cdot 280~\\text{K} = 560~\\text{K}$. Ο νέος βαθμός απόδοσης είναι $\\eta_\\theta' = 1 - \\frac{T_2'}{T_1} = 1 - \\frac{560}{1400} = 1 - 0{,}4 = 0{,}6$."
+        "explain": "Η νέα θερμοκρασία είναι $T_2' = 2 \\cdot 280~\\text{K} = 560~\\text{K}$. Ο νέος βαθμός απόδοσης είναι $\\\\beta_\\theta' = 1 - \\frac{T_2'}{T_1} = 1 - \\frac{560}{1400} = 1 - 0{,}4 = 0{,}6$."
       }
     ]
   },
@@ -382,7 +382,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #33862",
     "bankCode": "33862",
-    "title": "#33862 — Θέμα 2<sup>ο</sup>",
+    "title": "#33862 — Θέμα 2$^{ο}$",
     "units": 25,
     "theory": "kyklos-carnot",
     "givens": [],

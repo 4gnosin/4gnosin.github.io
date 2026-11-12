@@ -9,7 +9,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #23814",
     "bankCode": "23814",
-    "title": "#23814 — Θέμα 2<sup>ο</sup>",
+    "title": "#23814 — Θέμα 2$^{ο}$",
     "units": 25,
     "theory": "strangalismos",
     "items": [
@@ -102,7 +102,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #33885",
     "bankCode": "33885",
-    "title": "#33885 — Θέμα 2<sup>ο</sup>",
+    "title": "#33885 — Θέμα 2$^{ο}$",
     "units": 25,
     "theory": "strangalismos",
     "items": [

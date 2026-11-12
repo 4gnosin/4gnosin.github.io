@@ -9,7 +9,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #32204",
     "bankCode": "32204",
-    "title": "#32204 — Θέμα 2<sup>ο</sup>",
+    "title": "#32204 — Θέμα 2$^{ο}$",
     "units": 25,
     "theory": "psychrometric-charts",
     "stem": "Χαρακτηρίστε τις προτάσεις και αντιστοιχίστε τις ψυχρομετρικές ιδιότητες.",

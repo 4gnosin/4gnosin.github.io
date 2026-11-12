@@ -8,7 +8,7 @@ window.EXERCISES.push(...
     "layout": "unified",
     "bankCode": "20955",
     "code": "Θέμα 4<sup>ο</sup> · #20955",
-    "title": "#20955 — Θέμα 4<sup>ο</sup>",
+    "title": "#20955 — Θέμα 4$^{ο}$",
     "units": 25,
     "theory": "ch05-thermodynamics-first-law",
     "sourceOrder": 1,

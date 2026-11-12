@@ -9,7 +9,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #25266",
     "bankCode": "25266",
-    "title": "#25266 — Θέμα 4<sup>ο</sup>",
+    "title": "#25266 — Θέμα 4$^{ο}$",
     "units": 25,
     "theory": "ch02-10-proto-thermodynamiko-axioma",
     "stem": "Σε ένα κλειστό σύστημα, ρευστό μάζας $m = 4\\text{ kg}$ υφίσταται μια μεταβολή. Κατά τη διάρκεια της μεταβολής παράγεται έργο $W = 100\\text{ kJ}$, ενώ η προσφερόμενη θερμότητα ανά μονάδα μάζας $q$ ισούται με $q = 20\\text{ kJ/kg}$.",

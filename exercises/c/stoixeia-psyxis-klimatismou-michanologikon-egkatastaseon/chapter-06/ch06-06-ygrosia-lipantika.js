@@ -9,7 +9,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #29141",
     "bankCode": "29141",
-    "title": "Θέμα 2<sup>ο</sup> · #29141",
+    "title": "Θέμα 2$^{ο}$ · #29141",
     "units": 25,
     "theory": "ygrosia-lipantika",
     "stem": "Αντιστοιχίστε τις διαδικασίες διαχείρισης ψυκτικών ρευστών και τις ιδιότητες των λιπαντικών.",

@@ -9,7 +9,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #23765",
     "bankCode": "23765",
-    "title": "#23765 — Θέμα 2<sup>ο</sup>",
+    "title": "#23765 — Θέμα 2$^{ο}$",
     "units": 25,
     "theory": "ch02-11-deutero-thermodynamiko-axioma",
     "stem": "Να χαρακτηρίσετε τις προτάσεις που ακολουθούν ως Σωστό ή Λάθος και να συμπληρώσετε τα κενά στο αντίστοιχο κείμενο.",
@@ -41,7 +41,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
         "subq": "2.1δ",
         "prompt": "Ο βαθμός απόδοσης μιας θερμικής μηχανής είναι ένας αριθμός μεγαλύτερος από την μονάδα.",
         "answer": false,
-        "explain": "Λάθος. Ο βαθμός απόδοσης θερμικής μηχανής $\\eta = \\frac{W}{Q_1}$ είναι πάντοτε μικρότερος από τη μονάδα ($\\eta < 1$), διότι το ωφέλιμο έργο $W$ είναι πάντοτε μικρότερο από την προσφερόμενη θερμότητα $Q_1$."
+        "explain": "Λάθος. Ο βαθμός απόδοσης θερμικής μηχανής $\\\\beta = \\frac{W}{Q_1}$ είναι πάντοτε μικρότερος από τη μονάδα ($\\\\beta < 1$), διότι το ωφέλιμο έργο $W$ είναι πάντοτε μικρότερο από την προσφερόμενη θερμότητα $Q_1$."
       },
       {
         "kind": "blank",
@@ -77,17 +77,17 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #23767",
     "bankCode": "23767",
-    "title": "#23767 — Θέμα 4<sup>ο</sup>",
+    "title": "#23767 — Θέμα 4$^{ο}$",
     "units": 25,
     "theory": "ch02-11-deutero-thermodynamiko-axioma",
-    "stem": "Σε μία ατμομηχανή, από τον λέβητα χορηγείται θερμότητα $Q_1$ προς το εργαζόμενο μέσο. Το εργαζόμενο μέσο αποδίδει ωφέλιμο έργο $W = 360\\text{ J}$ και αποβάλλει θερμότητα $Q_2$ προς τον συμπυκνωτή-ψυγείο. Η ατμομηχανή έχει βαθμό απόδοσης $\\eta = 40\\%$.",
+    "stem": "Σε μία ατμομηχανή, από τον λέβητα χορηγείται θερμότητα $Q_1$ προς το εργαζόμενο μέσο. Το εργαζόμενο μέσο αποδίδει ωφέλιμο έργο $W = 360\\text{ J}$ και αποβάλλει θερμότητα $Q_2$ προς τον συμπυκνωτή-ψυγείο. Η ατμομηχανή έχει βαθμό απόδοσης $\\\\beta = 40\\%$.",
     "givens": [
       {
         "label": "$W$",
         "value": "$360 \\text{J}$"
       },
       {
-        "label": "$\\eta$",
+        "label": "$\\\\beta$",
         "value": "40%"
       }
     ],
@@ -96,12 +96,12 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
         "kind": "calc",
         "subq": "α",
         "prompt": "Να υπολογίσετε τη θερμότητα $Q_1$ που προσδίδεται στο εργαζόμενο μέσο σε J.",
-        "formula": "$Q_1 = \\frac{W}{\\eta}$",
+        "formula": "$Q_1 = \\frac{W}{\\\\beta}$",
         "answer": 900,
         "unit": "J",
         "tolerance": 0.02,
-        "hint": "Χρησιμοποιήστε τον τύπο του βαθμού απόδοσης θερμικής μηχανής $\\eta = \\frac{W}{Q_1}$.",
-        "explain": "Ο βαθμός απόδοσης είναι $\\eta = 40\\% = 0{,}4$. Επομένως:\n$$\\begin{aligned}\n\\eta &= \\frac{W}{Q_1} \\\\\n\\Rightarrow Q_1 &= \\frac{W}{\\eta} = \\frac{360\\text{ J}}{0{,}4} = 900\\text{ J}\n\\end{aligned}$$",
+        "hint": "Χρησιμοποιήστε τον τύπο του βαθμού απόδοσης θερμικής μηχανής $\\\\beta = \\frac{W}{Q_1}$.",
+        "explain": "Ο βαθμός απόδοσης είναι $\\\\beta = 40\\% = 0{,}4$. Επομένως:\n$$\\begin{aligned}\n\\\\beta &= \\frac{W}{Q_1} \\\\\n\\Rightarrow Q_1 &= \\frac{W}{\\\\beta} = \\frac{360\\text{ J}}{0{,}4} = 900\\text{ J}\n\\end{aligned}$$",
         "image": "images/c/stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon/chapter-02/c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch02_23767_fig01.webp"
       },
       {
@@ -124,7 +124,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #23778",
     "bankCode": "23778",
-    "title": "#23778 — Θέμα 2<sup>ο</sup>",
+    "title": "#23778 — Θέμα 2$^{ο}$",
     "units": 25,
     "theory": "ch02-11-thermodynamic-axioms",
     "items": [

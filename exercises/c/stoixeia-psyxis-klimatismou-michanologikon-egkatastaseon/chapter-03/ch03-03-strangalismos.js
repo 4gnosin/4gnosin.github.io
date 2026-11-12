@@ -9,7 +9,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #23746",
     "bankCode": "23746",
-    "title": "#23746 — Θέμα 2<sup>ο</sup> (3.3)",
+    "title": "#23746 — Θέμα 2$^{ο}$ (3.3)",
     "units": 25,
     "theory": "strangalismos-aeriou",
     "stem": "Χαρακτηρισμός προτάσεων θερμοδυναμικών μεταβολών και αντιστοίχιση καταστατικών μεγεθών.",

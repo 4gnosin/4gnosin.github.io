@@ -9,7 +9,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #25307",
     "bankCode": "25307",
-    "title": "#25307 — Θέμα 2<sup>ο</sup> (2.1–2.3)",
+    "title": "#25307 — Θέμα 2$^{ο}$ (2.1–2.3)",
     "units": 25,
     "theory": "pyrgos-psyxis-kai-ygrasiai",
     "items": [
@@ -131,7 +131,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #26628",
     "bankCode": "26628",
-    "title": "Θέμα 4<sup>ο</sup> · #26628",
+    "title": "Θέμα 4$^{ο}$ · #26628",
     "units": 25,
     "theory": "apeikonisi-p-h",
     "stem": "Στο παρακάτω διάγραμμα Πίεσης – Ειδικής ενθαλπίας για το ψυκτικό ρευστό R – 22, έχουν σημειωθεί 3 σημεία.",
@@ -219,23 +219,23 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
         "options": [
           {
             "id": "a",
-            "text": "-10 °C"
+            "text": "-10°C"
           },
           {
             "id": "b",
-            "text": "-20 °C"
+            "text": "-20°C"
           },
           {
             "id": "c",
-            "text": "-30 °C"
+            "text": "-30°C"
           },
           {
             "id": "d",
-            "text": "0 °C"
+            "text": "0°C"
           }
         ],
         "answer": "c",
-        "explain": "Από την ανάγνωση του διαγράμματος p-h για το σημείο 1, η ισόθερμη καμπύλη αντιστοιχεί σε -30 °C."
+        "explain": "Από την ανάγνωση του διαγράμματος p-h για το σημείο 1, η ισόθερμη καμπύλη αντιστοιχεί σε -30°C."
       },
       {
         "kind": "calc",
@@ -260,7 +260,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #26850",
     "bankCode": "26850",
-    "title": "Θέμα 4<sup>ο</sup> · #26850",
+    "title": "Θέμα 4$^{ο}$ · #26850",
     "units": 25,
     "theory": "apeikonisi-p-h",
     "stem": "Ψυκτική διάταξη μηχανικής συμπίεσης ατμού λειτουργεί με ψυκτικό μέσο R-134a. Στο ψυκτικό διάγραμμα έχει σχεδιαστεί ο ψυκτικός κύκλος. Η μεταβολή ΑΒ αντιπροσωπεύει την ατμοποίηση του ψυκτικού μέσου και η μεταβολή ΒΓ την συμπίεση του.",
@@ -350,7 +350,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #26899",
     "bankCode": "26899",
-    "title": "Θέμα 2<sup>ο</sup> · #26899",
+    "title": "Θέμα 2$^{ο}$ · #26899",
     "units": 25,
     "theory": "apeikonisi-p-h",
     "stem": "Συμπληρώστε τα κενά για τις ιδιότητες των ψυκτικών μέσων και αντιστοιχίστε τις γραμμές των διαγραμμάτων p-h.",
@@ -459,7 +459,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #29333",
     "bankCode": "29333",
-    "title": "Θέμα 4<sup>ο</sup> · #29333",
+    "title": "Θέμα 4$^{ο}$ · #29333",
     "units": 25,
     "theory": "apeikonisi-p-h",
     "stem": "Δίνεται το διάγραμμα πίεσης – ειδικής ενθαλπίας για το ψυκτικό ρευστό R – 22.",
@@ -468,11 +468,11 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
       {
         "kind": "mc",
         "subq": "α",
-        "prompt": "Σημείωση της κατάστασης του ψυκτικού ρευστού με θερμοκρασία -10 °C και βαθμό ξηρότητας 0,2 (σημείο 1) πάνω στο διάγραμμα.",
+        "prompt": "Σημείωση της κατάστασης του ψυκτικού ρευστού με θερμοκρασία -10°C και βαθμό ξηρότητας 0,2 (σημείο 1) πάνω στο διάγραμμα.",
         "options": [
           {
             "id": "a",
-            "text": "Εντός της καμπάνας κορεσμού, στην ισόθερμη -10 °C με βαθμό ξηρότητας 0,2"
+            "text": "Εντός της καμπάνας κορεσμού, στην ισόθερμη -10°C με βαθμό ξηρότητας 0,2"
           },
           {
             "id": "b",
@@ -488,7 +488,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
           }
         ],
         "answer": "a",
-        "explain": "Το σημείο 1 τοποθετείται εντός της καμπάνας, στην ισόθερμη -10 °C και σε απόσταση που αντιστοιχεί σε βαθμό ξηρότητας 0,2."
+        "explain": "Το σημείο 1 τοποθετείται εντός της καμπάνας, στην ισόθερμη -10°C και σε απόσταση που αντιστοιχεί σε βαθμό ξηρότητας 0,2."
       },
       {
         "kind": "calc",
@@ -560,7 +560,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #33865",
     "bankCode": "33865",
-    "title": "#33865 — Θέμα 4<sup>ο</sup> (4.1–4.3)",
+    "title": "#33865 — Θέμα 4$^{ο}$ (4.1–4.3)",
     "units": 25,
     "theory": "apeikonisi-psyktikon-meson-p-h",
     "stem": "Στο παρακάτω ψυκτικό διάγραμμα ψυκτικού μέσου R134a, έχει σχεδιαστεί ένας ψυκτικός κύκλος. Με τη βοήθεια του ψυκτικού διαγράμματος που σας δίνεται:",

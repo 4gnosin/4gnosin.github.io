@@ -9,7 +9,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #25271",
     "bankCode": "25271",
-    "title": "#25271 — Θέμα 2<sup>ο</sup> (2.1–2.3)",
+    "title": "#25271 — Θέμα 2$^{ο}$ (2.1–2.3)",
     "units": 25,
     "theory": "psykτικός-κυκλος",
     "stem": "Αναφορικά με τα μέρη του ψυκτικού κύκλου και τα χαρακτηριστικά τους μεγέθη:",

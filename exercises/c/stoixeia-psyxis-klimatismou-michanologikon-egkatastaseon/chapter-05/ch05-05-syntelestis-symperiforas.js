@@ -9,7 +9,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #23834",
     "bankCode": "23834",
-    "title": "#23834 — Θέμα 4<sup>ο</sup> (4.1–4.2)",
+    "title": "#23834 — Θέμα 4$^{ο}$ (4.1–4.2)",
     "units": 25,
     "theory": "συντελεστής-συμπεριφοράς",
     "stem": "Σε ψυκτική διάταξη με συμπίεση ατμών, η ψυκτική ισχύς είναι $20640\\text{ BTU}/\\text{h}$ και η απορριπτόμενη θερμική ισχύς είναι $7740\\text{ kcal}/\\text{h}$. Είναι γνωστό ότι $1\\text{ kW} = 860\\text{ kcal}/\\text{h}$ και $1\\text{ kcal}/\\text{h} = 4\\text{ BTU}/\\text{h}$.",
@@ -45,7 +45,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #23837",
     "bankCode": "23837",
-    "title": "#23837 — Θέμα 2<sup>ο</sup> (2.1–2.2)",
+    "title": "#23837 — Θέμα 2$^{ο}$ (2.1–2.2)",
     "units": 25,
     "theory": "συντελεστής-συμπεριφοράς",
     "stem": "Σχετικά με τα χαρακτηριστικά απόρριψης θερμότητας και τον συντελεστή συμπεριφοράς ενός ψυκτικού κύκλου:",
@@ -90,7 +90,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
           },
           {
             "id": "c",
-            "text": "Συμβολίζεται με $\\eta$ και είναι αδιάστατο μέγεθος"
+            "text": "Συμβολίζεται με $\\\\beta$ και είναι αδιάστατο μέγεθος"
           },
           {
             "id": "d",
@@ -123,7 +123,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
           }
         ],
         "answer": "a",
-        "explain": "Ο βαθμός απόδοσης θερμικής μηχανής είναι πάντα \\le 1, ενώ ο COP μπορεί να είναι > 1 όταν η θερμοκρασία ατμοποίησης δεν απέχει πολύ από τη θερμοκρασία συμπύκνωσης."
+        "explain": "Ο βαθμός απόδοσης θερμικής μηχανής είναι πάντα $\\le 1$, ενώ ο COP μπορεί να είναι > 1 όταν η θερμοκρασία ατμοποίησης δεν απέχει πολύ από τη θερμοκρασία συμπύκνωσης."
       },
       {
         "kind": "mc",
@@ -159,7 +159,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #25541",
     "bankCode": "25541",
-    "title": "#25541 — Θέμα 4<sup>ο</sup> (α–β)",
+    "title": "#25541 — Θέμα 4$^{ο}$ (α–β)",
     "units": 25,
     "theory": "συντελεστής-συμπεριφοράς",
     "stem": "Σε μια ψυκτική εγκατάσταση η ισχύς του συμπιεστή είναι $3\\text{ kW}$ και η απορριπτόμενη θερμική ισχύς στον συμπυκνωτή είναι $9\\text{ kW}$.",
@@ -195,7 +195,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #29787",
     "bankCode": "29787",
-    "title": "#29787 — Θέμα 4<sup>ο</sup> (α–β)",
+    "title": "#29787 — Θέμα 4$^{ο}$ (α–β)",
     "units": 25,
     "theory": "συντελεστής-συμπεριφοράς",
     "stem": "Σε ψυκτική διάταξη με συντελεστή συμπεριφοράς $\\text{COP} = 2{,}5$, η απορριπτόμενη θερμική ισχύς στον συμπυκνωτή είναι $7\\text{ kW}$. Δίνεται ότι $1\\text{ kW} = 860\\text{ kcal}/\\text{h}$ και $1\\text{ kcal}/\\text{h} = 4\\text{ BTU}/\\text{h}$.",
@@ -231,7 +231,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #33864",
     "bankCode": "33864",
-    "title": "#33864 — Θέμα 4<sup>ο</sup> (α–β)",
+    "title": "#33864 — Θέμα 4$^{ο}$ (α–β)",
     "units": 25,
     "theory": "συντελεστής-συμπεριφοράς",
     "stem": "Σε μία ψυκτική μηχανή, η απορριπτόμενη θερμική ισχύς ισούται με $57\\text{ kW}$ και η ισχύς του συμπιεστή με $30\\text{ kW}$.",

@@ -9,7 +9,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #23815",
     "bankCode": "23815",
-    "title": "#23815 — Θέμα 4<sup>ο</sup>",
+    "title": "#23815 — Θέμα 4$^{ο}$",
     "units": 25,
     "theory": "sympyknosi",
     "stem": "3 kg ψυκτικού ρευστού R12 σε κατάσταση ξηρού κορεσμένου ατμού, βρίσκονται σε θερμοκρασία $20~{}^{\\circ}\\text{C}$. Χρησιμοποιώντας τον παρακάτω πίνακα για τη θερμοκρασία, πίεση και λανθάνουσα θερμότητα συμπύκνωσης του ψυκτικού ρευστού R12, να βρείτε:",
@@ -36,7 +36,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
         "answer": 5.667,
         "unit": "bar",
         "tolerance": 0.01,
-        "hint": "Βρείτε την τιμή πίεσης που αντιστοιχεί στους 20 °C στον πίνακα.",
+        "hint": "Βρείτε την τιμή πίεσης που αντιστοιχεί στους 20°C στον πίνακα.",
         "image": "images/c/stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon/chapter-04/c_stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon_ch04_23815_fig01.webp",
         "explain": "Σύμφωνα με τον πίνακα, η πίεση συμπύκνωσης που αντιστοιχεί στους $20~{}^{\\circ}\\text{C}$ είναι $5{,}667\\text{ bar}$."
       },
@@ -71,7 +71,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #23960",
     "bankCode": "23960",
-    "title": "#23960 — Θέμα 2<sup>ο</sup>",
+    "title": "#23960 — Θέμα 2$^{ο}$",
     "units": 25,
     "theory": "sympyknosi",
     "items": [
@@ -156,7 +156,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #25275",
     "bankCode": "25275",
-    "title": "#25275 — Θέμα 2<sup>ο</sup>",
+    "title": "#25275 — Θέμα 2$^{ο}$",
     "units": 25,
     "theory": "sympyknosi",
     "items": [

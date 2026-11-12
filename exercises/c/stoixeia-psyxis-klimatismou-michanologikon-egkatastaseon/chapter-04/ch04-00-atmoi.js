@@ -9,7 +9,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #23962",
     "bankCode": "23962",
-    "title": "#23962 — Θέμα 4<sup>ο</sup> (Ατμοί)",
+    "title": "#23962 — Θέμα 4$^{ο}$ (Ατμοί)",
     "units": 25,
     "theory": "atmoi-thermotita",
     "stem": "Στο διάγραμμα παριστάνεται η θερμοκρασία της ουσίας $\\text{H}_2\\text{O}$ ως συνάρτηση της προσδιδόμενης θερμότητας (για $1\\text{ kg}$ της ουσίας). Τα σημεία Α, Β, Γ, Δ, Ε αντιπροσωπεύουν διάφορες καταστάσεις της ουσίας.",

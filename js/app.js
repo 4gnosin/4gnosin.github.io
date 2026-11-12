@@ -757,9 +757,34 @@ function esc(s) {
     return '<figure class="diagram">' + body + cap + "</figure>";
   }
 
+  function formatProseSegmentForDisplay(seg, isStart) {
+    if (!seg) return "";
+    // Διαμόρφωση δομημένων ετικετών παραδειγμάτων (Λύση:, Δεδομένα:, Ζητούμενο:/Ζητούμενα:) και αλλαγών γραμμής
+    var p = String(seg)
+      .replace(/^(Tip\s*SOS)\s*:/i, "**$1:**")
+      .replace(/(?:^|\r?\n|\s+)(Λύση|Δεδομένα|Ζητούμεν[οα])\s*:/g, "\n**$1:**");
+    if (isStart) {
+      p = p.replace(/^\n+/, "");
+    }
+    return p.replace(/\r?\n/g, "\uE000BR\uE000");
+  }
+
   function renderProseText(str) {
     if (!str) return "";
-    var s = String(str).replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    var splitRe = /(\$\$[\s\S]*?\$\$|\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)|\$(?:\\\$|[^$\n])+\$)/g;
+    var chunks = String(str).split(splitRe);
+    for (var idx = 0; idx < chunks.length; idx += 2) {
+      var seg = formatProseSegmentForDisplay(chunks[idx], idx === 0);
+      // Αποφυγή περιττής κενής γραμμής ακριβώς πριν ή μετά από display math block (\[...\] / $$...$$)
+      if (idx > 0 && (chunks[idx - 1].startsWith("\\[") || chunks[idx - 1].startsWith("$$"))) {
+        seg = seg.replace(/^(?:\uE000BR\uE000)+/, "");
+      }
+      if (idx + 1 < chunks.length && (chunks[idx + 1].startsWith("\\[") || chunks[idx + 1].startsWith("$$"))) {
+        seg = seg.replace(/(?:\uE000BR\uE000|\s)+$/, " ");
+      }
+      chunks[idx] = seg;
+    }
+    var s = chunks.join("").replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
     var out = renderMathText(s);
     return out
       .replace(/&lt;strong&gt;/g, "<strong>")
@@ -770,7 +795,8 @@ function esc(s) {
       .replace(/&lt;\/em&gt;/g, "</em>")
       .replace(/&lt;code&gt;/g, "<code>")
       .replace(/&lt;\/code&gt;/g, "</code>")
-      .replace(/&lt;br\s*\/?&gt;/g, "<br>");
+      .replace(/&lt;br\s*\/?&gt;/g, " ")
+      .replace(/(?:\uE000BR\uE000)+/g, "<br>");
   }
 
   function renderBlock(b) {
@@ -812,6 +838,10 @@ function esc(s) {
       const lab = CALLOUT_LAB[b.kind] || "";
       const title =
         b.title && b.title !== lab ? "<h3>" + esc(b.title) + "</h3>" : "";
+      let bodyText = b.text || "";
+      if (b.kind === "example" && lab === "Παράδειγμα" && !title) {
+        bodyText = String(bodyText).replace(/^\s*Παράδειγμα\s*:\s*/i, "");
+      }
       return (
         '<aside class="callout ' +
         b.kind +
@@ -820,7 +850,7 @@ function esc(s) {
         "</p>" +
         title +
         "<p>" +
-        renderProseText(b.text) +
+        renderProseText(bodyText) +
         "</p></aside>"
       );
     }
@@ -1085,11 +1115,11 @@ function esc(s) {
     inner +=
       '<div class="home-section-footer" style="margin-top:2rem;font-size:.85rem;color:var(--muted);line-height:1.6">' +
       '<p><b>Πηγές εκπαιδευτικού υλικού</b></p>' +
-      '<p><b>Πηγή ασκήσεων:</b><br>Τα θέματα που περιλαμβάνονται στην παρούσα ιστοσελίδα προέρχονται και αντλήθηκαν από την πλατφόρμα της Τράπεζας Θεμάτων Διαβαθμισμένης Δυσκολίας, η οποία αναπτύχθηκε στο πλαίσιο του έργου MIS5070818 – «Τράπεζα θεμάτων Διαβαθμισμένης Δυσκολίας για τη Δευτεροβάθμια Εκπαίδευση, Γενικό Λύκειο-ΕΠΑΛ» και είναι διαθέσιμη διαδικτυακά στον δικτυακό τόπο του Ινστιτούτου Εκπαιδευτικής Πολιτικής (Ι.Ε.Π.): <a href="https://trapeza.iep.edu.gr/" target="_blank" rel="noopener">https://trapeza.iep.edu.gr/</a></p>' +
+      '<p><b>Πηγή ασκήσεων:</b> Τα θέματα που περιλαμβάνονται στην παρούσα ιστοσελίδα προέρχονται και αντλήθηκαν από την πλατφόρμα της Τράπεζας Θεμάτων Διαβαθμισμένης Δυσκολίας, η οποία αναπτύχθηκε στο πλαίσιο του έργου MIS5070818 – «Τράπεζα θεμάτων Διαβαθμισμένης Δυσκολίας για τη Δευτεροβάθμια Εκπαίδευση, Γενικό Λύκειο-ΕΠΑΛ» και είναι διαθέσιμη διαδικτυακά στον δικτυακό τόπο του Ινστιτούτου Εκπαιδευτικής Πολιτικής (Ι.Ε.Π.): <a href="https://trapeza.iep.edu.gr/" target="_blank" rel="noopener">https://trapeza.iep.edu.gr/</a></p>' +
       '<p>Οι διαδραστικές δραστηριότητες, οι λύσεις, οι επεξηγήσεις και η εκπαιδευτική επεξεργασία των θεμάτων αποτελούν υλικό της παρούσας ιστοσελίδας.</p>' +
-      '<p><b>Πηγή θεωρίας:</b><br>Η θεωρία και το εκπαιδευτικό περιεχόμενο βασίζονται στα σχολικά εγχειρίδια που χρησιμοποιούνται για τη διδασκαλία των μαθημάτων του τομέα Μηχανολογίας ΕΠΑ.Λ. Τα σχολικά εγχειρίδια διατίθενται μέσω της επίσημης πλατφόρμας Διαδραστικά Σχολικά Βιβλία (ebooks.edu.gr) του Υπουργείου Παιδείας και Θρησκευμάτων / ΙΤΥΕ «ΔΙΟΦΑΝΤΟΣ»: <a href="https://ebooks.edu.gr/ebooks/" target="_blank" rel="noopener">https://ebooks.edu.gr/ebooks/</a></p>' +
+      '<p><b>Πηγή θεωρίας:</b> Η θεωρία και το εκπαιδευτικό περιεχόμενο βασίζονται στα σχολικά εγχειρίδια που χρησιμοποιούνται για τη διδασκαλία των μαθημάτων του τομέα Μηχανολογίας ΕΠΑ.Λ. Τα σχολικά εγχειρίδια διατίθενται μέσω της επίσημης πλατφόρμας Διαδραστικά Σχολικά Βιβλία (ebooks.edu.gr) του Υπουργείου Παιδείας και Θρησκευμάτων / ΙΤΥΕ «ΔΙΟΦΑΝΤΟΣ»: <a href="https://ebooks.edu.gr/ebooks/" target="_blank" rel="noopener">https://ebooks.edu.gr/ebooks/</a></p>' +
       '<p>Σημείωση: Η παρούσα ιστοσελίδα αποτελεί ανεξάρτητη εκπαιδευτική προσπάθεια και δεν αποτελεί επίσημη ιστοσελίδα ούτε συνδέεται με το Ινστιτούτο Εκπαιδευτικής Πολιτικής, το Υπουργείο Παιδείας ή το ΙΤΥΕ «ΔΙΟΦΑΝΤΟΣ».</p>' +
-      '<p><b>Άδεια του πρωτότυπου υλικού της παρούσας ιστοσελίδας:</b><br>Το πρωτότυπο διαδραστικό εκπαιδευτικό υλικό που δημιουργήθηκε για την παρούσα ιστοσελίδα διανέμεται με άδεια Creative Commons Αναφορά Δημιουργού – Μη Εμπορική Χρήση – Παρόμοια Διανομή 4.0 Διεθνές (CC BY-NC-SA 4.0). Η άδεια αυτή αφορά το πρωτότυπο υλικό της παρούσας ιστοσελίδας και δεν επεκτείνεται σε υλικό τρίτων που αναφέρεται ή ενσωματώνεται στην ιστοσελίδα. <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> — Αναφορά Δημιουργού · Μη Εμπορική Χρήση · Παρόμοια Διανομή.<br>Κωνσταντίνος Μηναΐδης 2026 · <a href="https://github.com/4gnosin" target="_blank" rel="noopener">github.com/4gnosin</a></p>' +
+      '<p><b>Άδεια του πρωτότυπου υλικού της παρούσας ιστοσελίδας:</b> Το πρωτότυπο διαδραστικό εκπαιδευτικό υλικό που δημιουργήθηκε για την παρούσα ιστοσελίδα διανέμεται με άδεια Creative Commons Αναφορά Δημιουργού – Μη Εμπορική Χρήση – Παρόμοια Διανομή 4.0 Διεθνές (CC BY-NC-SA 4.0). Η άδεια αυτή αφορά το πρωτότυπο υλικό της παρούσας ιστοσελίδας και δεν επεκτείνεται σε υλικό τρίτων που αναφέρεται ή ενσωματώνεται στην ιστοσελίδα. <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> — Αναφορά Δημιουργού · Μη Εμπορική Χρήση · Παρόμοια Διανομή. Κωνσταντίνος Μηναΐδης 2026 · <a href="https://github.com/4gnosin" target="_blank" rel="noopener">github.com/4gnosin</a></p>' +
       '</div>';
 
     inner += '</div>';
@@ -1208,7 +1238,7 @@ function esc(s) {
           esc(l.title) +
           "</b>" +
           (l.desc
-            ? '<br><span style="color:var(--muted);font-size:.9rem">' + esc(l.desc) + "</span>"
+            ? ' <span style="color:var(--muted);font-size:.9rem">' + esc(l.desc) + "</span>"
             : "") +
           "</span><span>↗</span></a>";
       });
@@ -1241,7 +1271,7 @@ function esc(s) {
    * Παιδαγωγική μορφοποίηση μαθηματικών πράξεων για τον πίνακα:
    * Σε κάθε υπολογισμό με διαδοχικά ίσα (A = B = C), το κάθε επόμενο «=»
    * πηγαίνει στη γραμμή από κάτω με στοίχιση (\begin{aligned} A &= B \\ &= C \end{aligned}).
-   * Επίσης σπάει σε νέα γραμμή τα \Rightarrow / \implies ώστε οι τύποι να μη βγαίνουν εκτός πλαισίου.
+   * Επίσης σπάει σε νέα γραμμή τα $\Rightarrow /$ \implies ώστε οι τύποι να μη βγαίνουν εκτός πλαισίου.
    */
   function formatPedagogicalMath(tex) {
     if (!tex || typeof tex !== "string") return tex;
@@ -1257,11 +1287,11 @@ function esc(s) {
     if (/(\\quad|\\qquad|;|,\s*[A-Za-z\u0370-\u03ff_])/.test(s)) {
       return s;
     }
-    // Εάν είναι μαθηματικός ορισμός με αθροίσματα, ολοκληρώματα ή αποσιωπητικά (\sum, \int, \dots), ΔΕΝ σπάμε
+    // Εάν είναι μαθηματικός ορισμός με αθροίσματα, ολοκληρώματα ή αποσιωπητικά ($\sum, \int$, \dots), ΔΕΝ σπάμε
     if (/(\\sum|\\int|\\prod|\\lim|\\dots|\\cdots|\\dotsb)/.test(s)) {
       return s;
     }
-    // Διαχείριση συνεπαγωγών \Rightarrow / \implies
+    // Διαχείριση συνεπαγωγών $\Rightarrow /$ \implies
     if (/(\\Rightarrow|\\implies)/.test(s)) {
       var arrowParts = s.split(/(\\Rightarrow|\\implies)/g);
       if (arrowParts.length >= 3) {
@@ -1353,9 +1383,10 @@ function esc(s) {
          .replace(/\{\}\s*\^?\\circ\s*\\text\{C\}/g, "{}^\\circ\\text{C}")
          .replace(/\^?\\circ\s*\\text\{C\}/g, "{}^\\circ\\text{C}")
          .replace(/\\text\{\s*\^?\\circ\s*C\s*\}/g, "{}^\\circ\\text{C}")
-         .replace(/([0-9])°C\b/g, "$1{}^\\circ\\text{C}")
-         .replace(/°C\b/g, "{}^\\circ\\text{C}")
-         .replace(/([0-9])°/g, "$1{}^\\circ")
+         .replace(/([0-9])\s*°\s*C\b/g, "$1{}^\\circ\\text{C}")
+         .replace(/°\s*C\b/g, "{}^\\circ\\text{C}")
+         .replace(/([0-9])\s*°/g, "$1{}^\\circ")
+         .replace(/°/g, "{}^\\circ")
          .replace(/(^|[=+\-(,\s])\^\s*\\circ/g, "$1{}^\\circ");
     return t;
   }
@@ -1363,10 +1394,7 @@ function esc(s) {
     if (!str) return "";
     if (typeof katex === "undefined") return esc(str);
     var s = String(str);
-    // 0. Αυτόματη διόρθωση mismatched delimiters \( ... \} -> \( ... \) και \[ ... \) -> \[ ... \]
-    s = s.replace(/\\\(([\s\S]*?)\\\}/g, "\\($1\\)")
-         .replace(/\\\[([\s\S]*?)\\\)/g, "\\[$1\\]");
-    // 0b. Αυτόματη διόρθωση \cdotm -> \cdot m
+    // 0b. Αυτόματη διόρθωση \cdot m
     s = s.replace(/\\cdot([a-zA-Z\u0370-\u03ff])/g, "\\cdot $1");
     // 1. Αυτόνομα μαθηματικά περιβάλλοντα (aligned, cases, array, matrix) χωρίς πεζό κείμενο: άμεση απόδοση σε displayMode
     if (/^\s*(?:\\\[|\$\$)?\s*\\begin\{(?:aligned|align\*?|cases|array|matrix|pmatrix)\}/.test(s) &&
@@ -1397,7 +1425,8 @@ function esc(s) {
     return parts.map(function (part) {
       if (!part) return "";
       if ((part.startsWith("$$") && part.endsWith("$$")) || (part.startsWith("\\[") && part.endsWith("\\]"))) {
-        var rawTex = prepareKatexMath(part.slice(2, -2).trim());
+        var rawInner = part.slice(2, -2).trim().replace(/^\$+|\$+$/g, "").trim();
+        var rawTex = prepareKatexMath(rawInner);
         var tex = formatPedagogicalMath(rawTex);
         try {
           var res = katex.renderToString(tex, { throwOnError: false, displayMode: true });
@@ -1412,12 +1441,12 @@ function esc(s) {
         }
       }
       if (part.startsWith("\\(") && part.endsWith("\\)")) {
-        var tex = part.slice(2, -2).trim();
+        var tex = part.slice(2, -2).trim().replace(/^\$+|\$+$/g, "").trim();
         try {
-          return katex.renderToString(prepareKatexMath(tex), { throwOnError: false, displayMode: false });
-        } catch (e) {
-          return esc(stripLatexToReadableText(part));
-        }
+          var r = katex.renderToString(prepareKatexMath(tex), { throwOnError: false, displayMode: false });
+          if (r.indexOf("katex-error") === -1) return r;
+        } catch (e) {}
+        return esc(stripLatexToReadableText(tex));
       }
       if (part.startsWith("$") && part.endsWith("$") && part.length > 2) {
         var tex = part.slice(1, -1).trim();
@@ -1425,10 +1454,10 @@ function esc(s) {
           var r = katex.renderToString(prepareKatexMath(tex), { throwOnError: false, displayMode: false });
           if (r.indexOf("katex-error") === -1) return r;
         } catch (e) {}
-        return esc(stripLatexToReadableText(part));
+        return esc(stripLatexToReadableText(tex));
       }
       // 4. Πεζό τμήμα: Πρώτα μετατρέπουμε τυχόν γυμνά σύμβολα βαθμών Κελσίου σε καθαρό Unicode °C / °
-      // ώστε να μην μείνουν ποτέ ορφανά {}^\circ σε πεζό κείμενο!
+      // ώστε να μην μείνουν ποτέ ορφανά °C / ° σε πεζό κείμενο!
       part = part.replace(/\\text\{\s*\}\s*\^?\\circ\s*\\text\{C\}/g, "°C")
                  .replace(/\{\}\s*\^?\\circ\s*\\text\{C\}/g, "°C")
                  .replace(/\^?\\circ\s*\\text\{C\}/g, "°C")
@@ -1437,7 +1466,7 @@ function esc(s) {
                  .replace(/\^\s*\\circ\s*C\b/g, "°C")
                  .replace(/\{\}\s*\^?\\circ/g, "°")
                  .replace(/\^\s*\\circ/g, "°");
-      // 5. Εάν το πεζό τμήμα περιέχει γυμνές εντολές LaTeX (π.χ. \sigma\upsilon\nu 60^\circ = \frac{1}{2} ή \tau = \frac{Q}{A})
+      // 5. Εάν το πεζό τμήμα περιέχει γυμνές εντολές LaTeX (π.χ. \text{συν} 60° = \frac{1}{2} ή \tau = \frac{Q}{A})
       if (part.indexOf("\\") !== -1 && (/\\(?:frac|sqrt|cdot|times|pm|Delta|sigma|tau|mu|alpha|beta|gamma|lambda|phi|psi|omega|eta|theta|varphi|upsilon|nu|mathbf|approx|le|ge|Sigma|Omega|dot|ddot|bar|vec|rho|pi|epsilon|kappa|zeta|chi|text|hat)\b/).test(part)) {
         var cmdPattern = /((?:[A-Za-z\u0370-\u03ff0-9_]+\s*=\s*)?\\(?:frac|sqrt|cdot|times|pm|Delta|sigma|tau|mu|alpha|beta|gamma|lambda|phi|psi|omega|eta|theta|varphi|upsilon|nu|mathbf|approx|le|ge|Sigma|Omega|dot|ddot|bar|vec|rho|pi|epsilon|kappa|zeta|chi|text|hat)[^\n,;.!?]*?(?:\{[^{}]*\}|[^\n,;.!?])*)/g;
         return part.replace(cmdPattern, function (m) {
@@ -1456,7 +1485,7 @@ function esc(s) {
               }
             } catch (err) {}
           }
-          // Αν η KaTeX αποτύχει, ΠΟΤΕ μην εκτυπώσεις ωμό LaTeX κώδικα (\text{...}, \cdotm)!
+          // Αν η KaTeX αποτύχει, ΠΟΤΕ μην εκτυπώσεις ωμό LaTeX κώδικα (\text{...}, \cdot m)!
           return esc(stripLatexToReadableText(m));
         });
       }
@@ -1755,7 +1784,7 @@ function esc(s) {
           esc(s.num) +
           '</span><span style="flex:1;text-align:left"><b>' +
           esc(s.title) +
-          '</b><br><span style="color:var(--muted);font-size:.9rem">' +
+          '</b> <span style="color:var(--muted);font-size:.9rem">' +
           esc(s.kicker) +
           "</span></span><span>→</span></button>";
       });
@@ -2060,8 +2089,8 @@ function esc(s) {
       let h = '<p style="opacity:.75;font-size:.9rem">' + renderMathText(item.prompt) + '</p><p class="para">';
       item.textBefore.forEach(function (chunk, i) {
         var formattedChunk = esc(chunk)
-          .replace(/&lt;br\s*\/?&gt;/gi, '<br/><span style="display:block;margin-top:.6rem"></span>')
-          .replace(/\n/g, '<br/><span style="display:block;margin-top:.6rem"></span>');
+          .replace(/&lt;br\s*\/?&gt;/gi, ' <span style="display:block;margin-top:.6rem"></span>')
+          .replace(/\n/g, ' <span style="display:block;margin-top:.6rem"></span>');
         h += formattedChunk;
         if (i < item.answers.length) {
           const filled = value[i];
@@ -2143,6 +2172,7 @@ function esc(s) {
         if (exAnims[itemIdx]) return exAnims[itemIdx];
         if (exAnims[String(itemIdx)]) return exAnims[String(itemIdx)];
       }
+      if (exAnims["default"]) return exAnims["default"];
     }
     if (item && item.subq && store[exId + "_" + item.subq]) return store[exId + "_" + item.subq];
     if (itemIdx !== undefined && store[exId + "_" + itemIdx]) return store[exId + "_" + itemIdx];
@@ -2325,15 +2355,17 @@ function esc(s) {
       var stepItem = anim.steps[idx];
       var isLatest = (idx === currentStep);
 
-      var textResult = renderChalkTypewriterText(stepItem.text || "", isLatest);
+      var rawText = stepItem.text || stepItem.description || "";
+      var textResult = renderChalkTypewriterText(rawText, isLatest);
       var textDuration = textResult.durationMs;
       var formulaDelay = isLatest ? (textDuration + 180) : 0;
       var noteDelay = isLatest ? (formulaDelay + 750) : 0;
 
       var mathHtml = "";
-      if (stepItem.math) {
-        var rawMath = String(stepItem.math).trim();
-        var hasDelims = /[$]/.test(rawMath) || /^\\\\[[\s\S]*\\\\]$/.test(rawMath) || /^\\\\([\s\S]*\\\\)$/.test(rawMath);
+      var rawMathProp = stepItem.math || stepItem.latex || "";
+      if (rawMathProp) {
+        var rawMath = String(rawMathProp).trim();
+        var hasDelims = /[$]/.test(rawMath) || /^\\\[[\s\S]*\\\]$/.test(rawMath) || /^\\\([\s\S]*\\\)$/.test(rawMath);
         var isProse = /[α-ωΑ-Ω]{2,}\s+[α-ωΑ-Ω]{2,}/i.test(rawMath);
 
         var renderedFormula = "";
@@ -2522,7 +2554,7 @@ function esc(s) {
         } else if (item.kind === "tf" && /^\s*[α-ωa-z]\./i.test(item.prompt)) {
           currSubq = "2.1";
         } else {
-          const mLet = String(item.prompt).match(/^\s*([α-ωa-z])\)/i);
+          const mLet = String(item.prompt).match(/^\s*([α-ωa-z])\]/i);
           if (mLet) currSubq = mLet[1];
         }
       }
@@ -2675,25 +2707,16 @@ function esc(s) {
   }
 
   const loadedSubjects = Object.create(null);
+  const loadingPromises = Object.create(null);
 
-  function ensureSubjectLoaded(subjectId) {
-    if (!subjectId || loadedSubjects[subjectId]) {
-      return Promise.resolve();
-    }
-    const scripts = (window.SUBJECT_SCRIPTS && window.SUBJECT_SCRIPTS[subjectId]) || [];
-    if (!scripts.length) {
-      loadedSubjects[subjectId] = true;
-      return Promise.resolve();
-    }
+  function loadScriptList(scripts) {
+    if (!scripts || !scripts.length) return Promise.resolve();
     return new Promise(function (resolve) {
       let loadedCount = 0;
       const total = scripts.length;
       function checkDone() {
         loadedCount++;
-        if (loadedCount >= total) {
-          loadedSubjects[subjectId] = true;
-          resolve();
-        }
+        if (loadedCount >= total) resolve();
       }
       scripts.forEach(function (src) {
         if (document.querySelector('script[src="' + src + '"]')) {
@@ -2711,6 +2734,37 @@ function esc(s) {
         document.body.appendChild(s);
       });
     });
+  }
+
+  function ensureSubjectLoaded(subjectId) {
+    if (!subjectId || loadedSubjects[subjectId]) {
+      return Promise.resolve();
+    }
+    if (loadingPromises[subjectId]) {
+      return loadingPromises[subjectId];
+    }
+    const scripts = (window.SUBJECT_SCRIPTS && window.SUBJECT_SCRIPTS[subjectId]) || [];
+    if (!scripts.length) {
+      loadedSubjects[subjectId] = true;
+      return Promise.resolve();
+    }
+    loadingPromises[subjectId] = loadScriptList(scripts).then(function () {
+      loadedSubjects[subjectId] = true;
+    });
+    return loadingPromises[subjectId];
+  }
+
+  // Hover & Focus prefetching για ακαριαίο άνοιγμα μαθημάτων (0ms perceived latency)
+  if (typeof document !== "undefined" && document.addEventListener) {
+    document.addEventListener("pointerover", function (e) {
+      const link = e.target && e.target.closest && e.target.closest("a[href^='#/']");
+      if (!link) return;
+      const href = link.getAttribute("href") || "";
+      const m = href.match(/^#\/([a-z0-9_-]+)/i);
+      if (m && m[1] && SUBJECTS[m[1]] && !loadedSubjects[m[1]]) {
+        ensureSubjectLoaded(m[1]);
+      }
+    }, { passive: true });
   }
 
   function render(opts) {

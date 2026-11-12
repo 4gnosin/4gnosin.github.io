@@ -9,7 +9,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #25265",
     "bankCode": "25265",
-    "title": "Θέμα 4<sup>ο</sup> · #25265",
+    "title": "Θέμα 4$^{ο}$ · #25265",
     "units": 25,
     "theory": "ch03-01-ideal-gas",
     "stem": "Σε ένα εργαστήριο ψύξης κλιματισμού διαστάσεων $3\\text{ m} \\times 5\\text{ m} \\times 10\\text{ m}$ υπάρχει αέρας μάζας $m = 180\\text{ kg}$, που συμπεριφέρεται σαν τέλειο αέριο. Η θερμοκρασία μετρήθηκε με θερμόμετρο και βρέθηκε $27{}^{\\circ}\\text{C}$.",
@@ -20,7 +20,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
       },
       {
         "label": "Διαστάσεις",
-        "value": "$3\\text{ m} \\times 5\\text{ m} \\times 10\\text{ m}$"
+        "value": "$3 \\text{m} \\times 5 \\text{m} \\times 10 \\text{m}$"
       },
       {
         "label": "$t$",
@@ -63,7 +63,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 4<sup>ο</sup> · #26872",
     "bankCode": "26872",
-    "title": "Θέμα 4<sup>ο</sup> · #26872",
+    "title": "Θέμα 4$^{ο}$ · #26872",
     "units": 25,
     "theory": "ch03-01-ideal-gas",
     "stem": "Εργαστηριακός χώρος έχει όγκο $V = 143{,}5\\text{ m}^3$. Η θερμοκρασία του αέρα είναι $17{}^{\\circ}\\text{C}$ και η μανομετρική πίεση του αέρα είναι $P_{\\text{μαν}} = 1{,}9\\text{ bar}$. Δίνεται η ατμοσφαιρική πίεση $P_{\\text{ατμ}} = 1\\text{ bar}$ και $R_{\\text{αέρα}} = 287\\text{ J}/(\\text{kg}\\cdot\\text{K})$ ($1\\text{ bar} = 10^5\\text{ N}/\\text{m}^2$).",

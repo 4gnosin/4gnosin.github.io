@@ -9,7 +9,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #26627",
     "bankCode": "26627",
-    "title": "#26627 — Θέμα 2<sup>ο</sup>",
+    "title": "#26627 — Θέμα 2$^{ο}$",
     "units": 25,
     "theory": "ch02-12-enthalpy-entropy",
     "items": [
@@ -122,7 +122,7 @@ window.SUBJECT_DATA["stoixeia-psyxis-klimatismou-michanologikon-egkatastaseon"].
     "layout": "unified",
     "code": "Θέμα 2<sup>ο</sup> · #26848",
     "bankCode": "26848",
-    "title": "#26848 — Θέμα 2<sup>ο</sup>",
+    "title": "#26848 — Θέμα 2$^{ο}$",
     "units": 25,
     "theory": "ch02-12-enthalpy-entropy",
     "items": [
